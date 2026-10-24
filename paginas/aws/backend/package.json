@@ -1,0 +1,20 @@
+{
+    "name": "aws-security-analyzer",
+    "version": "1.0.0",
+    "main": "codigo-fonte/server.js",
+    "scripts": {
+        "start": "node codigo-fonte/server.js",
+        "dev": "nodemon codigo-fonte/server.js"
+    },
+    "dependencies": {
+        "@aws-sdk/client-cloudtrail": "^3.0.0",
+        "@aws-sdk/client-ec2": "^3.1152.0",
+        "@aws-sdk/client-guardduty": "^3.0.0",
+        "@aws-sdk/client-iam": "^3.1152.0",
+        "@aws-sdk/client-s3": "^3.0.0",
+        "@aws-sdk/client-securityhub": "^3.0.0",
+        "cors": "^2.8.5",
+        "dotenv": "^18.0.8",
+        "express": "^5.3.0"
+    }
+}
