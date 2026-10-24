@@ -1,23 +1,29 @@
-const {
-  verificarTrails
-} = require("../services/cloudtrailService");
+
+const cloudtrailService = require("../services/cloudtrailService");
 
 async function listarTrails(req, res) {
-  try {
-    const resultado = await verificarTrails();
 
-    res.status(200).json({
-      servico: "CloudTrail",
-      total: resultado.length,
-      dados: resultado
-    });
-  } catch (error) {
-    res.status(500).json({
-      erro: error.message
-    });
-  }
+    try {
+
+        const resultado =
+            await cloudtrailService.verificarTrails();
+
+        res.json({
+            servico: "CloudTrail",
+            total: resultado.length,
+            dados: resultado
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            erro: error.message
+        });
+
+    }
+
 }
 
 module.exports = {
-  listarTrails
+    listarTrails
 };

@@ -12,9 +12,9 @@ const cors = require("cors");
 const s3Routes = require("./routes/s3");
 const iamRoutes = require("./routes/iam");
 const ec2Routes = require("./routes/ec2");
-// const cloudtrailRoutes = require("./routes/cloudtrail"); // Temporariamente comentado
-// const securityhubRoutes = require("./routes/securityhub"); // Temporariamente comentado
-// const guarddutyRoutes = require("./routes/guardduty"); // Temporariamente comentado
+const cloudtrailRoutes = require("./routes/cloudtrail");     // 👈 Ativo para teste
+// const securityhubRoutes = require("./routes/securityhub"); 
+// const guarddutyroutes = require("./routes/guardduty");     
 
 const app = express();
 
@@ -70,7 +70,7 @@ app.get("/health", (req, res) => {
 app.use("/api/s3", s3Routes);
 app.use("/api/iam", iamRoutes);
 app.use("/api/ec2", ec2Routes);
-// app.use("/api/cloudtrail", cloudtrailRoutes);
+app.use("/api/cloudtrail", cloudtrailRoutes);                 // 👈 Ativo para teste
 // app.use("/api/securityhub", securityhubRoutes);
 // app.use("/api/guardduty", guarddutyRoutes);
 

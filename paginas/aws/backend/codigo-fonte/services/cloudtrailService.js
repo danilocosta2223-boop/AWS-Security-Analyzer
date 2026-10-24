@@ -1,17 +1,22 @@
-const s3Service = require("../services/s3Service");
+const {
+    CloudTrailClient,
+    DescribeTrailsCommand
+} = require("@aws-sdk/client-cloudtrail");
 
-async function analisar(req, res, next) {
-    try {
-        const dados = await s3Service.verificarBuckets();
-        res.json({
-            servico: "S3",
-            dados
-        });
-    } catch (error) {
-        next(error);
-    }
+const client = new CloudTrailClient({
+    region: process.env.AWS_REGION || "sa-east-1"
+});
+
+async function verificarTrails() {
+
+    const command = new DescribeTrailsCommand({});
+
+    const response = await client.send(command);
+
+    return response.trailList || [];
+
 }
 
 module.exports = {
-    analisar
+    verificarTrails
 };
