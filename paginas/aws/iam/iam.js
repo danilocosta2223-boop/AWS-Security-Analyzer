@@ -1,4 +1,5 @@
-const IAM_API_URL = 'http://localhost:3000/api/iam';
+const PORT = 3000;
+const IAM_API_URL = `http://localhost:${PORT}/api/iam`;
 
 let usuariosGlobais = [];
 
@@ -61,6 +62,7 @@ async function carregarIAM() {
 
   try {
     const response = await fetch(IAM_API_URL);
+
     if (!response.ok) {
       throw new Error('Falha ao conectar com /api/iam');
     }
