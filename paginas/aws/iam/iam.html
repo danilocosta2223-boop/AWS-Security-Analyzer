@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../../../styles/responsive.css">
   <link rel="stylesheet" href="iam.css">
   
-  <!-- Ícones (Phosphor Icons - Link limpo e correto) -->
+  <!-- Ícones (Phosphor Icons) -->
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web">
 </head>
 <body>
@@ -95,18 +95,33 @@
       <!-- Resumo Executivo: Cards de Métricas e Contadores de Risco -->
       <section class="cards-grid">
         
-        <!-- Score de Conformidade -->
+        <!-- Score de Segurança -->
         <div class="card">
           <div class="card-header">
             <span class="card-title">Score de Segurança</span>
             <i class="ph ph-shield-warning card-icon"></i>
           </div>
           <div class="card-body">
-            <span class="card-value" style="font-size: 22px; color: #d29922;" id="iam-score">--/100</span>
-            <span class="card-label">Saúde da Infraestrutura</span>
+            <span class="card-value" style="font-size: 22px; color: #d29922;" id="iam-score">--</span>
+            <span class="card-status status-warning" id="iam-score-status" style="display: block; margin-top: 4px;">Aguardando análise</span>
           </div>
           <div class="card-footer">
-            <span class="card-status status-warning" id="iam-score-status">Aguardando análise</span>
+            <span class="card-label">Saúde da Infraestrutura</span>
+          </div>
+        </div>
+
+        <!-- Total de Usuários -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Total de Usuários</span>
+            <i class="ph ph-users card-icon"></i>
+          </div>
+          <div class="card-body">
+            <span class="card-value" id="iam-total" style="font-size: 22px; color: #58a6ff;">0</span>
+            <span class="card-label" style="display: block; margin-top: 4px;">Identidades Registradas</span>
+          </div>
+          <div class="card-footer">
+            <span class="card-status status-ok">✅ Operacional</span>
           </div>
         </div>
 
@@ -116,47 +131,26 @@
             <span class="card-title">Resumo de Riscos</span>
             <i class="ph ph-chart-pie-slice card-icon"></i>
           </div>
-          <div class="card-body" style="display: flex; gap: 8px; align-items: center; justify-content: space-around; padding: 12px 0;">
+          <div class="card-body" style="display: flex; gap: 6px; align-items: center; justify-content: space-around; padding: 8px 0;">
             <div style="text-align: center;" title="Críticos">
-              <span style="display: block; font-size: 18px; font-weight: bold; color: #f85149;" id="contador-criticos">0</span>
-              <span style="font-size: 11px; color: #8b949e;">🔴 Críticos</span>
+              <span style="display: block; font-size: 16px; font-weight: bold; color: #f85149;" id="contador-criticos">0</span>
+              <span style="font-size: 10px; color: #8b949e;">🔴 Crítico</span>
             </div>
             <div style="text-align: center;" title="Altos">
-              <span style="display: block; font-size: 18px; font-weight: bold; color: #d29922;" id="contador-altos">0</span>
-              <span style="font-size: 11px; color: #8b949e;">🟠 Altos</span>
+              <span style="display: block; font-size: 16px; font-weight: bold; color: #d29922;" id="contador-altos">0</span>
+              <span style="font-size: 10px; color: #8b949e;">🟠 Alto</span>
             </div>
             <div style="text-align: center;" title="Médios">
-              <span style="display: block; font-size: 18px; font-weight: bold; color: #e3b341;" id="contador-medios">0</span>
-              <span style="font-size: 11px; color: #8b949e;">🟡 Médios</span>
+              <span style="display: block; font-size: 16px; font-weight: bold; color: #e3b341;" id="contador-medios">0</span>
+              <span style="font-size: 10px; color: #8b949e;">🟡 Médio</span>
             </div>
             <div style="text-align: center;" title="Baixos">
-              <span style="display: block; font-size: 18px; font-weight: bold; color: #3fb950;" id="contador-baixos">0</span>
-              <span style="font-size: 11px; color: #8b949e;">🟢 Baixos</span>
+              <span style="display: block; font-size: 16px; font-weight: bold; color: #3fb950;" id="contador-baixos">0</span>
+              <span style="font-size: 10px; color: #8b949e;">🟢 Baixo</span>
             </div>
           </div>
           <div class="card-footer">
             <span class="card-status status-neutral">Classificação de Ameaças</span>
-          </div>
-        </div>
-
-        <!-- Administradores e MFA -->
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Privilégios & MFA</span>
-            <i class="ph ph-key card-icon"></i>
-          </div>
-          <div class="card-body" style="display: flex; justify-content: space-around; align-items: center;">
-            <div style="text-align: center;">
-              <span style="display: block; font-size: 20px; font-weight: bold; color: #58a6ff;" id="contador-admins">...</span>
-              <span style="font-size: 11px; color: #8b949e;">Administradores</span>
-            </div>
-            <div style="text-align: center;">
-              <span style="display: block; font-size: 20px; font-weight: bold; color: #3fb950;" id="contador-mfa">...</span>
-              <span style="font-size: 11px; color: #8b949e;">Com MFA Ativo</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <span class="card-status status-ok">Controle de Acesso</span>
           </div>
         </div>
 
@@ -167,11 +161,11 @@
             <i class="ph ph-clock-counter-clockwise card-icon"></i>
           </div>
           <div class="card-body">
-            <span class="card-value" style="font-size: 16px; color: #c9d1d9;" id="ultima-auditoria">Nunca executada</span>
-            <span class="card-label">Sincronização com a AWS</span>
+            <span class="card-value" style="font-size: 14px; color: #c9d1d9;" id="ultima-auditoria">Nunca executada</span>
+            <span class="card-label" style="display: block; margin-top: 4px;" id="ultima-sincronizacao">Nunca atualizado</span>
           </div>
           <div class="card-footer">
-            <span class="card-status status-neutral" id="ultima-sincronizacao">Pendente</span>
+            <span class="card-status status-neutral">Sincronização AWS</span>
           </div>
         </div>
 
@@ -186,13 +180,13 @@
           <span style="font-size: 12px; color: #8b949e;">Ações Corretivas Recomendadas</span>
         </div>
         <div id="lista-alertas-iam" style="display: flex; flex-direction: column; gap: 8px; color: #8b949e; font-size: 14px;">
-          <div style="padding: 12px; background: #0d1117; border-radius: 6px; border: 1px solid #30363d; text-align: center;">
-            Nenhum alerta carregado. Clique em "Executar Auditoria" para escanear a conta AWS.
-          </div>
+          Nenhum alerta carregado.
         </div>
+        <!-- Lista oculta auxiliar caso o JS utilize -->
+        <ul id="lista-recomendacoes" style="display: none;"></ul>
       </section>
 
-      <!-- Tabela Detalhada com Coluna de Risco e Pesquisa Inteligente -->
+      <!-- Tabela Detalhada com Colunas de Risco, MFA e Pesquisa Inteligente -->
       <section class="data-table-section">
         <div class="table-header" style="flex-wrap: wrap; gap: 12px;">
           <div style="display: flex; align-items: center; gap: 12px; flex: 1; min-width: 280px;">
@@ -200,7 +194,7 @@
             <!-- Barra de Pesquisa Avançada / Inteligente -->
             <div style="position: relative; width: 100%; max-width: 320px;">
               <i class="ph ph-magnifying-glass" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #8b949e;"></i>
-              <input type="text" id="search-user" placeholder="Pesquisar por nome, admin, sem mfa..." style="width: 100%; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 6px 12px 6px 34px; color: #c9d1d9; font-size: 14px;">
+              <input type="text" id="search-user" placeholder="Pesquisar usuário, admin, sem mfa..." style="width: 100%; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 6px 12px 6px 34px; color: #c9d1d9; font-size: 14px;">
             </div>
           </div>
 
@@ -218,10 +212,10 @@
           <table class="data-table">
             <thead>
               <tr>
-                <th>Nível de Risco</th>
+                <th>Risco</th>
                 <th>Nome de Usuário (Username)</th>
                 <th>Tipo de Acesso</th>
-                <th>Status de MFA</th>
+                <th>MFA</th>
                 <th>Ações</th>
               </tr>
             </thead>
