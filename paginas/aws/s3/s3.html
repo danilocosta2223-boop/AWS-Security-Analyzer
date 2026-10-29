@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AWS Security Analyzer - Centro de Segurança S3</title>
-  
-  <!-- Estilos globais -->
+
+  <!-- Estilos globais (caminhos corrigidos para subir 3 níveis até a raiz) -->
   <link rel="stylesheet" href="../../../styles/normalize.css">
   <link rel="stylesheet" href="../../../styles/global.css">
   <link rel="stylesheet" href="../../../styles/dark.css">
   <link rel="stylesheet" href="../../../styles/responsive.css">
   <link rel="stylesheet" href="s3.css">
-  
-  <!-- Ícones (Phosphor Icons - Versão específica e blindada contra auto-linking) -->
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+
+  <!-- Ícones (Phosphor Icons) -->
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web">
 </head>
+
 <body>
 
   <div class="app-container">
-    
+
     <!-- Sidebar / Menu Lateral -->
     <aside class="sidebar">
       <div class="brand">
-        <a href="../../../index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 8px;">
+        <!-- Aponta para o AWS Security Center centralizador -->
+        <a href="../index.html"
+          style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 8px;">
           <i class="ph ph-shield-check brand-icon"></i>
           <span class="brand-title">AWS Security</span>
         </a>
@@ -31,9 +35,9 @@
       <nav class="sidebar-nav">
         <ul>
           <li>
-            <a href="../../../index.html">
+            <a href="../index.html">
               <i class="ph ph-squares-four"></i>
-              <span>Dashboard</span>
+              <span>AWS Hub</span>
             </a>
           </li>
           <li>
@@ -64,16 +68,16 @@
       </nav>
 
       <div class="sidebar-footer">
-        <a href="#">
-          <i class="ph ph-gear"></i>
-          <span>Configurações</span>
+        <a href="../../../index.html">
+          <i class="ph ph-house"></i>
+          <span>Dashboard Principal</span>
         </a>
       </div>
     </aside>
 
     <!-- Conteúdo Principal -->
     <main class="main-content">
-      
+
       <!-- Cabeçalho Superior / Topbar -->
       <header class="topbar">
         <div class="header-title">
@@ -83,18 +87,20 @@
 
         <!-- Ações de Topo -->
         <div class="account-indicators" style="display: flex; gap: 12px; align-items: center;">
-          <button class="btn-refresh" id="btn-analisar-s3" style="background: #238636; color: #fff; border: none; cursor: pointer; padding: 6px 14px; border-radius: 6px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+          <button class="btn-refresh" id="btn-analisar-s3"
+            style="background: #238636; color: #fff; border: none; cursor: pointer; padding: 6px 14px; border-radius: 6px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
             <i class="ph ph-shield-chevron"></i> Executar Auditoria S3
           </button>
-          <a href="../../../index.html" class="btn-refresh" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
-            <i class="ph ph-arrow-left"></i> Dashboard
+          <a href="../index.html" class="btn-refresh"
+            style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+            <i class="ph ph-arrow-left"></i> AWS Hub
           </a>
         </div>
       </header>
 
       <!-- Resumo Executivo: Cards de Métricas e Indicadores de Risco S3 -->
       <section class="cards-grid">
-        
+
         <!-- Score de Segurança S3 -->
         <div class="card">
           <div class="card-header">
@@ -103,7 +109,8 @@
           </div>
           <div class="card-body">
             <span class="card-value" style="font-size: 22px; color: #d29922;" id="s3-score">--</span>
-            <span class="card-status status-warning" id="s3-score-status" style="display: block; margin-top: 4px;">Aguardando análise</span>
+            <span class="card-status status-warning" id="s3-score-status"
+              style="display: block; margin-top: 4px;">Aguardando análise</span>
           </div>
           <div class="card-footer">
             <span class="card-label">Saúde do Armazenamento</span>
@@ -158,14 +165,16 @@
       </section>
 
       <!-- Central de Alertas e Recomendações S3 (SOC Simplificado) -->
-      <section id="s3-painel-recomendacoes" class="data-table-section" style="margin-bottom: 24px; padding: 20px; background: #161b22; border: 1px solid #30363d; border-radius: 8px;">
+      <section id="s3-painel-recomendacoes" class="data-table-section"
+        style="margin-bottom: 24px; padding: 20px; background: #161b22; border: 1px solid #30363d; border-radius: 8px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
           <h2 style="font-size: 16px; margin: 0; color: #f0f6fc; display: flex; align-items: center; gap: 8px;">
             <i class="ph ph-siren" style="color: #f85149;"></i> Central de Alertas e Recomendações S3
           </h2>
           <span style="font-size: 12px; color: #8b949e;">Ações Corretivas Recomendadas</span>
         </div>
-        <div id="s3-lista-alertas" style="display: flex; flex-direction: column; gap: 8px; color: #8b949e; font-size: 14px;">
+        <div id="s3-lista-alertas"
+          style="display: flex; flex-direction: column; gap: 8px; color: #8b949e; font-size: 14px;">
           Nenhum alerta carregado. Execute a auditoria para escanear os buckets.
         </div>
       </section>
@@ -177,14 +186,17 @@
             <h2 style="margin: 0; white-space: nowrap;">Buckets S3</h2>
             <!-- Barra de Pesquisa S3 -->
             <div style="position: relative; width: 100%; max-width: 320px;">
-              <i class="ph ph-magnifying-glass" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #8b949e;"></i>
-              <input type="text" id="s3-search-bucket" placeholder="Pesquisar bucket, público, criptografia..." style="width: 100%; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 6px 12px 6px 34px; color: #c9d1d9; font-size: 14px;">
+              <i class="ph ph-magnifying-glass"
+                style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #8b949e;"></i>
+              <input type="text" id="s3-search-bucket" placeholder="Pesquisar bucket, público, criptografia..."
+                style="width: 100%; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 6px 12px 6px 34px; color: #c9d1d9; font-size: 14px;">
             </div>
           </div>
 
           <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
             <span id="s3-ultima-sincronizacao" style="font-size: 12px; color: #8b949e;">Nunca atualizado</span>
-            <button class="btn-refresh" id="btn-exportar-s3-csv" title="Exportar dados em CSV" style="background: #21262d; border: 1px solid #30363d; color: #c9d1d9; cursor: pointer;">
+            <button class="btn-refresh" id="btn-exportar-s3-csv" title="Exportar dados em CSV"
+              style="background: #21262d; border: 1px solid #30363d; color: #c9d1d9; cursor: pointer;">
               <i class="ph ph-file-csv"></i> Exportar CSV
             </button>
             <button class="btn-refresh" id="btn-atualizar-s3" title="Atualizar dados" style="cursor: pointer;">
@@ -206,7 +218,8 @@
             </thead>
             <tbody id="s3-table-body">
               <tr>
-                <td colspan="5" style="text-align: center; color: #8b949e; padding: 24px;">Carregando dados da API S3...</td>
+                <td colspan="5" style="text-align: center; color: #8b949e; padding: 24px;">Carregando dados da API S3...
+                </td>
               </tr>
             </tbody>
           </table>
@@ -217,21 +230,27 @@
   </div>
 
   <!-- Modal de Inspeção e Guia de Remediação S3 -->
-  <div id="s3-modal-inspecionar" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
-    <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; width: 100%; max-width: 520px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
+  <div id="s3-modal-inspecionar"
+    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
+    <div
+      style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; width: 100%; max-width: 520px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
         <h3 style="margin: 0; color: #f0f6fc; font-size: 18px; display: flex; align-items: center; gap: 8px;">
           <i class="ph ph-database" style="color: #58a6ff;"></i> Detalhes & Guia de Remediação S3
         </h3>
-        <button id="s3-fechar-modal" style="background: transparent; border: none; color: #8b949e; font-size: 20px; cursor: pointer;"><i class="ph ph-x"></i></button>
+        <button id="s3-fechar-modal"
+          style="background: transparent; border: none; color: #8b949e; font-size: 20px; cursor: pointer;"><i
+            class="ph ph-x"></i></button>
       </div>
-      
-      <div id="s3-conteudo-modal" style="color: #c9d1d9; font-size: 14px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+
+      <div id="s3-conteudo-modal"
+        style="color: #c9d1d9; font-size: 14px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
         <!-- Preenchido dinamicamente via JS -->
       </div>
 
       <div style="display: flex; justify-content: flex-end; gap: 8px;">
-        <button id="s3-btn-fechar-modal" style="background: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 6px 16px; border-radius: 6px; cursor: pointer;">Fechar</button>
+        <button id="s3-btn-fechar-modal"
+          style="background: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 6px 16px; border-radius: 6px; cursor: pointer;">Fechar</button>
       </div>
     </div>
   </div>
@@ -239,4 +258,5 @@
   <!-- Script específico do S3 -->
   <script src="s3.js"></script>
 </body>
+
 </html>

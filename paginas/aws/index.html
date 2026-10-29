@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Security Analyzer - AWS Security Center</title>
+
+    <!-- Estilos globais (a partir de paginas/aws/, voltamos 2 níveis para a raiz) -->
+    <link rel="stylesheet" href="../../styles/normalize.css">
+    <link rel="stylesheet" href="../../styles/style.css">
+    <link rel="stylesheet" href="../../styles/dark.css">
+    <link rel="stylesheet" href="../../styles/responsive.css">
+
+    <!-- Ícones (Phosphor Icons) -->
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar / Menu Lateral -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="ph ph-shield-check brand-icon"></i>
+                <span class="brand-title">AWS Security</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="../../index.html">
+                            <i class="ph ph-squares-four"></i>
+                            <span>Dashboard Geral</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="index.html">
+                            <i class="ph ph-cloud-arrow-up"></i>
+                            <span>AWS Hub</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="iam/iam.html">
+                            <i class="ph ph-users-three"></i>
+                            <span>IAM</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="s3/s3.html">
+                            <i class="ph ph-database"></i>
+                            <span>S3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="ec2/ec2.html">
+                            <i class="ph ph-cpu"></i>
+                            <span>EC2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="cloudtrail/cloudtrail.html">
+                            <i class="ph ph-path"></i>
+                            <span>CloudTrail</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#">
+                    <i class="ph ph-gear"></i>
+                    <span>Configurações</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+
+            <!-- Cabeçalho Superior / Topbar -->
+            <header class="topbar">
+                <div class="header-title">
+                    <h1>☁️ AWS Security Center</h1>
+                    <p class="subtitle">Central de governança, conformidade e análise de vulnerabilidades em nuvem</p>
+                </div>
+
+                <div class="account-indicators">
+                    <a href="../../index.html" class="btn-refresh"
+                        style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                        <i class="ph ph-arrow-left"></i> Voltar à Raiz
+                    </a>
+                </div>
+            </header>
+
+            <!-- Grid de Módulos de Nuvem (Incluindo todos os diretórios da imagem) -->
+            <section class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+
+                <!-- Módulo IAM -->
+                <a href="iam/iam.html" class="card"
+                    style="text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.2s; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="card-header">
+                            <span class="card-title">Gestão IAM</span>
+                            <i class="ph ph-users-three card-icon" style="color: #58a6ff;"></i>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-value" style="font-size: 20px; color: #58a6ff;">Identidades</span>
+                            <span class="card-label">Usuários, chaves e políticas de acesso</span>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="margin-top: 16px;">
+                        <span class="card-status status-ok">Acessar Módulo IAM →</span>
+                    </div>
+                </a>
+
+                <!-- Módulo S3 -->
+                <a href="s3/s3.html" class="card"
+                    style="text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.2s; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="card-header">
+                            <span class="card-title">Buckets S3</span>
+                            <i class="ph ph-database card-icon" style="color: #3fb950;"></i>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-value" style="font-size: 20px; color: #3fb950;">Armazenamento</span>
+                            <span class="card-label">Auditoria de exposição e dados públicos</span>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="margin-top: 16px;">
+                        <span class="card-status status-ok">Acessar Módulo S3 →</span>
+                    </div>
+                </a>
+
+                <!-- Módulo EC2 -->
+                <a href="ec2/ec2.html" class="card"
+                    style="text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.2s; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="card-header">
+                            <span class="card-title">Instâncias EC2</span>
+                            <i class="ph ph-cpu card-icon" style="color: #d29922;"></i>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-value" style="font-size: 20px; color: #d29922;">Computação</span>
+                            <span class="card-label">Segurança de portas e grupos de rede</span>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="margin-top: 16px;">
+                        <span class="card-status status-ok">Acessar Módulo EC2 →</span>
+                    </div>
+                </a>
+
+                <!-- Módulo CloudTrail -->
+                <a href="cloudtrail/cloudtrail.html" class="card"
+                    style="text-decoration: none; color: inherit; transition: transform 0.2s, border-color 0.2s; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="card-header">
+                            <span class="card-title">CloudTrail</span>
+                            <i class="ph ph-path card-icon" style="color: #f0883e;"></i>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-value" style="font-size: 20px; color: #f0883e;">Auditoria</span>
+                            <span class="card-label">Rastreio de eventos e trilhas ativas</span>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="margin-top: 16px;">
+                        <span class="card-status status-ok">Acessar Módulo CloudTrail →</span>
+                    </div>
+                </a>
+
+                <!-- Módulo Backend / API Security -->
+                <div class="card"
+                    style="display: flex; flex-direction: column; justify-content: space-between; border-color: #30363d;">
+                    <div>
+                        <div class="card-header">
+                            <span class="card-title">Backend Security</span>
+                            <i class="ph ph-terminal-window card-icon" style="color: #a371f7;"></i>
+                        </div>
+                        <div class="card-body">
+                            <span class="card-value" style="font-size: 20px; color: #a371f7;">Node.js / SDK</span>
+                            <span class="card-label">Endpoints de auditoria AWS ativos</span>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="margin-top: 16px;">
+                        <span class="card-status status-neutral">Pasta: paginas/aws/backend</span>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Seção Informativa de Frameworks / Boas Práticas -->
+            <section class="data-table-section"
+                style="margin-top: 24px; padding: 24px; background: #161b22; border: 1px solid #30363d; border-radius: 8px;">
+                <h2
+                    style="font-size: 16px; margin-bottom: 12px; color: #f0f6fc; display: flex; align-items: center; gap: 8px;">
+                    <i class="ph ph-shield-check" style="color: #3fb950;"></i> Framework Well-Architected & Segurança em
+                    Nuvem
+                </h2>
+                <p style="color: #8b949e; font-size: 14px; line-height: 1.5; margin: 0;">
+                    Este ambiente consolida verificações automatizadas de conformidade baseadas nas diretrizes de
+                    segurança da AWS. Utilize os módulos acima para inspecionar identidades de acesso (<strong
+                        style="color: #c9d1d9;">IAM</strong>), políticas de armazenamento (<strong
+                        style="color: #c9d1d9;">S3</strong>), infraestrutura computacional (<strong
+                        style="color: #c9d1d9;">EC2</strong>) e trilhas de auditoria (<strong
+                        style="color: #c9d1d9;">CloudTrail</strong>)[cite: 2].
+                </p>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+
+</html>

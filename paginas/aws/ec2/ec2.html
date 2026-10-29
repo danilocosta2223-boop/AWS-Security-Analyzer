@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Security Analyzer - Centro de Segurança EC2</title>
+
+    <!-- Estilos globais (subindo 3 níveis até a raiz) -->
+    <link rel="stylesheet" href="../../../styles/normalize.css">
+    <link rel="stylesheet" href="../../../styles/global.css">
+    <link rel="stylesheet" href="../../../styles/dark.css">
+    <link rel="stylesheet" href="../../../styles/responsive.css">
+    <link rel="stylesheet" href="ec2.css">
+
+    <!-- Ícones (Phosphor Icons) -->
+    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Sidebar / Menu Lateral -->
+        <aside class="sidebar">
+            <div class="brand">
+                <a href="../index.html"
+                    style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 8px;">
+                    <i class="ph ph-shield-check brand-icon"></i>
+                    <span class="brand-title">AWS Security</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="../index.html">
+                            <i class="ph ph-squares-four"></i>
+                            <span>AWS Hub</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../iam/iam.html">
+                            <i class="ph ph-users-three"></i>
+                            <span>IAM</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../s3/s3.html">
+                            <i class="ph ph-database"></i>
+                            <span>S3</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="ec2.html">
+                            <i class="ph ph-cpu"></i>
+                            <span>EC2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../cloudtrail/cloudtrail.html">
+                            <i class="ph ph-path"></i>
+                            <span>CloudTrail</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="../../../index.html">
+                    <i class="ph ph-house"></i>
+                    <span>Dashboard Principal</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+
+            <!-- Cabeçalho Superior / Topbar -->
+            <header class="topbar">
+                <div class="header-title">
+                    <h1>Centro de Segurança EC2</h1>
+                    <p class="subtitle">Auditoria de instâncias, grupos de segurança e portas abertas (SSH/RDP)</p>
+                </div>
+
+                <!-- Ações de Topo -->
+                <div class="account-indicators" style="display: flex; gap: 12px; align-items: center;">
+                    <button class="btn-refresh" id="btn-analisar-ec2"
+                        style="background: #238636; color: #fff; border: none; cursor: pointer; padding: 6px 14px; border-radius: 6px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+                        <i class="ph ph-shield-chevron"></i> Executar Auditoria EC2
+                    </button>
+                    <a href="../index.html" class="btn-refresh"
+                        style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                        <i class="ph ph-arrow-left"></i> AWS Hub
+                    </a>
+                </div>
+            </header>
+
+            <!-- Resumo Executivo: Cards de Métricas e Indicadores de Risco EC2 -->
+            <section class="cards-grid">
+
+                <!-- Score de Segurança EC2 -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Score de Segurança</span>
+                        <i class="ph ph-shield-warning card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-value" style="font-size: 22px; color: #d29922;" id="ec2-score">--</span>
+                        <span class="card-status status-warning" id="ec2-score-status"
+                            style="display: block; margin-top: 4px;">Aguardando análise</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-label">Saúde da Infraestrutura</span>
+                    </div>
+                </div>
+
+                <!-- Total de Instâncias -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Total de Instâncias</span>
+                        <i class="ph ph-cpu card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-value" id="ec2-total" style="font-size: 22px; color: #58a6ff;">0</span>
+                        <span class="card-label" style="display: block; margin-top: 4px;">Instâncias Registradas</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-status status-ok">✅ Operacional</span>
+                    </div>
+                </div>
+
+                <!-- Card de Portas Críticas Abertas (SSH/RDP 0.0.0.0/0) -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Portas Críticas (0.0.0.0/0)</span>
+                        <i class="ph ph-warning-octagon card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-value" id="ec2-criticas" style="font-size: 22px; color: #f85149;">0</span>
+                        <span class="card-label" style="display: block; margin-top: 4px;">SSH/RDP Expostos</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-status status-danger">Risco Crítico</span>
+                    </div>
+                </div>
+
+                <!-- Card de Volumes sem Criptografia -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Volumes EBS</span>
+                        <i class="ph ph-hard-drives card-icon"></i>
+                    </div>
+                    <div class="card-body">
+                        <span class="card-value" id="ec2-volumes" style="font-size: 22px; color: #d29922;">0</span>
+                        <span class="card-label" style="display: block; margin-top: 4px;">Não Criptografados</span>
+                    </div>
+                    <div class="card-footer">
+                        <span class="card-status status-warning">Atenção Moderada</span>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Central de Alertas e Recomendações EC2 (SOC Simplificado) -->
+            <section id="ec2-painel-recomendacoes" class="data-table-section"
+                style="margin-bottom: 24px; padding: 20px; background: #161b22; border: 1px solid #30363d; border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <h2
+                        style="font-size: 16px; margin: 0; color: #f0f6fc; display: flex; align-items: center; gap: 8px;">
+                        <i class="ph ph-siren" style="color: #f85149;"></i> Central de Alertas e Recomendações EC2
+                    </h2>
+                    <span style="font-size: 12px; color: #8b949e;">Ações Corretivas Recomendadas</span>
+                </div>
+                <div id="ec2-lista-alertas"
+                    style="display: flex; flex-direction: column; gap: 8px; color: #8b949e; font-size: 14px;">
+                    Nenhum alerta carregado. Execute a auditoria para escanear as instâncias e grupos de segurança.
+                </div>
+            </section>
+
+            <!-- Tabela Detalhada EC2 com Pesquisa Inteligente -->
+            <section class="data-table-section">
+                <div class="table-header" style="flex-wrap: wrap; gap: 12px;">
+                    <div style="display: flex; align-items: center; gap: 12px; flex: 1; min-width: 280px;">
+                        <h2 style="margin: 0; white-space: nowrap;">Instâncias EC2</h2>
+                        <!-- Barra de Pesquisa EC2 -->
+                        <div style="position: relative; width: 100%; max-width: 320px;">
+                            <i class="ph ph-magnifying-glass"
+                                style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #8b949e;"></i>
+                            <input type="text" id="ec2-search-instance" placeholder="Pesquisar instância, IP, portas..."
+                                style="width: 100%; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 6px 12px 6px 34px; color: #c9d1d9; font-size: 14px;">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <span id="ec2-ultima-sincronizacao" style="font-size: 12px; color: #8b949e;">Nunca
+                            atualizado</span>
+                        <button class="btn-refresh" id="btn-exportar-ec2-csv" title="Exportar dados em CSV"
+                            style="background: #21262d; border: 1px solid #30363d; color: #c9d1d9; cursor: pointer;">
+                            <i class="ph ph-file-csv"></i> Exportar CSV
+                        </button>
+                        <button class="btn-refresh" id="btn-atualizar-ec2" title="Atualizar dados"
+                            style="cursor: pointer;">
+                            <i class="ph ph-arrows-clockwise"></i> Atualizar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Risco</th>
+                                <th>ID / Nome da Instância</th>
+                                <th>Tipo de Instância</th>
+                                <th>Segurança de Portas</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ec2-table-body">
+                            <tr>
+                                <td colspan="5" style="text-align: center; color: #8b949e; padding: 24px;">Carregando
+                                    dados da API EC2...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Modal de Inspeção e Guia de Remediação EC2 -->
+    <div id="ec2-modal-inspecionar"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
+        <div
+            style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; width: 100%; max-width: 520px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h3 style="margin: 0; color: #f0f6fc; font-size: 18px; display: flex; align-items: center; gap: 8px;">
+                    <i class="ph ph-cpu" style="color: #58a6ff;"></i> Detalhes & Guia de Remediação EC2
+                </h3>
+                <button id="ec2-fechar-modal"
+                    style="background: transparent; border: none; color: #8b949e; font-size: 20px; cursor: pointer;"><i
+                        class="ph ph-x"></i></button>
+            </div>
+
+            <div id="ec2-conteudo-modal"
+                style="color: #c9d1d9; font-size: 14px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+                <!-- Preenchido dinamicamente via JS -->
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 8px;">
+                <button id="ec2-btn-fechar-modal"
+                    style="background: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 6px 16px; border-radius: 6px; cursor: pointer;">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script específico do EC2 -->
+    <script src="ec2.js"></script>
+</body>
+
+</html>
