@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberCheck - Consulta de Vazamentos</title>
+    <style>
+        :root {
+            --bg-main: #1e1f24;
+            --bg-card: #2b2d33;
+            --primary: #1d8cf8;
+            --primary-hover: #1877cb;
+            --accent: #ffd54f;
+            --text-main: #f5f6f8;
+            --text-muted: #a0a4b8;
+            --success: #22c55e;
+            --warning: #f1c40f;
+            --danger: #ef4444;
+            --border: #3d404b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: 240px;
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            flex-shrink: 0;
+        }
+
+        .logo-area {
+            padding: 0 20px 20px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            overflow-y: auto;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 15px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: var(--primary);
+            color: var(--text-main);
+        }
+
+        /* Main Content Area */
+        main {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .top-nav-back {
+            display: inline-block;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+
+        .top-nav-back:hover {
+            color: var(--primary);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        /* Card Component */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="email"]:focus {
+            border-color: var(--primary);
+        }
+
+        button {
+            margin-top: 5px;
+            background-color: var(--primary);
+            color: var(--text-main);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .educational-notice {
+            margin-top: 12px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        /* Results Section */
+        .result-container {
+            margin-top: 25px;
+            display: none;
+        }
+
+        .status-box {
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-safe {
+            background-color: rgba(34, 197, 94, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .status-warning {
+            background-color: rgba(241, 196, 15, 0.15);
+            color: var(--warning);
+            border: 1px solid rgba(241, 196, 15, 0.3);
+        }
+
+        .status-danger {
+            background-color: rgba(239, 68, 68, 0.15);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 20px 0;
+        }
+
+        .action-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .action-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .action-title {
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .meta-info {
+            margin-top: 15px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .score-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--bg-main);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .score-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Responsividade para Celulares e Tablets */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            aside {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 10px 0;
+            }
+
+            .logo-area {
+                padding: 10px 20px;
+                border-bottom: none;
+            }
+
+            .nav-links {
+                flex-direction: row;
+                overflow-x: auto;
+                padding: 10px 15px;
+                gap: 8px;
+            }
+
+            .nav-links::-webkit-scrollbar {
+                display: none;
+                /* Oculta scroll horizontal no mobile para visual limpo */
+            }
+
+            .nav-links a {
+                white-space: nowrap;
+                padding: 8px 12px;
+                font-size: 0.85rem;
+            }
+
+            main {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Menu Padrão CyberCheck -->
+    <aside>
+        <div class="logo-area">
+            🛡️ CyberCheck
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">🏠 Home</a></li>
+            <li><a href="url-validator.html">🔗 URLs</a></li>
+            <li><a href="password-checker.html">🔐 Senhas</a></li>
+            <li><a href="phishing-detector.html">📧 Phishing</a></li>
+            <li><a href="breach-checker.html" class="active">👥 Vazamentos</a></li>
+            <li><a href="checklist.html">✅ Checklist</a></li>
+            <li><a href="training.html">🎮 Treinamento</a></li>
+            <li><a href="emergency.html">🚨 SOS</a></li>
+            <li><a href="blog.html">📰 Blog</a></li>
+        </ul>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <a href="../index.html" class="top-nav-back">⬅ Voltar ao Dashboard</a>
+
+        <header>
+            <h1>👥 Consulta de Vazamentos</h1>
+            <p>Verifique se o seu endereço de e-mail foi exposto em incidentes de segurança conhecidos na web.</p>
+        </header>
+
+        <div class="card">
+            <div class="form-group">
+                <label for="emailInput">Digite seu e-mail para análise:</label>
+                <input type="email" id="emailInput" placeholder="exemplo@dominio.com">
+                <button id="checkBtn">Verificar Vazamentos</button>
+                <p class="educational-notice">
+                    ⚠️ Esta é uma ferramenta de simulação educativa. Para monitoramentos reais de credenciais, utilize
+                    serviços consolidados como o Have I Been Pwned.
+                </p>
+            </div>
+
+            <!-- Área de Resultados -->
+            <div id="resultContainer" class="result-container">
+                <hr>
+
+                <!-- Score de Exposição -->
+                <div class="score-box">
+                    <span>Score de Exposição Estimado:</span>
+                    <span id="riskScore" class="score-value">0%</span>
+                </div>
+
+                <div id="statusBox" class="status-box status-safe">
+                    <span id="statusIcon">✅</span>
+                    <span id="statusText">Nenhum vazamento encontrado</span>
+                </div>
+
+                <div class="action-title">Recomendações de Segurança:</div>
+                <ul class="action-list">
+                    <li>✅ Trocar senha periodicamente</li>
+                    <li>✅ Ativar MFA (Autenticação em Dois Fatores)</li>
+                    <li>✅ Revisar acessos conectados a aplicativos</li>
+                    <li>✅ Alterar perguntas de recuperação</li>
+                </ul>
+
+                <div class="meta-info">
+                    Análise realizada em: <span id="analysisDate"></span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const checkBtn = document.getElementById('checkBtn');
+        const emailInput = document.getElementById('emailInput');
+        const resultContainer = document.getElementById('resultContainer');
+        const statusBox = document.getElementById('statusBox');
+        const statusIcon = document.getElementById('statusIcon');
+        const statusText = document.getElementById('statusText');
+        const riskScore = document.getElementById('riskScore');
+        const analysisDate = document.getElementById('analysisDate');
+
+        const highRiskWords = ["admin", "root", "financeiro"];
+        const mediumRiskWords = ["teste", "suporte"];
+
+        checkBtn.addEventListener('click', () => {
+            const email = emailInput.value.trim().toLowerCase();
+            if (!email || !email.includes('@')) {
+                alert('Por favor, insira um endereço de e-mail válido.');
+                return;
+            }
+
+            // Simula feedback de processamento
+            checkBtn.textContent = 'Verificando bases de dados...';
+            checkBtn.disabled = true;
+
+            setTimeout(() => {
+                checkBtn.textContent = 'Verificar Vazamentos';
+                checkBtn.disabled = false;
+                resultContainer.style.display = 'block';
+                analysisDate.textContent = new Date().toLocaleString('pt-BR');
+
+                const isHighRisk = highRiskWords.some(word => email.includes(word));
+                const isMediumRisk = mediumRiskWords.some(word => email.includes(word));
+
+                if (isHighRisk) {
+                    statusBox.className = 'status-box status-danger';
+                    statusIcon.textContent = '🚨';
+                    statusText.textContent = 'Atenção: E-mail encontrado em múltiplos vazamentos críticos!';
+                    riskScore.textContent = '90%';
+                    riskScore.style.color = 'var(--danger)';
+                } else if (isMediumRisk) {
+                    statusBox.className = 'status-box status-warning';
+                    statusIcon.textContent = '⚠️';
+                    statusText.textContent = 'Aviso: Encontrado vestígio em vazamento de fórum secundário.';
+                    riskScore.textContent = '45%';
+                    riskScore.style.color = 'var(--warning)';
+                } else {
+                    statusBox.className = 'status-box status-safe';
+                    statusIcon.textContent = '✅';
+                    statusText.textContent = 'Nenhum registro de vazamento encontrado para este e-mail.';
+                    riskScore.textContent = '0%';
+                    riskScore.style.color = 'var(--success)';
+                }
+            }, 600); // Pequeno delay realista de verificação
+        });
+    </script>
+</body>
+
+</html>
