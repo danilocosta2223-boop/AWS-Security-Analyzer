@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AWS Security Analyzer - Centro de Segurança IAM</title>
 
-  <!-- Estilos globais (subindo 3 níveis até a raiz) -->
+  <!-- Estilos globais (subindo 3 níveis até a raiz do projeto) -->
   <link rel="stylesheet" href="../../../styles/normalize.css">
   <link rel="stylesheet" href="../../../styles/global.css">
   <link rel="stylesheet" href="../../../styles/dark.css">
@@ -21,7 +21,7 @@
 
   <div class="app-container">
 
-    <!-- Sidebar / Menu Lateral Padronizado AWS -->
+    <!-- Sidebar / Menu Lateral Padronizado -->
     <aside class="sidebar">
       <div class="brand">
         <a href="../index.html"
@@ -40,25 +40,25 @@
             </a>
           </li>
           <li class="active">
-            <a href="iam.html">
+            <a href="./">
               <i class="ph ph-users-three"></i>
               <span>IAM</span>
             </a>
           </li>
           <li>
-            <a href="../s3/s3.html">
+            <a href="../s3/">
               <i class="ph ph-database"></i>
               <span>S3</span>
             </a>
           </li>
           <li>
-            <a href="../ec2/ec2.html">
+            <a href="../ec2/">
               <i class="ph ph-cpu"></i>
               <span>EC2</span>
             </a>
           </li>
           <li>
-            <a href="../cloudtrail/cloudtrail.html">
+            <a href="../cloudtrail/">
               <i class="ph ph-path"></i>
               <span>CloudTrail</span>
             </a>
@@ -78,20 +78,14 @@
     <!-- Conteúdo Principal -->
     <main class="main-content">
 
-      <!-- Cabeçalho Superior / Topbar com Dupla Navegação -->
+      <!-- Cabeçalho Superior -->
       <header class="topbar">
         <div class="header-title">
           <h1>Centro de Segurança IAM</h1>
           <p class="subtitle">Auditoria proativa e gestão de riscos de identidades AWS</p>
         </div>
 
-        <!-- Ações de Topo e Navegação Direta -->
         <div class="account-indicators" style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-          <button class="btn-refresh" id="btn-analisar-seguranca"
-            style="background: #238636; color: #fff; border: none; cursor: pointer; padding: 6px 12px; border-radius: 6px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; font-size: 13px;">
-            <i class="ph ph-shield-chevron"></i> Executar Auditoria
-          </button>
-
           <a href="../index.html" class="btn-refresh"
             style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 6px 10px; border-radius: 6px; font-size: 13px;">
             <i class="ph ph-cloud"></i> AWS Dashboard
@@ -104,185 +98,23 @@
         </div>
       </header>
 
-      <!-- Resumo Executivo: Cards de Métricas e Contadores de Risco -->
+      <!-- Conteúdo da Página -->
       <section class="cards-grid">
-
-        <!-- Score de Segurança -->
         <div class="card">
           <div class="card-header">
-            <span class="card-title">Score de Segurança</span>
-            <i class="ph ph-shield-warning card-icon"></i>
-          </div>
-          <div class="card-body">
-            <span class="card-value" style="font-size: 22px; color: #d29922;" id="iam-score">--</span>
-            <span class="card-status status-warning" id="iam-score-status"
-              style="display: block; margin-top: 4px;">Aguardando análise</span>
-          </div>
-          <div class="card-footer">
-            <span class="card-label">Saúde da Infraestrutura</span>
-          </div>
-        </div>
-
-        <!-- Total de Usuários -->
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Total de Usuários</span>
+            <span class="card-title">Módulo IAM Ativo</span>
             <i class="ph ph-users card-icon"></i>
           </div>
           <div class="card-body">
-            <span class="card-value" id="iam-total" style="font-size: 22px; color: #58a6ff;">0</span>
-            <span class="card-label" style="display: block; margin-top: 4px;">Identidades Registradas</span>
+            <span class="card-value" style="font-size: 18px; color: #58a6ff;">Padrão index.html configurado
+              com sucesso!</span>
           </div>
-          <div class="card-footer">
-            <span class="card-status status-ok">✅ Operacional</span>
-          </div>
-        </div>
-
-        <!-- Indicadores Visuais de Risco (Severidade) -->
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Resumo de Riscos</span>
-            <i class="ph ph-chart-pie-slice card-icon"></i>
-          </div>
-          <div class="card-body"
-            style="display: flex; gap: 6px; align-items: center; justify-content: space-around; padding: 8px 0;">
-            <div style="text-align: center;" title="Críticos">
-              <span style="display: block; font-size: 16px; font-weight: bold; color: #f85149;"
-                id="contador-criticos">0</span>
-              <span style="font-size: 10px; color: #8b949e;">🔴 Crítico</span>
-            </div>
-            <div style="text-align: center;" title="Altos">
-              <span style="display: block; font-size: 16px; font-weight: bold; color: #d29922;"
-                id="contador-altos">0</span>
-              <span style="font-size: 10px; color: #8b949e;">🟠 Alto</span>
-            </div>
-            <div style="text-align: center;" title="Médios">
-              <span style="display: block; font-size: 16px; font-weight: bold; color: #e3b341;"
-                id="contador-medios">0</span>
-              <span style="font-size: 10px; color: #8b949e;">🟡 Médio</span>
-            </div>
-            <div style="text-align: center;" title="Baixos">
-              <span style="display: block; font-size: 16px; font-weight: bold; color: #3fb950;"
-                id="contador-baixos">0</span>
-              <span style="font-size: 10px; color: #8b949e;">🟢 Baixo</span>
-            </div>
-          </div>
-          <div class="card-footer">
-            <span class="card-status status-neutral">Classificação de Ameaças</span>
-          </div>
-        </div>
-
-        <!-- Card de Tendência / Última Auditoria -->
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title">Última Auditoria</span>
-            <i class="ph ph-clock-counter-clockwise card-icon"></i>
-          </div>
-          <div class="card-body">
-            <span class="card-value" style="font-size: 14px; color: #c9d1d9;" id="ultima-auditoria">Nunca
-              executada</span>
-            <span class="card-label" style="display: block; margin-top: 4px;" id="ultima-sincronizacao">Nunca
-              atualizado</span>
-          </div>
-          <div class="card-footer">
-            <span class="card-status status-neutral">Sincronização AWS</span>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- Central de Alertas e Recomendações (SOC Simplificado) -->
-      <section id="painel-recomendacoes" class="data-table-section"
-        style="margin-bottom: 24px; padding: 20px; background: #161b22; border: 1px solid #30363d; border-radius: 8px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <h2 style="font-size: 16px; margin: 0; color: #f0f6fc; display: flex; align-items: center; gap: 8px;">
-            <i class="ph ph-siren" style="color: #f85149;"></i> Central de Alertas e Recomendações
-          </h2>
-          <span style="font-size: 12px; color: #8b949e;">Ações Corretivas Recomendadas</span>
-        </div>
-        <div id="lista-alertas-iam"
-          style="display: flex; flex-direction: column; gap: 8px; color: #8b949e; font-size: 14px;">
-          Nenhum alerta carregado.
-        </div>
-        <ul id="lista-recomendacoes" style="display: none;"></ul>
-      </section>
-
-      <!-- Tabela Detalhada com Colunas de Risco, MFA e Pesquisa Inteligente -->
-      <section class="data-table-section">
-        <div class="table-header" style="flex-wrap: wrap; gap: 12px;">
-          <div style="display: flex; align-items: center; gap: 12px; flex: 1; min-width: 280px;">
-            <h2 style="margin: 0; white-space: nowrap;">Identidades IAM</h2>
-            <!-- Barra de Pesquisa Avançada / Inteligente -->
-            <div style="position: relative; width: 100%; max-width: 320px;">
-              <i class="ph ph-magnifying-glass"
-                style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #8b949e;"></i>
-              <input type="text" id="search-user" placeholder="Pesquisar usuário, admin, sem mfa..."
-                style="width: 100%; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; padding: 6px 12px 6px 34px; color: #c9d1d9; font-size: 14px;">
-            </div>
-          </div>
-
-          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-            <button class="btn-refresh" id="btn-exportar-csv" title="Exportar dados em CSV"
-              style="background: #21262d; border: 1px solid #30363d; color: #c9d1d9; cursor: pointer;">
-              <i class="ph ph-file-csv"></i> Exportar CSV
-            </button>
-            <button class="btn-refresh" id="btn-atualizar-iam" title="Atualizar dados" style="cursor: pointer;">
-              <i class="ph ph-arrows-clockwise"></i> Atualizar
-            </button>
-          </div>
-        </div>
-
-        <div class="table-container">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Risco</th>
-                <th>Nome de Usuário (Username)</th>
-                <th>Tipo de Acesso</th>
-                <th>MFA</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody id="table-body-iam">
-              <tr>
-                <td colspan="5" style="text-align: center; color: #8b949e; padding: 24px;">Carregando dados da API
-                  IAM...</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </section>
 
     </main>
   </div>
 
-  <!-- Modal de Inspeção e Guia de Remediação -->
-  <div id="modal-inspecionar"
-    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
-    <div
-      style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; width: 100%; max-width: 520px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <h3 style="margin: 0; color: #f0f6fc; font-size: 18px; display: flex; align-items: center; gap: 8px;">
-          <i class="ph ph-user-gear" style="color: #58a6ff;"></i> Detalhes & Guia de Remediação
-        </h3>
-        <button id="fechar-modal"
-          style="background: transparent; border: none; color: #8b949e; font-size: 20px; cursor: pointer;"><i
-            class="ph ph-x"></i></button>
-      </div>
-
-      <div id="conteudo-modal"
-        style="color: #c9d1d9; font-size: 14px; display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
-        <!-- Preenchido dinamicamente via JS -->
-      </div>
-
-      <div style="display: flex; justify-content: flex-end; gap: 8px;">
-        <button id="btn-fechar-modal"
-          style="background: #21262d; border: 1px solid #30363d; color: #c9d1d9; padding: 6px 16px; border-radius: 6px; cursor: pointer;">Fechar</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Script específico do IAM -->
   <script src="iam.js"></script>
 </body>
 
