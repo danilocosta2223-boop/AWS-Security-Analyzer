@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CyberCheck - Proteja sua vida digital</title>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -26,11 +27,14 @@
       }
     }
   </script>
-  <!-- FontAwesome for Icons -->
+
+  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Fonts Inter -->
+
+  <!-- Google Fonts (Inter) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
+
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -38,7 +42,6 @@
       color: #f3f4f6;
     }
 
-    /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
@@ -55,12 +58,6 @@
 
     ::-webkit-scrollbar-thumb:hover {
       background: #4b4f5b;
-    }
-
-    .tab-btn.active {
-      background-color: #1d8cf8;
-      color: #ffffff;
-      box-shadow: 0 4px 14px 0 rgba(29, 140, 248, 0.39);
     }
   </style>
 </head>
@@ -129,6 +126,11 @@
             id="nav-emergency-guide">
             <i class="fa-solid fa-triangle-exclamation mr-1.5 text-xs text-amber-400"></i>SOS
           </button>
+          <button onclick="switchTab('aws-security')"
+            class="nav-link px-3 py-2 rounded-lg transition-colors hover:bg-gray-800 text-gray-300 hover:text-white"
+            id="nav-aws-security">
+            <i class="fa-brands fa-aws mr-1.5 text-xs text-orange-400"></i>AWS
+          </button>
           <button onclick="switchTab('blog')"
             class="nav-link px-3 py-2 rounded-lg transition-colors hover:bg-gray-800 text-gray-300 hover:text-white"
             id="nav-blog">
@@ -180,6 +182,10 @@
         class="w-full text-left px-3 py-2.5 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white flex items-center gap-3 text-amber-400 font-medium">
         <i class="fa-solid fa-triangle-exclamation text-amber-400 w-5"></i>Fui Hackeado, e Agora?
       </button>
+      <button onclick="switchTab('aws-security'); toggleMobileMenu()"
+        class="w-full text-left px-3 py-2.5 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white flex items-center gap-3 text-orange-400 font-medium">
+        <i class="fa-brands fa-aws text-orange-400 w-5"></i>AWS Security Center
+      </button>
       <button onclick="switchTab('blog'); toggleMobileMenu()"
         class="w-full text-left px-3 py-2.5 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white flex items-center gap-3">
         <i class="fa-solid fa-newspaper text-brandblue w-5"></i>Blog Educativo
@@ -207,12 +213,12 @@
           </h1>
           <p class="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed">
             Ferramentas gratuitas, interativas e fáceis de usar para analisar ameaças em tempo real e fortalecer sua
-            segurança na internet.
+            segurança na internet e na nuvem.
           </p>
           <div class="flex flex-wrap gap-4">
             <button onclick="switchTab('url-analyzer')"
               class="px-6 py-3.5 rounded-xl bg-brandblue hover:bg-blue-600 text-white font-semibold flex items-center gap-2 transition-all shadow-lg shadow-blue-500/25 active:scale-95">
-              <i class="fa-solid fa-magnifying-glass-dollar"></i> Testar Link Suspeito
+              <i class="fa-solid fa-magnifying-glass"></i> Testar Link Suspeito
             </button>
             <button onclick="switchTab('training-quiz')"
               class="px-6 py-3.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 font-semibold border border-gray-700 flex items-center gap-2 transition-all active:scale-95">
@@ -223,8 +229,8 @@
       </div>
 
       <!-- Features Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Card 1 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card 1: URLs -->
         <div onclick="switchTab('url-analyzer')"
           class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all cursor-pointer group hover:-translate-y-1">
           <div
@@ -237,7 +243,7 @@
             suspeitos.</p>
         </div>
 
-        <!-- Card 2 -->
+        <!-- Card 2: Senhas -->
         <div onclick="switchTab('pass-checker')"
           class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all cursor-pointer group hover:-translate-y-1">
           <div
@@ -250,7 +256,7 @@
           </p>
         </div>
 
-        <!-- Card 3 -->
+        <!-- Card 3: Golpes -->
         <div onclick="switchTab('phishing-detector')"
           class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all cursor-pointer group hover:-translate-y-1">
           <div
@@ -263,7 +269,7 @@
             engenharia social.</p>
         </div>
 
-        <!-- Card 4 -->
+        <!-- Card 4: Vazamentos -->
         <div onclick="switchTab('breach-check')"
           class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all cursor-pointer group hover:-translate-y-1">
           <div
@@ -276,7 +282,7 @@
             públicos.</p>
         </div>
 
-        <!-- Card 5 -->
+        <!-- Card 5: Checklist -->
         <div onclick="switchTab('security-checklist')"
           class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all cursor-pointer group hover:-translate-y-1">
           <div
@@ -289,7 +295,7 @@
           </p>
         </div>
 
-        <!-- Card 6 -->
+        <!-- Card 6: Treinamento -->
         <div onclick="switchTab('training-quiz')"
           class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all cursor-pointer group hover:-translate-y-1">
           <div
@@ -302,7 +308,7 @@
             quiz prático.</p>
         </div>
 
-        <!-- Card 7 -->
+        <!-- Card 7: SOS Emergency -->
         <div onclick="switchTab('emergency-guide')"
           class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all cursor-pointer group hover:-translate-y-1">
           <div
@@ -315,7 +321,20 @@
             comprometidas.</p>
         </div>
 
-        <!-- Card 8 -->
+        <!-- Card 8: AWS Security Center -->
+        <div onclick="switchTab('aws-security')"
+          class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all cursor-pointer group hover:-translate-y-1">
+          <div
+            class="w-12 h-12 rounded-xl bg-orange-500/10 text-orange-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+            <i class="fa-brands fa-aws"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2 group-hover:text-orange-400 transition-colors">☁️ AWS Security
+            Center</h3>
+          <p class="text-sm text-gray-400">Explore IAM, S3, EC2, CloudTrail e auditoria de segurança de infraestrutura
+            em nuvem.</p>
+        </div>
+
+        <!-- Card 9: Blog -->
         <div onclick="switchTab('blog')"
           class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all cursor-pointer group hover:-translate-y-1">
           <div
@@ -356,7 +375,6 @@
           </button>
         </div>
 
-        <!-- Fast Examples -->
         <div class="mt-4 flex flex-wrap items-center gap-2 text-xs text-gray-400">
           <span>Exemplos para testar:</span>
           <button onclick="setURLExample('https://www.microsoft.com')"
@@ -368,7 +386,6 @@
         </div>
       </div>
 
-      <!-- Analysis Output Card -->
       <div id="url-results" class="hidden bg-darkcard p-6 sm:p-8 rounded-2xl border border-gray-800 shadow-xl">
         <div
           class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-gray-800">
@@ -384,15 +401,11 @@
 
         <div class="mt-6 space-y-4">
           <h4 class="text-sm font-semibold text-gray-300">Itens Verificados:</h4>
-          <div id="url-checks-list" class="space-y-3 text-sm">
-            <!-- Dynamic checks populated by JS -->
-          </div>
+          <div id="url-checks-list" class="space-y-3 text-sm"></div>
         </div>
 
         <div id="url-recommendation"
-          class="mt-6 p-4 rounded-xl bg-[#1e1f24] border border-gray-800 text-sm text-gray-300">
-          <!-- Recommendation text -->
-        </div>
+          class="mt-6 p-4 rounded-xl bg-[#1e1f24] border border-gray-800 text-sm text-gray-300"></div>
       </div>
     </section>
 
@@ -419,7 +432,6 @@
           </button>
         </div>
 
-        <!-- Password Strength Meter Bar -->
         <div class="space-y-2 mb-6">
           <div class="flex justify-between items-center text-sm">
             <span class="text-gray-400 font-medium">Força da Senha:</span>
@@ -430,40 +442,22 @@
           </div>
         </div>
 
-        <!-- Password Criteria Checklist -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-gray-800 text-sm">
-          <div id="crit-length" class="flex items-center gap-2.5 text-gray-400">
-            <i class="fa-regular fa-circle text-xs"></i> Pelo menos 12 caracteres
-          </div>
-          <div id="crit-upper" class="flex items-center gap-2.5 text-gray-400">
-            <i class="fa-regular fa-circle text-xs"></i> Letra Maiúscula (A-Z)
-          </div>
-          <div id="crit-lower" class="flex items-center gap-2.5 text-gray-400">
-            <i class="fa-regular fa-circle text-xs"></i> Letra Minúscula (a-z)
-          </div>
-          <div id="crit-number" class="flex items-center gap-2.5 text-gray-400">
-            <i class="fa-regular fa-circle text-xs"></i> Números (0-9)
-          </div>
-          <div id="crit-symbol" class="flex items-center gap-2.5 text-gray-400 col-span-1 sm:col-span-2">
-            <i class="fa-regular fa-circle text-xs"></i> Símbolo Especial (!@#$%^&*)
-          </div>
+          <div id="crit-length" class="flex items-center gap-2.5 text-gray-400"><i
+              class="fa-regular fa-circle text-xs"></i> Pelo menos 12 caracteres</div>
+          <div id="crit-upper" class="flex items-center gap-2.5 text-gray-400"><i
+              class="fa-regular fa-circle text-xs"></i> Letra Maiúscula (A-Z)</div>
+          <div id="crit-lower" class="flex items-center gap-2.5 text-gray-400"><i
+              class="fa-regular fa-circle text-xs"></i> Letra Minúscula (a-z)</div>
+          <div id="crit-number" class="flex items-center gap-2.5 text-gray-400"><i
+              class="fa-regular fa-circle text-xs"></i> Números (0-9)</div>
+          <div id="crit-symbol" class="flex items-center gap-2.5 text-gray-400 col-span-1 sm:col-span-2"><i
+              class="fa-regular fa-circle text-xs"></i> Símbolo Especial (!@#$%^&*)</div>
         </div>
-      </div>
-
-      <!-- Dynamic Suggestions Box -->
-      <div class="bg-darkcard p-6 rounded-2xl border border-gray-800 shadow-xl">
-        <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
-          <i class="fa-solid fa-lightbulb text-brandyellow"></i> Sugestões para Fortalecimento
-        </h3>
-        <ul id="pass-suggestions" class="list-disc list-inside space-y-1.5 text-sm text-gray-300">
-          <li>Utilize uma combinação de palavras aleatórias ou frases longas (passphrase).</li>
-          <li>Evite dados pessoais óbvios como seu nome, datas de aniversário ou sequências (ex: 123456).</li>
-          <li>Nunca reutilize a mesma senha para serviços e e-mails bancários ou sensíveis.</li>
-        </ul>
       </div>
     </section>
 
-    <!-- SECTION 3: DETECTOR DE GOLPES DE E-MAIL -->
+    <!-- SECTION 3: DETECTOR DE GOLPES -->
     <section id="tab-phishing-detector" class="tab-content hidden transition-all duration-300 max-w-4xl mx-auto">
       <div class="mb-8 text-center sm:text-left">
         <span class="text-brandblue font-semibold text-sm uppercase tracking-wider">Módulo 03</span>
@@ -471,19 +465,15 @@
           class="text-2xl sm:text-3xl font-bold text-white flex items-center justify-center sm:justify-start gap-3 mt-1">
           <i class="fa-solid fa-envelope-open-text text-red-400"></i> Detector de Golpes e Phishing
         </h2>
-        <p class="text-gray-400 text-sm mt-1">Cole o texto de e-mails, mensagens de WhatsApp ou SMS recebidos para
-          identificar gatilhos mentais e suspeitas.</p>
+        <p class="text-gray-400 text-sm mt-1">Cole mensagens recebidas para identificar termos apelativos e gatilhos
+          mentais.</p>
       </div>
 
       <div class="bg-darkcard p-6 sm:p-8 rounded-2xl border border-gray-800 shadow-xl mb-8">
-        <label class="block text-sm font-medium text-gray-300 mb-2">Cole a mensagem recebida abaixo:</label>
-        <textarea id="phish-text-input" rows="5"
-          placeholder="Exemplo: Seu PIX foi bloqueado por motivos de segurança. Clique aqui imediatamente para recadastrar sua conta!"
+        <textarea id="phish-text-input" rows="5" placeholder="Exemplo: Seu PIX foi bloqueado..."
           class="w-full bg-[#1e1f24] border border-gray-700 focus:border-brandblue focus:ring-1 focus:ring-brandblue rounded-xl p-4 text-white text-sm outline-none transition-all resize-none mb-4"></textarea>
-
         <div class="flex flex-wrap items-center justify-between gap-3">
           <div class="flex items-center gap-2">
-            <span class="text-xs text-gray-400">Testar exemplo:</span>
             <button onclick="setPhishExample(1)"
               class="px-2.5 py-1 bg-[#1e1f24] hover:bg-gray-700 rounded-md text-xs text-gray-300 border border-gray-700">Golpe
               PIX</button>
@@ -498,33 +488,18 @@
         </div>
       </div>
 
-      <!-- Analysis Output -->
       <div id="phish-results" class="hidden bg-darkcard p-6 sm:p-8 rounded-2xl border border-gray-800 shadow-xl">
         <div class="flex items-center justify-between pb-6 border-b border-gray-800">
-          <div>
-            <span class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Classificação da Mensagem</span>
-            <h3 id="phish-status-title" class="text-xl font-bold mt-0.5">🚨 Possível Golpe / Phishing</h3>
-          </div>
+          <h3 id="phish-status-title" class="text-xl font-bold">🚨 Possível Golpe / Phishing</h3>
           <span id="phish-badge"
-            class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-red-500/10 text-red-400 border border-red-500/20">
-            Alto Risco
-          </span>
+            class="px-3 py-1 rounded-full text-xs font-bold uppercase bg-red-500/10 text-red-400 border border-red-500/20">Alto
+            Risco</span>
         </div>
-
-        <div class="mt-6 space-y-4">
-          <h4 class="text-sm font-semibold text-gray-300">Gatilhos e Sinais Detectados:</h4>
-          <div id="phish-triggers-list" class="space-y-2.5 text-sm">
-            <!-- Dynamic list of flags -->
-          </div>
-        </div>
-
-        <div id="phish-advice" class="mt-6 p-4 rounded-xl bg-[#1e1f24] border border-gray-800 text-sm text-gray-300">
-          <!-- Advice text -->
-        </div>
+        <div id="phish-triggers-list" class="mt-6 space-y-2.5 text-sm"></div>
       </div>
     </section>
 
-    <!-- SECTION 4: VERIFICAÇÃO DE VAZAMENTO -->
+    <!-- SECTION 4: VAZAMENTOS -->
     <section id="tab-breach-check" class="tab-content hidden transition-all duration-300 max-w-4xl mx-auto">
       <div class="mb-8 text-center sm:text-left">
         <span class="text-brandblue font-semibold text-sm uppercase tracking-wider">Módulo 04</span>
@@ -532,23 +507,104 @@
           class="text-2xl sm:text-3xl font-bold text-white flex items-center justify-center sm:justify-start gap-3 mt-1">
           <i class="fa-solid fa-user-shield text-amber-400"></i> Consulta de Vazamentos de Dados
         </h2>
-        <p class="text-gray-400 text-sm mt-1">Verifique o status do seu endereço de e-mail e saiba como agir caso suas
-          credenciais tenham vazado.</p>
+        <p class="text-gray-400 text-sm mt-1">Verifique se seu endereço de e-mail apareceu em bases públicas expostas.
+        </p>
       </div>
 
       <div class="bg-darkcard p-6 sm:p-8 rounded-2xl border border-gray-800 shadow-xl mb-8">
-        <label class="block text-sm font-medium text-gray-300 mb-2">Digite seu e-mail para consulta informativa:</label>
         <div class="flex flex-col sm:flex-row gap-3">
-          <div class="relative flex-1">
-            <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
-            <input type="email" id="breach-email-input" placeholder="seu-email@exemplo.com"
-              class="w-full bg-[#1e1f24] border border-gray-700 focus:border-brandblue focus:ring-1 focus:ring-brandblue rounded-xl pl-11 pr-4 py-3 text-white text-sm outline-none transition-all">
-          </div>
+          <input type="email" id="breach-email-input" placeholder="seu-email@exemplo.com"
+            class="w-full bg-[#1e1f24] border border-gray-700 focus:border-brandblue rounded-xl px-4 py-3 text-white text-sm outline-none">
           <button onclick="checkBreach()"
-            class="px-6 py-3 bg-brandblue hover:bg-blue-600 text-white font-semibold rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
-            <i class="fa-solid fa-magnifying-glass"></i> Consultar
-          </button>
+            class="px-6 py-3 bg-brandblue hover:bg-blue-600 text-white font-semibold rounded-xl shadow-md">Consultar</button>
         </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: AWS SECURITY CENTER -->
+    <section id="tab-aws-security" class="tab-content hidden transition-all duration-300 max-w-5xl mx-auto">
+      <div class="mb-8 text-center sm:text-left">
+        <span class="text-orange-400 font-semibold text-sm uppercase tracking-wider">Cloud Governance &
+          Compliance</span>
+        <h2
+          class="text-2xl sm:text-3xl font-bold text-white flex items-center justify-center sm:justify-start gap-3 mt-1">
+          <i class="fa-brands fa-aws text-orange-400"></i> AWS Security Center
+        </h2>
+        <p class="text-gray-400 text-sm mt-1">Monitoramento de postura de segurança, análise de acessos e auditoria de
+          infraestrutura na nuvem.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- IAM Card -->
+        <a href="paginas/aws/iam/index.html"
+          class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all group block">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-400 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-users-gear"></i>
+            </div>
+            <span class="text-xs text-gray-500 group-hover:text-orange-400 transition-colors">Acessar <i
+                class="fa-solid fa-arrow-right ml-1"></i></span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1">IAM Governance</h3>
+          <p class="text-xs text-gray-400">Políticas de acesso, usuários ativos e verificação de privilégios excessivos.
+          </p>
+        </a>
+
+        <!-- S3 Card -->
+        <a href="paginas/aws/s3/index.html"
+          class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all group block">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-400 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-database"></i>
+            </div>
+            <span class="text-xs text-gray-500 group-hover:text-orange-400 transition-colors">Acessar <i
+                class="fa-solid fa-arrow-right ml-1"></i></span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1">S3 Buckets</h3>
+          <p class="text-xs text-gray-400">Auditoria de exposição pública, criptografia e controle de ACLs.</p>
+        </a>
+
+        <!-- EC2 Card -->
+        <a href="paginas/aws/ec2/index.html"
+          class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all group block">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-400 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-server"></i>
+            </div>
+            <span class="text-xs text-gray-500 group-hover:text-orange-400 transition-colors">Acessar <i
+                class="fa-solid fa-arrow-right ml-1"></i></span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1">EC2 Security</h3>
+          <p class="text-xs text-gray-400">Análise de instâncias, portas abertas e regras de Security Groups.</p>
+        </a>
+
+        <!-- CloudTrail Card -->
+        <a href="paginas/aws/cloudtrail/index.html"
+          class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all group block">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-400 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-shoe-prints"></i>
+            </div>
+            <span class="text-xs text-gray-500 group-hover:text-orange-400 transition-colors">Acessar <i
+                class="fa-solid fa-arrow-right ml-1"></i></span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1">CloudTrail Logs</h3>
+          <p class="text-xs text-gray-400">Rastreabilidade de eventos de API e trilhas de auditoria da conta.</p>
+        </a>
+
+        <!-- Security Backend Card -->
+        <a href="paginas/aws/backend/index.html"
+          class="bg-darkcard hover:bg-darkcardhover p-6 rounded-2xl border border-gray-800 transition-all group block md:col-span-2 lg:col-span-1">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 rounded-lg bg-orange-500/10 text-orange-400 flex items-center justify-center text-lg">
+              <i class="fa-solid fa-terminal"></i>
+            </div>
+            <span class="text-xs text-gray-500 group-hover:text-orange-400 transition-colors">Acessar <i
+                class="fa-solid fa-arrow-right ml-1"></i></span>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1">Security Backend</h3>
+          <p class="text-xs text-gray-400">Integração via Python Flask, boto3 e endpoints analíticos.</p>
+        </a>
       </div>
     </section>
 
@@ -566,14 +622,12 @@
     </div>
   </footer>
 
-  <!-- JAVASCRIPT LOGIC -->
+  <!-- CONTROLE JS PRINCIPAL -->
   <script>
     function switchTab(tabId) {
-      // Hide all tab contents
       document.querySelectorAll('.tab-content').forEach(el => {
         el.classList.add('hidden');
       });
-      // Show selected tab
       const target = document.getElementById('tab-' + tabId);
       if (target) {
         target.classList.remove('hidden');
@@ -586,7 +640,6 @@
       menu.classList.toggle('hidden');
     }
 
-    // URL Validator Logic
     function setURLExample(url) {
       document.getElementById('url-input').value = url;
       analyzeURL();
@@ -607,26 +660,19 @@
 
       if (isSecure) {
         titleEl.textContent = "🟢 Baixo Risco (Site Legítimo)";
-        badgeEl.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+        badgeEl.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
         badgeEl.textContent = "Seguro";
-        checksList.innerHTML = `
-                    <div class="flex items-center gap-2 text-emerald-400"><i class="fa-solid fa-check"></i> Protocolo HTTPS ativo</div>
-                    <div class="flex items-center gap-2 text-emerald-400"><i class="fa-solid fa-check"></i> Domínio oficial reconhecido</div>
-                `;
+        checksList.innerHTML = `<div class="flex items-center gap-2 text-emerald-400"><i class="fa-solid fa-check"></i> Protocolo HTTPS ativo e domínio oficial</div>`;
         recEl.textContent = "O link aparenta ser autêntico e seguro para navegação.";
       } else {
         titleEl.textContent = "🚨 Alto Risco / Possível Phishing";
-        badgeEl.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-red-500/10 text-red-400 border border-red-500/20";
+        badgeEl.className = "px-4 py-1.5 rounded-full text-xs font-bold uppercase bg-red-500/10 text-red-400 border border-red-500/20";
         badgeEl.textContent = "Suspeito";
-        checksList.innerHTML = `
-                    <div class="flex items-center gap-2 text-red-400"><i class="fa-solid fa-triangle-exclamation"></i> Presença de termos apelativos (urgente, login, pix)</div>
-                    <div class="flex items-center gap-2 text-amber-400"><i class="fa-solid fa-triangle-exclamation"></i> Domínio mascarado ou desconhecido</div>
-                `;
-        recEl.textContent = "Cuidado! Não insira senhas, dados bancários ou informações pessoais neste endereço.";
+        checksList.innerHTML = `<div class="flex items-center gap-2 text-red-400"><i class="fa-solid fa-triangle-exclamation"></i> Termos de urgência/página de login não oficial</div>`;
+        recEl.textContent = "Cuidado! Não insira senhas ou dados bancários neste endereço.";
       }
     }
 
-    // Password Checker Logic
     function togglePassVisibility() {
       const input = document.getElementById('pass-input');
       const icon = document.getElementById('pass-eye-icon');
@@ -645,66 +691,35 @@
       const label = document.getElementById('pass-strength-label');
 
       let score = 0;
-      const hasLen = pass.length >= 12;
-      const hasUpper = /[A-Z]/.test(pass);
-      const hasLower = /[a-z]/.test(pass);
-      const hasNum = /[0-9]/.test(pass);
-      const hasSym = /[^A-Za-z0-9]/.test(pass);
-
-      updateCriterion('crit-length', hasLen);
-      updateCriterion('crit-upper', hasUpper);
-      updateCriterion('crit-lower', hasLower);
-      updateCriterion('crit-number', hasNum);
-      updateCriterion('crit-symbol', hasSym);
-
-      if (hasLen) score++;
-      if (hasUpper) score++;
-      if (hasLower) score++;
-      if (hasNum) score++;
-      if (hasSym) score++;
+      if (pass.length >= 12) score++;
+      if (/[A-Z]/.test(pass)) score++;
+      if (/[a-z]/.test(pass)) score++;
+      if (/[0-9]/.test(pass)) score++;
+      if (/[^A-Za-z0-9]/.test(pass)) score++;
 
       if (pass.length === 0) {
         bar.style.width = '0%';
-        bar.className = 'h-full bg-gray-600 rounded-full transition-all duration-300';
         label.textContent = 'Digite algo...';
-        label.className = 'font-bold text-gray-400';
       } else if (score <= 2) {
         bar.style.width = '33%';
         bar.className = 'h-full bg-red-500 rounded-full transition-all duration-300';
         label.textContent = 'Fraca';
-        label.className = 'font-bold text-red-400';
       } else if (score <= 4) {
         bar.style.width = '66%';
         bar.className = 'h-full bg-amber-500 rounded-full transition-all duration-300';
         label.textContent = 'Média';
-        label.className = 'font-bold text-amber-400';
       } else {
         bar.style.width = '100%';
         bar.className = 'h-full bg-emerald-500 rounded-full transition-all duration-300';
         label.textContent = 'Forte';
-        label.className = 'font-bold text-emerald-400';
       }
     }
 
-    function updateCriterion(elemId, status) {
-      const el = document.getElementById(elemId);
-      if (status) {
-        el.className = 'flex items-center gap-2.5 text-emerald-400 font-medium';
-        el.innerHTML = '<i class="fa-solid fa-check text-xs"></i> ' + el.textContent.replace(/^[✓✕•]\s*/, '');
-      } else {
-        el.className = 'flex items-center gap-2.5 text-gray-400';
-        el.innerHTML = '<i class="fa-regular fa-circle text-xs"></i> ' + el.textContent.replace(/^[✓✕•]\s*/, '');
-      }
-    }
-
-    // Phishing Detector Logic
     function setPhishExample(type) {
       const textarea = document.getElementById('phish-text-input');
-      if (type === 1) {
-        textarea.value = "URGENTE: Sua conta bancária foi bloqueada por tentativas de acesso suspeitas. Clique aqui imediatamente para validar sua chave PIX e evitar o cancelamento definitivo!";
-      } else {
-        textarea.value = "Olá, Danilo. Segue em anexo o relatório mensal de atividades referente aos chamados de engenharia clínica processados na última semana.";
-      }
+      textarea.value = type === 1
+        ? "URGENTE: Sua conta bancária foi bloqueada. Clique aqui imediatamente para validar sua chave PIX!"
+        : "Olá. Segue o relatório mensal de chamados finalizado.";
       detectPhishing();
     }
 
@@ -712,37 +727,17 @@
       const text = document.getElementById('phish-text-input').value.trim();
       const resultsBox = document.getElementById('phish-results');
       if (!text) return;
-
       resultsBox.classList.remove('hidden');
-      const isBad = text.toLowerCase().includes('urgente') || text.toLowerCase().includes('clique aqui') || text.toLowerCase().includes('bloqueada');
 
-      const titleEl = document.getElementById('phish-status-title');
-      const badgeEl = document.getElementById('phish-badge');
-      const triggersList = document.getElementById('phish-triggers-list');
-      const adviceEl = document.getElementById('phish-advice');
-
-      if (isBad) {
-        titleEl.textContent = "🚨 Possível Golpe / Phishing Identificado";
-        badgeEl.className = "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-red-500/10 text-red-400 border border-red-500/20";
-        badgeEl.textContent = "Alto Risco";
-        triggersList.innerHTML = `
-                    <div class="flex items-center gap-2 text-red-400"><i class="fa-solid fa-triangle-exclamation"></i> Senso de urgência forçado ("urgente", "imediatamente")</div>
-                    <div class="flex items-center gap-2 text-red-400"><i class="fa-solid fa-triangle-exclamation"></i> Apelo a bloqueio de conta ou PIX</div>
-                `;
-        adviceEl.textContent = "Não clique em nenhum link e não forneça dados pessoais ou senhas. Entre em contato diretamente com o canal oficial da instituição.";
-      } else {
-        titleEl.textContent = "🟢 Mensagem Provavelmente Segura";
-        badgeEl.className = "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
-        badgeEl.textContent = "Baixo Risco";
-        triggersList.innerHTML = `
-                    <div class="flex items-center gap-2 text-emerald-400"><i class="fa-solid fa-check"></i> Nenhum gatilho comum de engenharia social detectado</div>
-                `;
-        adviceEl.textContent = "A mensagem apresenta características normais de comunicação profissional ou pessoal.";
-      }
+      const isBad = text.toLowerCase().includes('urgente') || text.toLowerCase().includes('clique aqui');
+      document.getElementById('phish-status-title').textContent = isBad ? "🚨 Possível Golpe Detectado" : "🟢 Mensagem Provavelmente Segura";
+      document.getElementById('phish-triggers-list').innerHTML = isBad
+        ? `<div class="text-red-400"><i class="fa-solid fa-triangle-exclamation"></i> Presença de termos com senso de urgência ou link direto</div>`
+        : `<div class="text-emerald-400"><i class="fa-solid fa-check"></i> Nenhum gatilho de golpe identificado</div>`;
     }
 
     function checkBreach() {
-      alert("Módulo de consulta de vazamentos acionado com sucesso!");
+      alert("Módulo de consulta de vazamentos acionado!");
     }
   </script>
 </body>
