@@ -1,427 +1,118 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberCheck Pro - Proteja sua vida digital</title>
-    
-    <!-- CyberCheck Design System -->
-    <link rel="stylesheet" href="styles/normalize.css">
-    <link rel="stylesheet" href="styles/dark.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/responsive.css">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts (Inter) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberCheck - Central de Segurança Digital</title>
+  
+  <!-- Fogli di Stile dalla cartella styles/ -->
+  <link rel="stylesheet" href="styles/normalize.css">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/dark.css">
+  <link rel="stylesheet" href="styles/responsive.css">
 </head>
 <body>
 
-    <!-- HEADER / NAVIGATION -->
-    <header class="header">
-        <div class="nav-container">
-            <!-- Logo & Brand -->
-            <div class="brand-logo" onclick="switchTab('home')">
-                <div class="logo-icon">
-                    <svg width="32" height="32" viewBox="0 0 40 40">
-                        <circle cx="20" cy="20" r="18" fill="#fbbf24"/>
-                    </svg>
-                </div>
-                <div>
-                    <span class="brand-title">
-                        CyberCheck
-                        <span class="badge-pro">Pro</span>
-                    </span>
-                    <p class="brand-subtitle">Proteja sua vida digital</p>
-                </div>
-            </div>
+  <!-- Menu Superiore -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-icon">🛡️</div>
+      <div>
+        <strong>CyberCheck</strong> <span class="badge-pro">PRO</span>
+        <div style="font-size: 0.75rem; color: var(--text-secondary);">Proteja sua vida digital</div>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#" class="active">Início</a></li>
+        <li><a href="#urls">URLs</a></li>
+        <li><a href="#senhas">Senhas</a></li>
+        <li><a href="#golpes">Golpes</a></li>
+        <li><a href="#vazamentos">Vazamentos</a></li>
+        <li><a href="#checklist">Checklist</a></li>
+        <li><a href="#treinamento">Treinamento</a></li>
+        <li><a href="#sos" class="sos-link">SOS</a></li>
+        <li><a href="#blog">Blog</a></li>
+      </ul>
+    </nav>
+  </header>
 
-            <!-- Botão de Modo Escuro -->
-            <button id="theme-toggle" class="btn-warning">
-                <i class="fa-solid fa-moon"></i> Modo Escuro
-            </button>
+  <!-- Container Principale -->
+  <main class="container">
 
-            <!-- Desktop Nav -->
-            <nav class="desktop-nav">
-                <button onclick="switchTab('home')" class="nav-link" id="nav-home">
-                    <i class="fa-solid fa-house"></i>Início
-                </button>
-                <button onclick="switchTab('url-analyzer')" class="nav-link" id="nav-url-analyzer">
-                    <i class="fa-solid fa-link"></i>URLs
-                </button>
-                <button onclick="switchTab('pass-checker')" class="nav-link" id="nav-pass-checker">
-                    <i class="fa-solid fa-key"></i>Senhas
-                </button>
-                <button onclick="switchTab('phishing-detector')" class="nav-link" id="nav-phishing-detector">
-                    <i class="fa-solid fa-envelope-open-text"></i>Golpes
-                </button>
-                <button onclick="switchTab('breach-check')" class="nav-link" id="nav-breach-check">
-                    <i class="fa-solid fa-user-shield"></i>Vazamentos
-                </button>
-                <button onclick="switchTab('security-checklist')" class="nav-link" id="nav-security-checklist">
-                    <i class="fa-solid fa-list-check"></i>Checklist
-                </button>
-                <button onclick="switchTab('training-quiz')" class="nav-link" id="nav-training-quiz">
-                    <i class="fa-solid fa-gamepad"></i>Treinamento
-                </button>
-                <button onclick="switchTab('emergency-guide')" class="nav-link" id="nav-emergency-guide">
-                    <i class="fa-solid fa-triangle-exclamation text-amber"></i>SOS
-                </button>
-                <button onclick="switchTab('aws-security')" class="nav-link" id="nav-aws-security">
-                    <i class="fa-brands fa-aws text-orange"></i>AWS
-                </button>
-                <button onclick="switchTab('blog')" class="nav-link" id="nav-blog">
-                    <i class="fa-solid fa-newspaper"></i>Blog
-                </button>
-            </nav>
+    <!-- Hero Section -->
+    <section class="hero-card">
+      <span class="hero-tag">🛡️ Central Integrada de Proteção Digital</span>
+      <h1 class="hero-title">Proteja sua vida digital.<br>Verifique links, senhas e evite golpes.</h1>
+      <p class="hero-description">
+        Ferramentas gratuitas, interativas e fáceis de usar para analisar ameaças em tempo real e fortalecer sua segurança na internet.
+      </p>
+      <div class="hero-buttons">
+        <a href="#urls" class="btn btn-primary">🔍 Testar Link Suspeito</a>
+        <a href="#treinamento" class="btn btn-secondary">🎓 Treinar Identificação de Golpes</a>
+      </div>
+    </section>
 
-            <!-- Mobile Menu Button -->
-            <div class="mobile-menu-toggle">
-                <button id="mobile-menu-btn" onclick="toggleMobileMenu()">
-                    <i class="fa-solid fa-bars" id="menu-icon"></i>
-                </button>
-            </div>
+    <!-- Griglia Strumenti Interattivi -->
+    <section class="tools-grid">
+
+      <!-- 1. URL Validator -->
+      <div class="tool-card" id="urls">
+        <div class="tool-icon">🔗</div>
+        <h3 class="tool-title">1. Validador de URLs</h3>
+        <p class="tool-desc">Cole um link para checar se ele possui HTTPS e estrutura segura.</p>
+        <div class="input-group">
+          <input type="text" id="url-input" class="input-field" placeholder="https://exemplo.com">
         </div>
+        <button class="btn btn-primary" style="width:100%" onclick="analisaURL()">Verificar Link</button>
+        <div id="url-result" class="result-box"></div>
+      </div>
 
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="mobile-dropdown hidden">
-            <button onclick="switchTab('home'); toggleMobileMenu()" class="mobile-nav-link">
-                <i class="fa-solid fa-house"></i>Página Inicial
-            </button>
-            <button onclick="switchTab('url-analyzer'); toggleMobileMenu()" class="mobile-nav-link">
-                <i class="fa-solid fa-link"></i>Validador de URLs
-            </button>
-            <button onclick="switchTab('pass-checker'); toggleMobileMenu()" class="mobile-nav-link">
-                <i class="fa-solid fa-key"></i>Verificador de Senhas
-            </button>
-            <button onclick="switchTab('phishing-detector'); toggleMobileMenu()" class="mobile-nav-link">
-                <i class="fa-solid fa-envelope-open-text"></i>Detector de Golpes
-            </button>
-            <button onclick="switchTab('breach-check'); toggleMobileMenu()" class="mobile-nav-link">
-                <i class="fa-solid fa-user-shield"></i>Verificação de Vazamentos
-            </button>
-            <button onclick="switchTab('security-checklist'); toggleMobileMenu()" class="mobile-nav-link">
-                <i class="fa-solid fa-list-check"></i>Checklist de Segurança
-            </button>
-            <button onclick="switchTab('training-quiz'); toggleMobileMenu()" class="mobile-nav-link">
-                <i class="fa-solid fa-gamepad"></i>Treinamento Interativo
-            </button>
-            <button onclick="switchTab('emergency-guide'); toggleMobileMenu()" class="mobile-nav-link text-amber">
-                <i class="fa-solid fa-triangle-exclamation"></i>Fui Hackeado, e Agora?
-            </button>
-            <button onclick="switchTab('aws-security'); toggleMobileMenu()" class="mobile-nav-link text-orange">
-                <i class="fa-brands fa-aws"></i>AWS Security Center
-            </button>
-            <button onclick="switchTab('blog'); toggleMobileMenu()" class="mobile-nav-link">
-                <i class="fa-solid fa-newspaper"></i>Blog Educativo
-            </button>
+      <!-- 2. Password Strength -->
+      <div class="tool-card" id="senhas">
+        <div class="tool-icon">🔐</div>
+        <h3 class="tool-title">2. Verificador de Senhas</h3>
+        <p class="tool-desc">Teste a complexidade da sua senha sem salvá-la.</p>
+        <div class="input-group">
+          <input type="password" id="pass-input" class="input-field" placeholder="Digite uma senha">
         </div>
-    </header>
+        <button class="btn btn-primary" style="width:100%" onclick="analisaSenha()">Analisar Senha</button>
+        <div id="pass-result" class="result-box"></div>
+      </div>
 
-    <!-- MAIN CONTENT AREA -->
-    <main class="main-container">
-
-        <!-- SECTION 0: HOME / HERO -->
-        <section id="tab-home" class="tab-content">
-            <div class="hero-banner">
-                <div class="hero-content">
-                    <span class="hero-tag">
-                        <i class="fa-solid fa-shield-cat"></i> Central Integrada de Proteção Digital
-                    </span>
-                    <h1 class="hero-title">
-                        Proteja sua vida digital. <br/>Verifique links, senhas e evite golpes.
-                    </h1>
-                    <p class="hero-desc">
-                        Ferramentas gratuitas, interativas e fáceis de usar para analisar ameaças em tempo real e fortalecer sua segurança na internet e na nuvem.
-                    </p>
-                    <div class="hero-actions">
-                        <button onclick="switchTab('url-analyzer')" class="btn btn-primary">
-                            <i class="fa-solid fa-magnifying-glass"></i> Testar Link Suspeito
-                        </button>
-                        <button onclick="switchTab('training-quiz')" class="btn btn-secondary">
-                            <i class="fa-solid fa-graduation-cap brand-yellow"></i> Treinar Identificação de Golpes
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Container com Cards do Dashboard, Alertas e Segurança -->
-            <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                <div class="card">
-                    <h2>Dashboard</h2>
-                    <p>Bem-vindo ao CyberCheck.</p>
-                </div>
-                <div class="card">
-                    <h2>Alertas</h2>
-                    <span class="status-warning">Atenção</span>
-                </div>
-                <div class="card">
-                    <h2>Segurança</h2>
-                    <span class="status-safe">Sistema Seguro</span>
-                </div>
-            </div>
-
-            <!-- Features Grid -->
-            <div class="features-grid">
-                <!-- Card 1 -->
-                <div onclick="switchTab('url-analyzer')" class="card">
-                    <div class="card-icon text-blue"><i class="fa-solid fa-link"></i></div>
-                    <h3 class="card-title">Validador de URLs</h3>
-                    <p class="card-desc">Verifique se um link possui padrão HTTPS, palavras de golpe ou domínios suspeitos.</p>
-                </div>
-
-                <!-- Card 2 -->
-                <div onclick="switchTab('pass-checker')" class="card">
-                    <div class="card-icon text-emerald"><i class="fa-solid fa-key"></i></div>
-                    <h3 class="card-title">Verificador de Senhas</h3>
-                    <p class="card-desc">Descubra se sua senha é forte o suficiente e receba sugestões instantâneas.</p>
-                </div>
-
-                <!-- Card 3 -->
-                <div onclick="switchTab('phishing-detector')" class="card">
-                    <div class="card-icon text-red"><i class="fa-solid fa-envelope-open-text"></i></div>
-                    <h3 class="card-title">Detector de Golpes</h3>
-                    <p class="card-desc">Cole e-mails, SMS ou mensagens de WhatsApp para detectar termos apelativos e engenharia social.</p>
-                </div>
-
-                <!-- Card 4 -->
-                <div onclick="switchTab('breach-check')" class="card">
-                    <div class="card-icon text-amber"><i class="fa-solid fa-user-shield"></i></div>
-                    <h3 class="card-title">Consulta de Vazamentos</h3>
-                    <p class="card-desc">Instruções e verificações sobre exposição de e-mails em vazamentos de dados públicos.</p>
-                </div>
-
-                <!-- Card 5 -->
-                <div onclick="switchTab('security-checklist')" class="card">
-                    <div class="card-icon text-purple"><i class="fa-solid fa-list-check"></i></div>
-                    <h3 class="card-title">Checklist de Segurança</h3>
-                    <p class="card-desc">Avalie os seus hábitos digitais e calcule sua pontuação de proteção pessoal.</p>
-                </div>
-
-                <!-- Card 6 -->
-                <div onclick="switchTab('training-quiz')" class="card">
-                    <div class="card-icon text-cyan"><i class="fa-solid fa-gamepad"></i></div>
-                    <h3 class="card-title">Treinamento Interativo</h3>
-                    <p class="card-desc">Teste sua capacidade de identificar e-mails legítimos ou fraudulentos em um quiz prático.</p>
-                </div>
-
-                <!-- Card 7 -->
-                <div onclick="switchTab('emergency-guide')" class="card">
-                    <div class="card-icon text-rose"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                    <h3 class="card-title">Fui Hackeado, e Agora?</h3>
-                    <p class="card-desc">Guia passo a passo de emergência para contenção imediata de contas comprometidas.</p>
-                </div>
-
-                <!-- Card 8: AWS Security Center -->
-                <div onclick="switchTab('aws-security')" class="card">
-                    <div class="card-icon text-orange"><i class="fa-brands fa-aws"></i></div>
-                    <h3 class="card-title">☁️ AWS Security Center</h3>
-                    <p class="card-desc">Explore IAM, S3, EC2, CloudTrail e auditoria de segurança de infraestrutura em nuvem.</p>
-                </div>
-
-                <!-- Card 9 -->
-                <div onclick="switchTab('blog')" class="card">
-                    <div class="card-icon text-indigo"><i class="fa-solid fa-newspaper"></i></div>
-                    <h3 class="card-title">Blog Educativo</h3>
-                    <p class="card-desc">Artigos direto ao ponto com orientações de prevenção e segurança digital cotidiana.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 1: VALIDADOR DE URLS -->
-        <section id="tab-url-analyzer" class="tab-content hidden">
-            <div class="section-header">
-                <span class="section-tag">Módulo 01</span>
-                <h2 class="section-title"><i class="fa-solid fa-link brand-blue"></i> Validador de URLs</h2>
-                <p class="section-desc">Analise endereços da web e identifique indícios de phishing ou domínios fraudulentos.</p>
-            </div>
-
-            <div class="card mb-6">
-                <label class="form-label">Cole o link que deseja analisar:</label>
-                <div class="input-group">
-                    <div class="input-wrapper">
-                        <i class="fa-solid fa-globe"></i>
-                        <input type="text" id="url-input" placeholder="https://www.exemplo.com.br/login-urgente" class="form-input">
-                    </div>
-                    <button onclick="analyzeURL()" class="btn btn-primary">
-                        <i class="fa-solid fa-magnifying-glass"></i> Analisar Link
-                    </button>
-                </div>
-
-                <div class="examples-bar">
-                    <span>Exemplos para testar:</span>
-                    <button onclick="setURLExample('https://www.microsoft.com')" class="example-btn">microsoft.com (Legítimo)</button>
-                    <button onclick="setURLExample('http://banco-seguro-login-pix-urgente.com.br/recadastro-premio')" class="example-btn">banco-login-pix-urgente... (Suspeito)</button>
-                </div>
-            </div>
-
-            <div id="url-results" class="card hidden">
-                <div class="result-header">
-                    <div>
-                        <span class="result-subtitle">Resultado do Diagnóstico</span>
-                        <h3 id="url-risk-title" class="result-title">🟢 Baixo Risco</h3>
-                    </div>
-                    <div id="url-risk-badge" class="badge-safe">Aparente Segurança</div>
-                </div>
-
-                <div class="result-body">
-                    <h4 class="sub-title">Itens Verificados:</h4>
-                    <div id="url-checks-list" class="checks-list"></div>
-                </div>
-
-                <div id="url-recommendation" class="recommendation-box"></div>
-            </div>
-        </section>
-
-        <!-- SECTION 2: VERIFICADOR DE SENHAS -->
-        <section id="tab-pass-checker" class="tab-content hidden">
-            <div class="section-header">
-                <span class="section-tag">Módulo 02</span>
-                <h2 class="section-title"><i class="fa-solid fa-key text-emerald"></i> Verificador de Senhas</h2>
-                <p class="section-desc">Avalie a resiliência da sua senha contra ataques de força bruta e adivinhação.</p>
-            </div>
-
-            <div class="card">
-                <label class="form-label">Digite a senha para avaliar:</label>
-                <div class="password-wrapper">
-                    <input type="password" id="pass-input" oninput="evaluatePassword()" placeholder="Digite sua senha aqui..." class="form-input">
-                    <button type="button" onclick="togglePassVisibility()" class="password-eye">
-                        <i class="fa-solid fa-eye" id="pass-eye-icon"></i>
-                    </button>
-                </div>
-
-                <div class="meter-container">
-                    <div class="meter-info">
-                        <span>Força da Senha:</span>
-                        <span id="pass-strength-label">Digite algo...</span>
-                    </div>
-                    <div class="meter-bar-bg">
-                        <div id="pass-meter-bar" class="meter-bar-fill"></div>
-                    </div>
-                </div>
-
-                <div class="criteria-grid">
-                    <div id="crit-length" class="criteria-item"><i class="fa-regular fa-circle"></i> Pelo menos 12 caracteres</div>
-                    <div id="crit-upper" class="criteria-item"><i class="fa-regular fa-circle"></i> Letra Maiúscula (A-Z)</div>
-                    <div id="crit-lower" class="criteria-item"><i class="fa-regular fa-circle"></i> Letra Minúscula (a-z)</div>
-                    <div id="crit-number" class="criteria-item"><i class="fa-regular fa-circle"></i> Números (0-9)</div>
-                    <div id="crit-symbol" class="criteria-item col-span-2"><i class="fa-regular fa-circle"></i> Símbolo Especial (!@#$%^&*)</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 3: DETECTOR DE GOLPES -->
-        <section id="tab-phishing-detector" class="tab-content hidden">
-            <div class="section-header">
-                <span class="section-tag">Módulo 03</span>
-                <h2 class="section-title"><i class="fa-solid fa-envelope-open-text text-red"></i> Detector de Golpes e Phishing</h2>
-                <p class="section-desc">Cole mensagens recebidas para identificar termos apelativos e gatilhos mentais.</p>
-            </div>
-
-            <div class="card mb-6">
-                <textarea id="phish-text-input" rows="5" placeholder="Exemplo: Seu PIX foi bloqueado..." class="form-textarea"></textarea>
-                <div class="flex-between">
-                    <div class="examples-bar">
-                        <button onclick="setPhishExample(1)" class="example-btn">Golpe PIX</button>
-                        <button onclick="setPhishExample(2)" class="example-btn">E-mail Legítimo</button>
-                    </div>
-                    <button onclick="detectPhishing()" class="btn btn-danger">
-                        <i class="fa-solid fa-shield-virus"></i> Analisar Mensagem
-                    </button>
-                </div>
-            </div>
-
-            <div id="phish-results" class="card hidden">
-                <div class="result-header">
-                    <h3 id="phish-status-title" class="result-title">🚨 Possível Golpe / Phishing</h3>
-                    <span id="phish-badge" class="badge-danger">Alto Risco</span>
-                </div>
-                <div id="phish-triggers-list" class="checks-list"></div>
-            </div>
-        </section>
-
-        <!-- SECTION 4: VAZAMENTOS -->
-        <section id="tab-breach-check" class="tab-content hidden">
-            <div class="section-header">
-                <span class="section-tag">Módulo 04</span>
-                <h2 class="section-title"><i class="fa-solid fa-user-shield text-amber"></i> Consulta de Vazamentos de Dados</h2>
-                <p class="section-desc">Verifique se seu endereço de e-mail apareceu em bases públicas expostas.</p>
-            </div>
-
-            <div class="card">
-                <div class="input-group">
-                    <input type="email" id="breach-email-input" placeholder="seu-email@exemplo.com" class="form-input">
-                    <button onclick="checkBreach()" class="btn btn-primary">Consultar</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 5: AWS SECURITY CENTER -->
-        <section id="tab-aws-security" class="tab-content hidden">
-            <div class="section-header">
-                <span class="section-tag text-orange">Cloud Governance & Compliance</span>
-                <h2 class="section-title"><i class="fa-brands fa-aws text-orange"></i> AWS Security Center</h2>
-                <p class="section-desc">Monitoramento de postura de segurança, análise de acessos e auditoria de infraestrutura na nuvem.</p>
-            </div>
-
-            <div class="features-grid">
-                <a href="paginas/aws/iam/" class="card aws-card">
-                    <div class="flex-between mb-4">
-                        <div class="card-icon text-orange"><i class="fa-solid fa-users-gear"></i></div>
-                        <span class="card-link-text">Acessar <i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
-                    <h3 class="card-title">IAM Governance</h3>
-                    <p class="card-desc">Políticas de acesso, usuários ativos e verificação de privilégios excessivos.</p>
-                </a>
-
-                <a href="paginas/aws/s3/" class="card aws-card">
-                    <div class="flex-between mb-4">
-                        <div class="card-icon text-orange"><i class="fa-solid fa-database"></i></div>
-                        <span class="card-link-text">Acessar <i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
-                    <h3 class="card-title">S3 Buckets</h3>
-                    <p class="card-desc">Auditoria de exposição pública, criptografia e controle de ACLs.</p>
-                </a>
-
-                <a href="paginas/aws/ec2/" class="card aws-card">
-                    <div class="flex-between mb-4">
-                        <div class="card-icon text-orange"><i class="fa-solid fa-server"></i></div>
-                        <span class="card-link-text">Acessar <i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
-                    <h3 class="card-title">EC2 Security</h3>
-                    <p class="card-desc">Análise de instâncias, portas abertas e regras de Security Groups.</p>
-                </a>
-
-                <a href="paginas/aws/cloudtrail/" class="card aws-card">
-                    <div class="flex-between mb-4">
-                        <div class="card-icon text-orange"><i class="fa-solid fa-shoe-prints"></i></div>
-                        <span class="card-link-text">Acessar <i class="fa-solid fa-arrow-right"></i></span>
-                    </div>
-                    <h3 class="card-title">CloudTrail Logs</h3>
-                    <p class="card-desc">Rastreabilidade de eventos de API e trilhas de auditoria da conta.</p>
-                </a>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div>
-                <strong>CyberCheck PRO</strong> &copy; 2026 — Todos os direitos reservados.
-            </div>
-            <div>
-                <span>Powered by <strong>Python + Flask</strong></span>
-            </div>
+      <!-- 3. Phishing Detector -->
+      <div class="tool-card" id="golpes">
+        <div class="tool-icon">📧</div>
+        <h3 class="tool-title">3. Detector de Golpes</h3>
+        <p class="tool-desc">Cole a mensagem recebida por e-mail ou SMS.</p>
+        <div class="input-group">
+          <textarea id="golpe-input" class="input-field" placeholder="Ex: Seu PIX foi bloqueado..."></textarea>
         </div>
-    </footer>
+        <button class="btn btn-primary" style="width:100%" onclick="analisaGolpe()">Analisar Texto</button>
+        <div id="golpe-result" class="result-box"></div>
+      </div>
 
-    <!-- JavaScript Principal do CyberCheck -->
-    <script src="script/app.js"></script>
+      <!-- 5. Checklist -->
+      <div class="tool-card" id="checklist">
+        <div class="tool-icon">🛡️</div>
+        <h3 class="tool-title">5. Checklist de Segurança</h3>
+        <p class="tool-desc">Marque o que você já adotou em sua rotina:</p>
+        <div style="text-align: left;">
+          <label class="checklist-item"><input type="checkbox" class="check-item" onclick="atualizaChecklist()"> Uso senha forte</label>
+          <label class="checklist-item"><input type="checkbox" class="check-item" onclick="atualizaChecklist()"> Ativei MFA / 2FA</label>
+          <label class="checklist-item"><input type="checkbox" class="check-item" onclick="atualizaChecklist()"> Faço backup periódico</label>
+          <label class="checklist-item"><input type="checkbox" class="check-item" onclick="atualizaChecklist()"> Computador atualizado</label>
+        </div>
+        <div id="checklist-score" style="margin-top: 1rem; font-weight: bold;">Sua segurança: 0%</div>
+        <div class="progress-bar">
+          <div id="checklist-progress" class="progress-fill"></div>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Script JS -->
+  <script src="script/app.js"></script>
 </body>
 </html>

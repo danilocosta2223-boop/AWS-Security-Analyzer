@@ -1,118 +1,66 @@
-/**
- * Alterna a aba ativa da aplicação concatenando o prefixo "tab-"
- * @param {string} tabId - O ID da aba sem o prefixo (ex: "home", "url-analyzer", "pass-checker")
- */
-function switchTab(tabId) {
-    console.log("Mudando para:", tabId);
-    
-    // Oculta todas as abas com a classe .tab-content
-    document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.add('hidden');
-    });
-    
-    // Procura o elemento pelo ID correto (ex: "tab-home")
-    const targetTab = document.getElementById("tab-" + tabId);
-    
-    if (targetTab) {
-        targetTab.classList.remove('hidden');
-    }
-    
-    // Rola suavemente até o topo da página ao mudar de aba
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
+// ==========================================
+// CYBERCHECK - LOGICA JS (script/app.js)
+// ==========================================
 
-/**
- * Alterna a visibilidade do menu mobile
- */
-function toggleMobileMenu() {
-    const menu = document.getElementById("mobile-menu");
-    
-    if (menu) {
-        menu.classList.toggle("hidden");
-    }
-}
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Validatore URL
+    window.analisaURL = function() {
+        const urlInput = document.getElementById('url-input').value.trim();
+        const result = document.getElementById('url-result');
+        if (!urlInput) return;
 
-/**
- * Analisa a segurança de uma URL informada
- */
-function analyzeURL() {
-    const urlInput = document.getElementById("url-input");
-    if (!urlInput) return;
-    
-    console.log("Analisando URL:", urlInput.value);
-    // Lógica de análise de URL
-}
-
-/**
- * Avalia a força e segurança de uma senha
- */
-function evaluatePassword() {
-    const passInput = document.getElementById("password-input");
-    if (!passInput) return;
-    
-    console.log("Avaliando senha...");
-    // Lógica de avaliação de senha
-}
-
-/**
- * Detecta padrões de phishing em links ou emails
- */
-function detectPhishing() {
-    console.log("Executando detecção de Phishing...");
-    // Lógica de detecção de phishing
-}
-
-/**
- * Verifica se um email/usuário consta em vazamentos de dados
- */
-function checkBreach() {
-    const emailInput = document.getElementById("email-input");
-    if (!emailInput) return;
-    
-    console.log("Verificando vazamento para:", emailInput.value);
-    // Lógica de verificação de vazamento
-}
-
-// Inicialização automática ao carregar o DOM
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("CyberCheck carregado com sucesso");
-    
-    // Exibe a aba inicial (Home) por padrão
-    switchTab("home");
-});
-
-// Controle do Menu Mobile e Abas
-function switchTab(tabId) {
-    const contents = document.querySelectorAll('.tab-content');
-    contents.forEach(el => el.classList.add('hidden'));
-    
-    const target = document.getElementById(`tab-${tabId}`);
-    if (target) {
-        target.classList.remove('hidden');
-    }
-}
-
-function toggleMobileMenu() {
-    const menu = document.getElementById('mobile-menu');
-    if (menu) {
-        menu.classList.toggle('hidden');
-    }
-}
-
-// Botão de Alternância de Modo Escuro / Tema
-const themeToggleBtn = document.getElementById('theme-toggle');
-if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        document.documentElement.classList.toggle('dark');
-        
-        if (document.body.classList.contains('dark-mode') || document.documentElement.classList.contains('dark')) {
-            themeToggleBtn.innerHTML = '☀️ Modo Claro';
+        result.style.display = 'block';
+        if (urlInput.startsWith('https://') && !urlInput.includes('pix') && !urlInput.includes('premio')) {
+            result.className = 'result-box success';
+            result.innerHTML = '🟢 <strong>Basso Rischio:</strong> Dominio protetto da HTTPS e privo di parole di phishing note.';
         } else {
-            themeToggleBtn.innerHTML = '🌙 Modo Escuro';
+            result.className = 'result-box danger';
+            result.innerHTML = '🔴 <strong>Alto Rischio:</strong> Il link non usa HTTPS o contiene parole chiave sospette!';
         }
-    });
-}
+    };
+
+    // 2. Verificatore Password
+    window.analisaSenha = function() {
+        const pass = document.getElementById('pass-input').value;
+        const result = document.getElementById('pass-result');
+        if (!pass) return;
+
+        result.style.display = 'block';
+        const forte = pass.length >= 12 && /[A-Z]/.test(pass) && /[0-9]/.test(pass) && /[^A-Za-z0-9]/.test(pass);
+
+        if (forte) {
+            result.className = 'result-box success';
+            result.innerHTML = '🟢 <strong>Password Forte:</strong> Ottima combinazione di caratteri e lunghezza.';
+        } else {
+            result.className = 'result-box danger';
+            result.innerHTML = '🔴 <strong>Password Debole:</strong> Usa almeno 12 caratteri con maiuscole, numeri e simboli.';
+        }
+    };
+
+    // 3. Rilevatore Phishing E-mail / SMS
+    window.analisaGolpe = function() {
+        const text = document.getElementById('golpe-input').value.toLowerCase();
+        const result = document.getElementById('golpe-result');
+        if (!text) return;
+
+        result.style.display = 'block';
+        if (text.includes('bloqueado') || text.includes('clique') || text.includes('urgente') || text.includes('pix')) {
+            result.className = 'result-box danger';
+            result.innerHTML = '🚨 <strong>Possibile Truffa:</strong> Il messaggio utilizza leve psicologiche di urgenza e minaccia!';
+        } else {
+            result.className = 'result-box success';
+            result.innerHTML = '🟢 <strong>Nessun campanello d\'allarme evidente:</strong> Verifica comunque il mittente reale.';
+        }
+    };
+
+    // 5. Checklist Sicurezza
+    window.atualizaChecklist = function() {
+        const checkboxes = document.querySelectorAll('.check-item');
+        let marcados = 0;
+        checkboxes.forEach(chk => { if (chk.checked) marcados++; });
+        const porcentagem = Math.round((marcados / checkboxes.length) * 100);
+
+        document.getElementById('checklist-score').innerText = `La tua sicurezza: ${porcentagem}%`;
+        document.getElementById('checklist-progress').style.width = `${porcentagem}%`;
+    };
+});
