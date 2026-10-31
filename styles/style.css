@@ -1,0 +1,223 @@
+/* ==========================================================================
+   CYBERCHECK - STYLE.CSS (Design System & Theme Polish)
+   - Consistência de espaçamentos e contraste aprimorados
+   - Alinhamento refinado para cabeçalho e rodapé
+   - Estados hover suaves e ótima legibilidade
+========================================================================== */
+:root {
+    /* Fundo */
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --bg-sidebar: #162033;
+    --bg-header: #131c31;
+    --bg-footer: #0b1120;
+    
+    /* Azuis e Destaques */
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-light: #3b82f6;
+    --accent: #60a5fa;
+    --accent-hover: rgba(96, 165, 250, 0.08); /* Hover suave para links/botões secundários */
+    
+    /* Texto (Alto Contraste para Legibilidade) */
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-bright: #ffffff;
+    
+    /* Status */
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    
+    /* Bordas e Sombras */
+    --border: #334155;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    
+    /* Espaçamentos & Raios Consistentes */
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1.25rem;
+    --spacing-lg: 2rem;
+    --radius: 12px;
+}
+
+/* ====================================
+   BODY
+==================================== */
+body {
+    background: var(--bg-main);
+    color: var(--text-main);
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.5;
+}
+
+/* ====================================
+   CABEÇALHO (HEADER) PROFISSIONAL
+==================================== */
+header {
+    background: var(--bg-header);
+    border-bottom: 1px solid var(--border);
+    padding: var(--spacing-md) var(--spacing-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+}
+
+header h1, header h2 {
+    color: var(--text-bright);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+/* ====================================
+   SIDEBAR
+==================================== */
+aside {
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
+}
+
+.logo-area {
+    color: var(--primary-light);
+    font-weight: 700;
+    padding: var(--spacing-md);
+}
+
+/* ====================================
+   MENU & HOVERS SUAVES
+==================================== */
+.nav-links a {
+    color: var(--text-muted);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    background: var(--accent-hover); /* Destaque suave no hover */
+    color: var(--accent);
+}
+
+.nav-links a.active {
+    background: var(--primary);
+    color: var(--text-bright);
+}
+
+/* ====================================
+   CARDS
+==================================== */
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: var(--spacing-lg);
+}
+
+/* ====================================
+   INPUTS (Foco e Legibilidade)
+==================================== */
+input,
+textarea,
+select {
+    background: var(--bg-main);
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    border-radius: 8px;
+    padding: var(--spacing-sm);
+    font-size: 1rem;
+    width: 100%;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+/* ====================================
+   BOTÕES (Conforto de Toque e Visual)
+==================================== */
+button {
+    background: var(--primary);
+    color: var(--text-bright);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.2s ease, transform 0.1s ease;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--primary-hover);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* ====================================
+   RODAPÉ (FOOTER) PROFISSIONAL
+==================================== */
+footer {
+    background: var(--bg-footer);
+    border-top: 1px solid var(--border);
+    padding: var(--spacing-lg);
+    color: var(--text-muted);
+    text-align: center;
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+footer a {
+    color: var(--accent);
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: var(--text-bright);
+}
+
+/* ====================================
+   STATUS
+==================================== */
+.status-safe {
+    color: var(--success);
+}
+
+.status-warning {
+    color: var(--warning);
+}
+
+.status-danger {
+    color: var(--danger);
+}
+
+/* ====================================
+   TABELAS
+==================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: var(--primary);
+    color: var(--text-bright);
+    font-weight: 600;
+}
+
+td,
+th {
+    padding: var(--spacing-sm);
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}

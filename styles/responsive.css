@@ -1,0 +1,138 @@
+/* ==========================================================================
+   CYBERCHECK - RESPONSIVE.CSS
+   Mobile First Layout & Touch Optimizations
+========================================================================== */
+
+/* ====================================
+   TELAS GRANDES
+==================================== */
+@media (min-width: 1200px) {
+    main {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .cards-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* ====================================
+   TABLETS
+==================================== */
+@media (max-width: 1024px) {
+    main {
+        padding: 1.5rem;
+    }
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ====================================
+   CELULARES
+==================================== */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    aside {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .logo-area {
+        padding: 1rem;
+        border-bottom: none;
+    }
+
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 0.5rem;
+        padding: 0.625rem 1rem;
+        scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-links a {
+        white-space: nowrap;
+        padding: 0.75rem 1rem; /* Área de toque confortável */
+        font-size: 0.875rem;
+    }
+
+    main {
+        width: 100%;
+        padding: 1.25rem;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .score-box,
+    .status-box {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* ====================================
+   CELULARES PEQUENOS (Ajustes de harmonia e toque)
+==================================== */
+@media (max-width: 480px) {
+    /* Tipografia ajustada para não estourar em telas estreitas */
+    h1 {
+        font-size: 1.5rem; /* Ajustado para caber perfeitamente sem quebrar o layout */
+        line-height: 1.2;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        line-height: 1.3;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    /* Elementos interativos com altura e largura confortáveis para toque (Touch Targets) */
+    button,
+    .btn {
+        width: 100%;
+        min-height: 44px; /* Altura padrão recomendada para acessibilidade mobile */
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    input,
+    textarea,
+    select {
+        width: 100%;
+        min-height: 44px;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .score-value {
+        font-size: 1rem;
+    }
+}

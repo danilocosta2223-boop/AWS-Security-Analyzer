@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberCheck - Consulta de Vazamentos</title>
+    
+    <!-- CYBERCHECK DESIGN SYSTEM -->
+    <link rel="stylesheet" href="../../../../styles/normalize.css">
+    <link rel="stylesheet" href="../../../../styles/global.css">
+    <link rel="stylesheet" href="../../../../styles/dark.css">
+    <link rel="stylesheet" href="../../../../styles/style.css">
+    <link rel="stylesheet" href="../../../../styles/responsive.css">
+</head>
+<body>
+
+    <!-- Menu Padrão CyberCheck -->
+    <aside>
+        <div class="logo-area">
+            🛡️ CyberCheck
+        </div>
+        <ul class="nav-links">
+            <li><a href="../index.html">🏠 Home</a></li>
+            <li><a href="url-validator.html">🔗 URLs</a></li>
+            <li><a href="password-checker.html">🔐 Senhas</a></li>
+            <li><a href="phishing-detector.html">📧 Phishing</a></li>
+            <li><a href="breach-checker.html" class="active">👥 Vazamentos</a></li>
+            <li><a href="checklist.html">✅ Checklist</a></li>
+            <li><a href="training.html">🎮 Treinamento</a></li>
+            <li><a href="emergency.html">🚨 SOS</a></li>
+            <li><a href="blog.html">📰 Blog</a></li>
+        </ul>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <a href="../index.html" class="top-nav-back">⬅ Voltar ao Dashboard</a>
+
+        <header>
+            <h1>👥 Consulta de Vazamentos</h1>
+            <p>Verifique se o seu endereço de e-mail foi exposto em incidentes de segurança conhecidos na web.</p>
+        </header>
+
+        <div class="card">
+            <div class="form-group">
+                <label for="emailInput">Digite seu e-mail para análise:</label>
+                <input type="email" id="emailInput" placeholder="exemplo@dominio.com">
+                <button id="checkBtn">Verificar Vazamentos</button>
+                <p class="educational-notice">
+                    ⚠️ Esta é uma ferramenta de simulação integrada ao backend do CyberCheck. Para monitoramentos globais em tempo real, utilize também serviços como Have I Been Pwned.
+                </p>
+            </div>
+
+            <!-- Área de Resultados -->
+            <div id="resultContainer" class="result-container">
+                <hr>
+                
+                <!-- Score de Exposição -->
+                <div class="score-box">
+                    <span>Score de Exposição Estimado:</span>
+                    <span id="riskScore" class="score-value">0%</span>
+                </div>
+
+                <div id="statusBox" class="status-box status-safe">
+                    <span id="statusIcon">✅</span> 
+                    <span id="statusText">Nenhum vazamento encontrado</span>
+                </div>
+
+                <div class="action-title">Recomendações de Segurança:</div>
+                <ul class="action-list">
+                    <li>✅ Trocar senha periodicamente</li>
+                    <li>✅ Ativar MFA (Autenticação em Dois Fatores)</li>
+                    <li>✅ Revisar acessos conectados a aplicativos</li>
+                    <li>✅ Alterar perguntas de recuperação</li>
+                </ul>
+
+                <div class="meta-info">
+                    Análise realizada em: <span id="analysisDate"></span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Script Externo -->
+    <script src="../js/breach-checker.js"></script>
+</body>
+</html>
