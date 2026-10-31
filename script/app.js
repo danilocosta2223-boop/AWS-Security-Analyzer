@@ -83,3 +83,36 @@ document.addEventListener("DOMContentLoaded", () => {
     // Exibe a aba inicial (Home) por padrão
     switchTab("home");
 });
+
+// Controle do Menu Mobile e Abas
+function switchTab(tabId) {
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(el => el.classList.add('hidden'));
+    
+    const target = document.getElementById(`tab-${tabId}`);
+    if (target) {
+        target.classList.remove('hidden');
+    }
+}
+
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+        menu.classList.toggle('hidden');
+    }
+}
+
+// Botão de Alternância de Modo Escuro / Tema
+const themeToggleBtn = document.getElementById('theme-toggle');
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        document.documentElement.classList.toggle('dark');
+        
+        if (document.body.classList.contains('dark-mode') || document.documentElement.classList.contains('dark')) {
+            themeToggleBtn.innerHTML = '☀️ Modo Claro';
+        } else {
+            themeToggleBtn.innerHTML = '🌙 Modo Escuro';
+        }
+    });
+}

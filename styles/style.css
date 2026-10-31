@@ -1,38 +1,44 @@
 /* ==========================================================================
-   CYBERCHECK - STYLE.CSS (Design System & Theme Polish)
+   CYBERCHECK - STYLE.CSS (Nova Paleta Premium & Design System)
    - Variáveis, Cores, Tema Claro e Suporte a Modo Escuro (.dark)
-   - Reset, Tipografia, Componentes, Tabelas e Estados
+   - Layout, Cards, Login, Botões, KPIs, Tabelas e Responsividade
 ========================================================================== */
 
 :root {
-    /* Cores - Tema Claro (Padrão) */
-    --bg-main: #f5f7fa;
+    /* Fundo */
+    --bg-main: #f8fafc;
     --bg-card: #ffffff;
-    --bg-sidebar: #ffffff;
-    --bg-header: #ffffff;
+    --bg-sidebar: #0f172a;
+    --bg-header: #0f172a;
     --bg-footer: #f8fafc;
     
-    /* Azuis e Destaques */
-    --primary: #1d8cf8;
-    --primary-hover: #1877cb;
-    --primary-light: #3b82f6;
-    --accent: #2563eb;
-    --accent-hover: rgba(37, 99, 235, 0.08);
+    /* Azul Institucional */
+    --primary: #0f172a;
+    --primary-hover: #1e293b;
+    --primary-light: #2563eb;
     
-    /* Texto (Alto Contraste) */
-    --text-main: #1f2937;
-    --text-muted: #6b7280;
-    --text-bright: #111827;
+    /* Destaques (Accent / Warning) */
+    --accent: #fbbf24;
+    --accent-hover: #f59e0b;
+    --accent-hover-bg: rgba(251, 191, 36, 0.08);
+    
+    /* Textos (Alto Contraste) */
+    --text-main: #334155;
+    --text-bright: #0f172a;
+    --text-muted: #64748b;
     
     /* Status */
-    --success: #22c55e;
+    --success: #10b981;
     --warning: #f59e0b;
     --danger: #ef4444;
     
-    /* Bordas, Sombras & Raios */
-    --border: #e5e7eb;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --radius: 12px;
+    /* Bordas e Sombras */
+    --border: #e2e8f0;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.08);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    
+    --radius: 16px;
     
     /* Espaçamentos Consistentes */
     --spacing-sm: 0.75rem;
@@ -41,27 +47,29 @@
 }
 
 /* ====================================
-   TEMA ESCURO (.dark no elemento <html>)
+   TEMA ESCURO (.dark no elemento <html> ou body.dark-mode)
 ==================================== */
-html.dark {
-    --bg-main: #0f172a;
-    --bg-card: #1e293b;
-    --bg-sidebar: #162033;
-    --bg-header: #131c31;
-    --bg-footer: #0b1120;
+html.dark, body.dark-mode {
+    --bg-main: #0b0f19;
+    --bg-card: #131c31;
+    --bg-sidebar: #0a0f1d;
+    --bg-header: #0a0f1d;
+    --bg-footer: #0a0f1d;
     
-    --primary: #2563eb;
-    --primary-hover: #1d4ed8;
+    --primary: #1e293b;
+    --primary-hover: #334155;
     --primary-light: #3b82f6;
-    --accent: #60a5fa;
-    --accent-hover: rgba(96, 165, 250, 0.08);
     
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
+    --accent: #fbbf24;
+    --accent-hover: #f59e0b;
+    
+    --text-main: #cbd5e1;
     --text-bright: #ffffff;
+    --text-muted: #94a3b8;
     
-    --border: #334155;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    --border: #1e293b;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,.25);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,.4);
 }
 
 /* ====================================
@@ -88,6 +96,8 @@ body {
     line-height: 1.5;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
+    transition: background .3s ease, color .3s ease;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -121,106 +131,245 @@ img {
 }
 
 /* ====================================
-   CABEÇALHO (HEADER) PROFISSIONAL
+   LAYOUT PRINCIPAL E CONTAINER
+==================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+}
+
+/* ====================================
+   CABEÇALHO (HEADER) PREMIUM
 ==================================== */
 header {
-    background: var(--bg-header);
-    border-bottom: 1px solid var(--border);
-    padding: var(--spacing-md) var(--spacing-lg);
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+    padding: 20px 30px;
+    box-shadow: 0 5px 25px rgba(15,23,42,.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--spacing-md);
 }
 
-/* ====================================
-   SIDEBAR & NAVEGAÇÃO
-==================================== */
-aside {
-    background: var(--bg-sidebar);
-    border-right: 1px solid var(--border);
-}
-
-.logo-area {
-    color: var(--primary-light);
-    font-weight: 700;
-    padding: var(--spacing-md);
-}
-
-.nav-links a {
-    color: var(--text-muted);
-    display: block;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-}
-
-.nav-links a:hover {
-    background: var(--accent-hover);
-    color: var(--accent);
-}
-
-.nav-links a.active {
-    background: var(--primary);
+header h1, header h2 {
     color: #ffffff;
 }
 
 /* ====================================
-   CARDS
+   LOGO PROFISSIONAL
 ==================================== */
-.card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: var(--spacing-lg);
-    box-shadow: var(--shadow);
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: white;
+    padding: var(--spacing-sm) 0;
 }
 
 /* ====================================
-   FORMULÁRIOS (INPUTS, TEXTAREA, SELECT)
+   SIDEBAR MODERNA
+==================================== */
+aside {
+    background: #0f172a;
+    min-height: 100vh;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-links a {
+    color: #cbd5e1;
+    margin: 8px;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    display: block;
+    transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+    background: rgba(251, 191, 36, 0.1);
+    color: var(--accent);
+}
+
+.nav-links a.active {
+    background: #fbbf24;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+/* ====================================
+   CARDS COM EFEITO PREMIUM
+==================================== */
+.card {
+    background: var(--bg-card);
+    border: none;
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-lg);
+    margin-bottom: 20px;
+    transition: background .3s ease, color .3s ease, transform .3s ease, box-shadow .3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-header,
+.card-body,
+.card-footer {
+    margin-bottom: 15px;
+}
+
+/* ====================================
+   KPI CARDS (DASHBOARD)
+==================================== */
+.kpi-card {
+    background: linear-gradient(135deg, #0f172a, #2563eb);
+    color: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: var(--shadow-sm);
+    transition: background .3s ease, color .3s ease, transform .3s ease, box-shadow .3s ease;
+}
+
+.kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.kpi-label {
+    opacity: .8;
+    font-size: .9rem;
+}
+
+.kpi-number {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-top: 8px;
+}
+
+/* ====================================
+   LOGIN DE ALTO NÍVEL
+==================================== */
+.login-container {
+    max-width: 450px;
+    margin: 50px auto;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.login-card {
+    background: var(--bg-card);
+    border: none;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.15);
+    overflow: hidden;
+    animation: fadeIn .4s ease;
+    transition: background .3s ease, color .3s ease, transform .3s ease, box-shadow .3s ease;
+}
+
+.login-header {
+    background: linear-gradient(135deg, #0f172a, #2563eb);
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+/* ====================================
+   INPUTS PREMIUM
 ==================================== */
 input,
 textarea,
 select {
     width: 100%;
-    padding: 12px;
+    height: 48px;
+    padding: 0 16px;
     background: var(--bg-card);
     color: var(--text-main);
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
     font: inherit;
     font-size: 1rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.3s ease;
+}
+
+textarea {
+    height: auto;
+    padding: 12px 16px;
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+    border-color: var(--primary-light);
 }
 
 input:focus,
 textarea:focus,
 select:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37,99,235,.15);
 }
 
 /* ====================================
-   BOTÕES
+   BOTÕES E GRUPOS DE BOTÕES
 ==================================== */
-button {
-    background: var(--primary);
-    color: #ffffff;
+.btn-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+button,
+.btn {
+    height: 48px;
+    padding: 0 24px;
     border: none;
-    border-radius: 8px;
-    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: 12px;
     font-weight: 600;
     font: inherit;
     cursor: pointer;
-    transition: background 0.2s ease, transform 0.1s ease;
+    transition: background 0.3s ease, transform 0.1s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
-button:hover {
-    background: var(--primary-hover);
+button:hover,
+.btn:hover {
+    transform: translateY(-2px);
 }
 
-button:active {
+.btn-primary {
+    background: #0f172a;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1e293b;
+}
+
+.btn-warning {
+    background: #fbbf24;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.btn-warning:hover {
+    background: #f59e0b;
+}
+
+button:active, .btn:active {
     transform: scale(0.98);
 }
 
@@ -254,9 +403,9 @@ footer a:hover {
    STATUS
 ==================================== */
 .status-safe {
-    background-color: rgba(34, 197, 94, 0.15);
+    background-color: rgba(16, 185, 129, 0.15);
     color: var(--success);
-    border: 1px solid rgba(34, 197, 94, 0.30);
+    border: 1px solid rgba(16, 185, 129, 0.30);
     padding: 0.25rem 0.5rem;
     border-radius: 6px;
     display: inline-block;
@@ -281,8 +430,13 @@ footer a:hover {
 }
 
 /* ====================================
-   TABELAS
+   TABELAS E CONTAINER RESPONSIVO
 ==================================== */
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -324,4 +478,39 @@ td {
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--text-muted);
+}
+
+/* ====================================
+   ANIMAÇÕES
+==================================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ====================================
+   RESPONSIVIDADE (MEDIA QUERIES)
+==================================== */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .card {
+        padding: 15px;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+    }
+    
+    .btn, button {
+        width: 100%;
+    }
 }
