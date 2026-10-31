@@ -1,48 +1,43 @@
-/* RESET GERAL */
+/* ==========================================================================
+   CYBERCHECK - DESIGN SYSTEM & STYLESHEET
+   - Unidades relativas (rem) para fontes e espaçamentos
+   - Mídia flexível (max-width: 100%, height: auto)
+   - Tipografia fluida com clamp()
+   - Mobile First & Responsividade Completa
+========================================================================== */
 
+/* ====================================
+   1. NORMALIZE & RESET BÁSICO
+==================================== */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 html {
-    font-size: 16px;
-    scroll-behavior: smooth;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
-    min-height: 100vh;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-img,
-picture,
-video,
-canvas,
-svg {
-    display: block;
-    max-width: 100%;
-}
-
-input,
-button,
-textarea,
-select {
-    font: inherit;
-}
-
-button {
-    border: none;
-    cursor: pointer;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li {
+    margin: 0;
+    padding: 0;
 }
 
 ul,
@@ -50,7 +45,117 @@ ol {
     list-style: none;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    height: auto; /* Garantindo que a mídia não distorça */
+    display: block;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+
+/* ====================================
+   2. TIPOGRAFIA FLUIDA (Exemplo com clamp)
+==================================== */
+h1 {
+    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+h2 {
+    font-size: clamp(1.25rem, 2vw, 2rem);
+}
+
+p {
+    font-size: clamp(0.95rem, 1vw, 1.1rem);
+}
+
+
+/* ====================================
+   3. LAYOUT & RESPONSIVIDADE (Mobile First)
+==================================== */
+
+/* Telas grandes (Desktop) */
+@media (min-width: 1200px) {
+    main {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+    main {
+        padding: 1.5rem; /* Usando rem */
+    }
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Celulares */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+    aside {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border, #ccc);
+    }
+    .nav-links {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 0.5rem;
+        padding: 0.625rem;
+    }
+    .nav-links a {
+        white-space: nowrap;
+    }
+    main {
+        padding: 1.25rem;
+        width: 100%;
+    }
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .score-box {
+        flex-direction: column;
+        gap: 0.625rem;
+        text-align: center;
+    }
+}
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+    .card {
+        padding: 1rem;
+    }
+    button {
+        width: 100%;
+    }
+    input {
+        width: 100%;
+    }
 }
