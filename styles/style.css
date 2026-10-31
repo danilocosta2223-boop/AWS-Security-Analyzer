@@ -1,54 +1,123 @@
 /* ==========================================================================
    CYBERCHECK - STYLE.CSS (Design System & Theme Polish)
-   - Consistência de espaçamentos e contraste aprimorados
-   - Alinhamento refinado para cabeçalho e rodapé
-   - Estados hover suaves e ótima legibilidade
+   - Variáveis, Cores, Tema Claro e Suporte a Modo Escuro (.dark)
+   - Reset, Tipografia, Componentes, Tabelas e Estados
 ========================================================================== */
+
 :root {
-    /* Fundo */
-    --bg-main: #0f172a;
-    --bg-card: #1e293b;
-    --bg-sidebar: #162033;
-    --bg-header: #131c31;
-    --bg-footer: #0b1120;
+    /* Cores - Tema Claro (Padrão) */
+    --bg-main: #f5f7fa;
+    --bg-card: #ffffff;
+    --bg-sidebar: #ffffff;
+    --bg-header: #ffffff;
+    --bg-footer: #f8fafc;
     
     /* Azuis e Destaques */
-    --primary: #2563eb;
-    --primary-hover: #1d4ed8;
+    --primary: #1d8cf8;
+    --primary-hover: #1877cb;
     --primary-light: #3b82f6;
-    --accent: #60a5fa;
-    --accent-hover: rgba(96, 165, 250, 0.08); /* Hover suave para links/botões secundários */
+    --accent: #2563eb;
+    --accent-hover: rgba(37, 99, 235, 0.08);
     
-    /* Texto (Alto Contraste para Legibilidade) */
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --text-bright: #ffffff;
+    /* Texto (Alto Contraste) */
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --text-bright: #111827;
     
     /* Status */
     --success: #22c55e;
     --warning: #f59e0b;
     --danger: #ef4444;
     
-    /* Bordas e Sombras */
-    --border: #334155;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    /* Bordas, Sombras & Raios */
+    --border: #e5e7eb;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --radius: 12px;
     
-    /* Espaçamentos & Raios Consistentes */
+    /* Espaçamentos Consistentes */
     --spacing-sm: 0.75rem;
     --spacing-md: 1.25rem;
     --spacing-lg: 2rem;
-    --radius: 12px;
 }
 
 /* ====================================
-   BODY
+   TEMA ESCURO (.dark no elemento <html>)
 ==================================== */
+html.dark {
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --bg-sidebar: #162033;
+    --bg-header: #131c31;
+    --bg-footer: #0b1120;
+    
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --primary-light: #3b82f6;
+    --accent: #60a5fa;
+    --accent-hover: rgba(96, 165, 250, 0.08);
+    
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-bright: #ffffff;
+    
+    --border: #334155;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* ====================================
+   RESET BÁSICO
+==================================== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+}
+
 body {
     background: var(--bg-main);
     color: var(--text-main);
     min-height: 100vh;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-bright);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+}
+
+p {
+    color: var(--text-main);
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--text-bright);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* ====================================
@@ -64,14 +133,8 @@ header {
     gap: var(--spacing-md);
 }
 
-header h1, header h2 {
-    color: var(--text-bright);
-    font-weight: 700;
-    letter-spacing: -0.025em;
-}
-
 /* ====================================
-   SIDEBAR
+   SIDEBAR & NAVEGAÇÃO
 ==================================== */
 aside {
     background: var(--bg-sidebar);
@@ -84,24 +147,22 @@ aside {
     padding: var(--spacing-md);
 }
 
-/* ====================================
-   MENU & HOVERS SUAVES
-==================================== */
 .nav-links a {
     color: var(--text-muted);
+    display: block;
     padding: 0.75rem 1rem;
     border-radius: 8px;
     transition: all 0.2s ease;
 }
 
 .nav-links a:hover {
-    background: var(--accent-hover); /* Destaque suave no hover */
+    background: var(--accent-hover);
     color: var(--accent);
 }
 
 .nav-links a.active {
     background: var(--primary);
-    color: var(--text-bright);
+    color: #ffffff;
 }
 
 /* ====================================
@@ -111,23 +172,25 @@ aside {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    box-shadow: var(--shadow);
     padding: var(--spacing-lg);
+    box-shadow: var(--shadow);
 }
 
 /* ====================================
-   INPUTS (Foco e Legibilidade)
+   FORMULÁRIOS (INPUTS, TEXTAREA, SELECT)
 ==================================== */
 input,
 textarea,
 select {
-    background: var(--bg-main);
-    border: 1px solid var(--border);
-    color: var(--text-main);
-    border-radius: 8px;
-    padding: var(--spacing-sm);
-    font-size: 1rem;
     width: 100%;
+    padding: 12px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font: inherit;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 input:focus,
@@ -139,16 +202,18 @@ select:focus {
 }
 
 /* ====================================
-   BOTÕES (Conforto de Toque e Visual)
+   BOTÕES
 ==================================== */
 button {
     background: var(--primary);
-    color: var(--text-bright);
-    padding: var(--spacing-sm) var(--spacing-lg);
+    color: #ffffff;
+    border: none;
     border-radius: 8px;
+    padding: var(--spacing-sm) var(--spacing-lg);
     font-weight: 600;
-    transition: background 0.2s ease, transform 0.1s ease;
+    font: inherit;
     cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
 }
 
 button:hover {
@@ -179,237 +244,10 @@ footer {
 footer a {
     color: var(--accent);
     text-decoration: underline;
-    transition: color 0.2s ease;
 }
 
 footer a:hover {
     color: var(--text-bright);
-}
-
-/* ====================================
-   STATUS
-==================================== */
-.status-safe {
-    color: var(--success);
-}
-
-.status-warning {
-    color: var(--warning);
-}
-
-.status-danger {
-    color: var(--danger);
-}
-
-/* ====================================
-   TABELAS
-==================================== */
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th {
-    background: var(--primary);
-    color: var(--text-bright);
-    font-weight: 600;
-}
-
-td,
-th {
-    padding: var(--spacing-sm);
-    border-bottom: 1px solid var(--border);
-    text-align: left;
-}
-
-/* ==========================================================================
-   CYBERCHECK - STYLE.CSS (Design System Completo)
-   - Variáveis, Cores, Tema Claro e Suporte a Modo Escuro (.dark)
-   - Reset, Tipografia, Componentes e Estados
-========================================================================== */
-
-:root {
-    /* Cores - Tema Claro (Padrão) */
-    --bg-main: #f5f7fa;
-    --bg-card: #ffffff;
-    --bg-sidebar: #ffffff;
-    --bg-header: #ffffff;
-    
-    --primary: #1d8cf8;
-    --primary-hover: #1877cb;
-    --primary-light: #3b82f6;
-    
-    --success: #22c55e;
-    --warning: #f59e0b;
-    --danger: #ef4444;
-    
-    --text-main: #1f2937;
-    --text-muted: #6b7280;
-    --text-bright: #111827;
-    
-    --border: #e5e7eb;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    --radius: 12px;
-}
-
-/* ====================================
-   TEMA ESCURO (.dark no elemento <html>)
-==================================== */
-html.dark {
-    --bg-main: #1e1f24;
-    --bg-card: #2b2d33;
-    --bg-sidebar: #252830;
-    --bg-header: #252830;
-    
-    --text-main: #f5f6f8;
-    --text-muted: #a0a4b8;
-    --text-bright: #ffffff;
-    
-    --border: #3d404b;
-    --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-}
-
-/* ====================================
-   RESET BÁSICO
-==================================== */
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%;
-}
-
-body {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--bg-main);
-    color: var(--text-main);
-    min-height: 100vh;
-    display: flex;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    color: var(--text-bright);
-    font-weight: 700;
-}
-
-p {
-    color: var(--text-main);
-}
-
-ul, ol {
-    list-style: none;
-}
-
-a {
-    text-decoration: none;
-    color: var(--text-muted);
-    transition: color 0.2s ease;
-}
-
-a:hover {
-    color: var(--text-bright);
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* ====================================
-   SIDEBAR & NAVEGAÇÃO
-==================================== */
-aside {
-    background: var(--bg-sidebar);
-    border-right: 1px solid var(--border);
-}
-
-.logo-area {
-    color: var(--primary);
-    font-weight: 700;
-    padding: 1.25rem;
-}
-
-.nav-links a {
-    color: var(--text-muted);
-    display: block;
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-}
-
-.nav-links a:hover {
-    background: var(--primary);
-    color: #ffffff;
-}
-
-.nav-links a.active {
-    background: var(--primary);
-    color: #ffffff;
-}
-
-/* ====================================
-   CARDS
-==================================== */
-.card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    box-shadow: var(--shadow);
-}
-
-/* ====================================
-   FORMULÁRIOS (INPUTS, TEXTAREA, SELECT)
-==================================== */
-input,
-textarea,
-select {
-    width: 100%;
-    padding: 12px;
-    background: var(--bg-card);
-    color: var(--text-main);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font: inherit;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(29, 140, 248, 0.25);
-}
-
-/* ====================================
-   BOTÕES
-==================================== */
-button {
-    background: var(--primary);
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-weight: 600;
-    font: inherit;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.1s ease;
-}
-
-button:hover {
-    background: var(--primary-hover);
-}
-
-button:active {
-    transform: scale(0.98);
 }
 
 /* ====================================
@@ -458,11 +296,11 @@ th {
     color: #ffffff;
     font-weight: 600;
     text-align: left;
-    padding: 12px;
+    padding: var(--spacing-sm);
 }
 
 td {
-    padding: 12px;
+    padding: var(--spacing-sm);
     border-bottom: 1px solid var(--border);
     color: var(--text-main);
 }
