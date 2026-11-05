@@ -1,161 +1,127 @@
-/* ==========================================================================
-   CYBERCHECK - DESIGN SYSTEM & STYLESHEET
-   - Unidades relativas (rem) para fontes e espaçamentos
-   - Mídia flexível (max-width: 100%, height: auto)
-   - Tipografia fluida com clamp()
-   - Mobile First & Responsividade Completa
-========================================================================== */
+/* ==================================
+   NORMALIZE CSS
+================================== */
 
-/* ====================================
-   1. NORMALIZE & RESET BÁSICO
-==================================== */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+html{
+    line-height:1.15;
+    -webkit-text-size-adjust:100%;
 }
 
-html {
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%;
+body{
+    margin:0;
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+main{
+    display:block;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-ul,
-ol,
-li {
-    margin: 0;
-    padding: 0;
+h1{
+    font-size:2em;
+    margin:.67em 0;
 }
 
-ul,
-ol {
-    list-style: none;
+hr{
+    box-sizing:content-box;
+    height:0;
+    overflow:visible;
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
+pre{
+    font-family:monospace, monospace;
+    font-size:1em;
 }
 
-img {
-    max-width: 100%;
-    height: auto; /* Garantindo que a mídia não distorça */
-    display: block;
+a{
+    background-color:transparent;
+}
+
+abbr[title]{
+    border-bottom:none;
+    text-decoration:underline;
+}
+
+b,
+strong{
+    font-weight:bolder;
+}
+
+code,
+kbd,
+samp{
+    font-family:monospace, monospace;
+    font-size:1em;
+}
+
+small{
+    font-size:80%;
+}
+
+img{
+    border-style:none;
 }
 
 button,
 input,
-textarea,
-select {
-    font: inherit;
+optgroup,
+select,
+textarea{
+    font-family:inherit;
+    font-size:100%;
+    line-height:1.15;
+    margin:0;
 }
 
-button {
-    border: none;
-    background: none;
-    cursor: pointer;
+button,
+input{
+    overflow:visible;
 }
 
-table {
-    border-collapse: collapse;
-    border-spacing: 0;
+button,
+select{
+    text-transform:none;
 }
 
-
-/* ====================================
-   2. TIPOGRAFIA FLUIDA (Exemplo com clamp)
-==================================== */
-h1 {
-    font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+button,
+[type="button"],
+[type="reset"],
+[type="submit"]{
+    -webkit-appearance:button;
 }
 
-h2 {
-    font-size: clamp(1.25rem, 2vw, 2rem);
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner{
+    border-style:none;
+    padding:0;
 }
 
-p {
-    font-size: clamp(0.95rem, 1vw, 1.1rem);
+fieldset{
+    padding:.35em .75em .625em;
 }
 
-
-/* ====================================
-   3. LAYOUT & RESPONSIVIDADE (Mobile First)
-==================================== */
-
-/* Telas grandes (Desktop) */
-@media (min-width: 1200px) {
-    main {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
+legend{
+    box-sizing:border-box;
+    color:inherit;
+    display:table;
+    max-width:100%;
+    white-space:normal;
 }
 
-/* Tablets */
-@media (max-width: 1024px) {
-    main {
-        padding: 1.5rem; /* Usando rem */
-    }
-    .cards-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+progress{
+    vertical-align:baseline;
 }
 
-/* Celulares */
-@media (max-width: 768px) {
-    body {
-        flex-direction: column;
-    }
-    aside {
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 1px solid var(--border, #ccc);
-    }
-    .nav-links {
-        flex-direction: row;
-        overflow-x: auto;
-        gap: 0.5rem;
-        padding: 0.625rem;
-    }
-    .nav-links a {
-        white-space: nowrap;
-    }
-    main {
-        padding: 1.25rem;
-        width: 100%;
-    }
-    .cards-grid {
-        grid-template-columns: 1fr;
-    }
-    .score-box {
-        flex-direction: column;
-        gap: 0.625rem;
-        text-align: center;
-    }
+textarea{
+    overflow:auto;
 }
 
-/* Celulares pequenos */
-@media (max-width: 480px) {
-    .card {
-        padding: 1rem;
-    }
-    button {
-        width: 100%;
-    }
-    input {
-        width: 100%;
-    }
+[type="checkbox"],
+[type="radio"]{
+    box-sizing:border-box;
+    padding:0;
+}
+
+[hidden]{
+    display:none;
 }

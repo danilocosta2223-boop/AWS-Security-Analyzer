@@ -1,22 +1,61 @@
 from flask import Blueprint, request, jsonify
 from urllib.parse import urlparse
+import re
 
 urls_bp = Blueprint("urls", __name__)
 
+
+# ==========================================
+# ROTA PRINCIPAL
+# URL: /api/url/
+# ==========================================
+@urls_bp.route("/", methods=["GET"])
+def urls():
+
+    return jsonify({
+        "module": "URL Analyzer",
+        "status": "ready"
+    })
+
+
+# ==========================================
+# ANALISADOR DE URL AVANÇADO
+# URL: /api/url/analyze
+# ==========================================
 @urls_bp.route("/analyze", methods=["POST"])
 def analyze_url():
 
-    data = request.json
-    url = data.get("url", "")
+    data = request.get_json() or {}
 
-    result = {
-        "url": url,
-        "https": False,
-        "risk": "BAIXO"
-    }
+    url = data.get("url", "").strip()
 
-    if url.startswith("https://"):
-        result["https"] = True
+    findings = []
+    recommendations = []
+
+    score = 100
+
+    parsed = urlparse(url)
+
+    domain = parsed.netloc.lower()
+
+    # ======================================
+    # HTTPS
+    # ======================================
+
+    https_enabled = url.startswith("https://")
+
+    if https_enabled:
+        findings.append("HTTPS habilitado")
+    else:
+        findings.append("HTTPS não habilitado")
+        recommendations.append(
+            "Utilizar HTTPS para proteger a comunicação."
+        )
+        score -= 25
+
+    # ======================================
+    # PALAVRAS SUSPEITAS
+    # ======================================
 
     suspicious_words = [
         "login",
@@ -24,41 +63,161 @@ def analyze_url():
         "account",
         "secure",
         "update",
-        "bank"
+        "bank",
+        "pix",
+        "senha",
+        "premio",
+        "bonus",
+        "gift"
     ]
+
+    suspicious_found = []
 
     for word in suspicious_words:
+
         if word in url.lower():
-            result["risk"] = "ALTO"
+            suspicious_found.append(word)
 
-    return jsonify(result)
+    if suspicious_found:
 
-from flask import Blueprint, request, jsonify
+        findings.append(
+            f"Palavras suspeitas encontradas: {', '.join(suspicious_found)}"
+        )
 
-urls_bp = Blueprint("urls", __name__)
+        recommendations.append(
+            "Validar a legitimidade do domínio."
+        )
 
-@urls_bp.route("/analyze", methods=["POST"])
-def analyze_url():
+        score -= 20
 
-    data = request.json
-    url = data.get("url", "")
+    # ======================================
+    # MUITOS HÍFENS
+    # ======================================
 
-    suspicious = [
-        "login",
-        "verify",
-        "account",
-        "bank",
-        "secure"
+    hyphen_count = domain.count("-")
+
+    if hyphen_count >= 3:
+
+        findings.append(
+            "Muitos hífens encontrados no domínio."
+        )
+
+        score -= 10
+
+    # ======================================
+    # URL LONGA
+    # ======================================
+
+    if len(url) > 100:
+
+        findings.append(
+            "URL excessivamente longa."
+        )
+
+        score -= 10
+
+    # ======================================
+    # TLD SUSPEITO
+    # ======================================
+
+    suspicious_tlds = [
+        ".xyz",
+        ".top",
+        ".click",
+        ".work",
+        ".zip",
+        ".gq",
+        ".tk"
     ]
 
-    risk = "BAIXO"
+    if any(domain.endswith(tld)
+           for tld in suspicious_tlds):
 
-    for word in suspicious:
-        if word in url.lower():
-            risk = "ALTO"
+        findings.append(
+            "Domínio com extensão suspeita."
+        )
+
+        score -= 20
+
+    # ======================================
+    # ENCURTADORES
+    # ======================================
+
+    shorteners = [
+        "bit.ly",
+        "tinyurl.com",
+        "cutt.ly",
+        "goo.gl",
+        "shorturl.at"
+    ]
+
+    if any(short in domain
+           for short in shorteners):
+
+        findings.append(
+            "URL encurtada detectada."
+        )
+
+        recommendations.append(
+            "Expandir o link antes de acessá-lo."
+        )
+
+        score -= 15
+
+    # ======================================
+    # IP AO INVÉS DE DOMÍNIO
+    # ======================================
+
+    ip_pattern = (
+        r"^(?:[0-9]{1,3}\.){3}"
+        r"[0-9]{1,3}$"
+    )
+
+    if re.match(ip_pattern, domain):
+
+        findings.append(
+            "Endereço IP utilizado no lugar de domínio."
+        )
+
+        recommendations.append(
+            "Evitar acessar links baseados em IP."
+        )
+
+        score -= 30
+
+    # ======================================
+    # CLASSIFICAÇÃO FINAL
+    # ======================================
+
+    score = max(score, 0)
+
+    if score >= 80:
+        risk = "BAIXO"
+
+    elif score >= 50:
+        risk = "MÉDIO"
+
+    else:
+        risk = "ALTO"
+
+    # ======================================
+    # RESPOSTA
+    # ======================================
 
     return jsonify({
+
         "url": url,
+
+        "domain": domain,
+
+        "https": https_enabled,
+
         "risk": risk,
-        "https": url.startswith("https://")
+
+        "score": score,
+
+        "findings": findings,
+
+        "recommendations": recommendations
+
     })

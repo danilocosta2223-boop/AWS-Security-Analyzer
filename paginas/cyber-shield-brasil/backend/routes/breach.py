@@ -36,3 +36,11 @@ def check_breach():
         "exposed": exposed,
         "risk": 85 if exposed else 0
     })
+
+@breach_bp.route("/")
+def breach():
+
+    return jsonify({
+        "modulo": "Breach Checker",
+        "status": "pronto"
+    })

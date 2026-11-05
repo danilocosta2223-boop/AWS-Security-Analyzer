@@ -3,93 +3,110 @@ from flask_cors import CORS
 
 from config import Config
 
-from routes.health import health_bp
-from routes.urls import urls_bp
-from routes.passwords import passwords_bp
-from routes.phishing import phishing_bp
-from routes.breach import breach_bp
+from routes.audit import audit_bp
+
 
 app = Flask(__name__)
 
-app.config.from_object(Config)
+app.config.from_object(
+    Config
+)
 
 CORS(app)
 
-# ==================================================
-# REGISTRO DAS ROTAS
-# ==================================================
+
+# ==========================
+# BLUEPRINTS
+# ==========================
 
 app.register_blueprint(
-    health_bp,
-    url_prefix="/api/health"
+    audit_bp,
+    url_prefix="/api/audit"
 )
 
-app.register_blueprint(
-    urls_bp,
-    url_prefix="/api/url"
-)
 
-app.register_blueprint(
-    passwords_bp,
-    url_prefix="/api/password"
-)
-
-app.register_blueprint(
-    phishing_bp,
-    url_prefix="/api/phishing"
-)
-
-app.register_blueprint(
-    breach_bp,
-    url_prefix="/api/breach"
-)
-
-# ==================================================
+# ==========================
 # HOME
-# ==================================================
+# ==========================
 
 @app.route("/")
 def home():
 
     return {
-        "project": Config.APP_NAME,
+
+        "project": "Cyber Shield Brasil",
+
         "version": Config.VERSION,
+
         "status": "online"
+
     }
 
 
-# ==================================================
-# ABOUT API
-# ==================================================
+# ==========================
+# API INFO
+# ==========================
 
 @app.route("/api")
 def api():
 
     return {
-        "name": "CyberCheck API",
+
+        "project": "Cyber Shield Brasil",
+
         "version": Config.VERSION,
+
         "modules": [
-            "health",
-            "url",
-            "password",
-            "phishing",
-            "breach"
+
+            "audit"
+
         ]
+
     }
 
 
-# ==================================================
-# EXECUÇÃO
-# ==================================================
+# ==========================
+# START
+# ==========================
 
 if __name__ == "__main__":
 
-    print("=" * 50)
-    print("CyberCheck API")
-    print("Servidor iniciado")
-    print("URL: http://127.0.0.1:5000")
-    print("=" * 50)
+    print()
+
+    print(
+        "=" * 50
+    )
+
+    print(
+        "Cyber Shield Brasil"
+    )
+
+    print(
+        "Backend iniciado"
+    )
+
+    print()
+
+    print(
+        "Rotas disponíveis:"
+    )
+
+    for rule in app.url_map.iter_rules():
+
+        print(rule)
+
+    print(
+        "=" * 50
+    )
+
+    print()
 
     app.run(
+
+        host="127.0.0.1",
+
+        port=5000,
+
         debug=Config.DEBUG
+
     )

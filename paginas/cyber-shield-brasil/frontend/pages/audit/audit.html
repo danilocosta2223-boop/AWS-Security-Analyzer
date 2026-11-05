@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Cyber Shield Brasil | Auditoria
+    </title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="../../styles/normalize.css">
+
+    <link rel="stylesheet" href="../../styles/global.css">
+
+    <link rel="stylesheet" href="../../styles/audit.css">
+
+    <link rel="stylesheet" href="../../styles/responsive.css">
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="audit-header">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <div>
+
+                <h2>
+
+                    Cyber Shield
+                    <span>BRASIL</span>
+
+                </h2>
+
+                <small>
+
+                    Plataforma de Auditoria
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <nav class="main-nav">
+
+            <a href="../dashboard/dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="audit.html">
+                Auditoria
+            </a>
+
+            <a href="../reports/reports.html">
+                Relatórios
+            </a>
+
+            <a href="../history/history.html">
+                Histórico
+            </a>
+
+            <a href="../settings/settings.html">
+                Configurações
+            </a>
+
+        </nav>
+
+    </header>
+
+    <!-- HERO -->
+
+    <section class="audit-hero">
+
+        <div class="audit-container">
+
+            <h1>
+
+                Auditoria Completa de Segurança
+
+            </h1>
+
+            <p>
+
+                Analise SSL/TLS, DNS,
+                Security Headers, WHOIS,
+                OWASP Top 10, Tecnologias Detectadas
+                e Infraestrutura.
+
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- BUSCA -->
+
+    <section class="audit-search">
+
+        <div class="audit-container">
+
+            <div class="audit-form">
+
+                <input id="urlInput" type="text" placeholder="https://exemplo.com">
+
+                <button id="runAuditBtn">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    Executar Auditoria
+
+                </button>
+
+            </div>
+
+            <div id="api-status">
+
+                🟡 Verificando API...
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- DASHBOARD -->
+
+    <section class="results-section">
+
+        <div class="audit-container">
+
+            <div id="dashboard">
+
+                <div class="result-card">
+
+                    <div class="result-header">
+
+                        <div class="score-circle">
+
+                            --
+
+                        </div>
+
+                        <div class="score-details">
+
+                            <h2>
+
+                                Aguardando Auditoria
+
+                            </h2>
+
+                            <span class="risk-badge">
+
+                                READY
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- INFORMAÇÕES DA AUDITORIA -->
+
+    <section class="audit-info-section">
+
+        <div class="audit-container">
+
+            <h2>
+
+                Informações da Auditoria
+
+            </h2>
+
+            <div class="audit-info-layout">
+
+                <!-- CARDS -->
+
+                <div id="audit-info">
+
+                    <div class="info-card">
+
+                        <h4>
+                            🌐 URL
+                        </h4>
+
+                        <span id="audit-url">
+                            ---
+                        </span>
+
+                    </div>
+
+                    <div class="info-card">
+
+                        <h4>
+                            📅 Data
+                        </h4>
+
+                        <span id="audit-date">
+                            ---
+                        </span>
+
+                    </div>
+
+                    <div class="info-card">
+
+                        <h4>
+                            🕒 Hora
+                        </h4>
+
+                        <span id="audit-time">
+                            ---
+                        </span>
+
+                    </div>
+
+                    <div class="info-card">
+
+                        <h4>
+                            ⚡ Duração
+                        </h4>
+
+                        <span id="audit-duration">
+                            ---
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- IMAGEM -->
+
+                <div class="info-image">
+
+                    <img src="../../images/cyber-map.webp.png" alt="Cyber Security Dashboard">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SECURITY BREAKDOWN -->
+
+    <section class="security-breakdown-section">
+
+        <div class="audit-container">
+
+            <h2>
+
+                Security Breakdown
+
+            </h2>
+
+            <div id="security-breakdown">
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SEVERIDADE -->
+
+    <section class="severity-section">
+
+        <div class="audit-container">
+
+            <h2>
+
+                Distribuição de Severidade
+
+            </h2>
+
+            <div id="severity-grid">
+
+                <div class="severity-card critical">
+
+                    ☠ Critical
+
+                    <span>0</span>
+
+                </div>
+
+                <div class="severity-card high">
+
+                    🔴 High
+
+                    <span>0</span>
+
+                </div>
+
+                <div class="severity-card medium">
+
+                    🟡 Medium
+
+                    <span>0</span>
+
+                </div>
+
+                <div class="severity-card low">
+
+                    🟢 Low
+
+                    <span>0</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- TECNOLOGIAS -->
+
+    <section class="technology-section">
+
+        <div class="audit-container">
+
+            <h2>
+
+                Tecnologias Detectadas
+
+            </h2>
+
+            <div id="technology-section">
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- INFRAESTRUTURA -->
+
+    <section class="infrastructure-section">
+
+        <div class="audit-container">
+
+            <h2>
+
+                Infraestrutura
+
+            </h2>
+
+            <div id="infrastructure-section">
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- EXPORTAÇÃO -->
+
+    <section class="export-section">
+
+        <div class="audit-container">
+
+            <h2>
+
+                Exportação
+
+            </h2>
+
+            <div class="export-buttons">
+
+                <button id="exportPdf">
+
+                    <i class="fa-solid fa-file-pdf"></i>
+
+                    Exportar PDF
+
+                </button>
+
+                <button id="exportJson">
+
+                    <i class="fa-solid fa-file-code"></i>
+
+                    Exportar JSON
+
+                </button>
+
+                <button id="exportCsv">
+
+                    <i class="fa-solid fa-file-csv"></i>
+
+                    Exportar CSV
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- MÓDULOS -->
+
+    <section class="modules-section">
+
+        <div class="audit-container">
+
+            <h2>
+
+                Módulos Avaliados
+
+            </h2>
+
+            <div class="modules-grid">
+
+                <div class="module-card">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <h3>SSL/TLS</h3>
+
+                </div>
+
+                <div class="module-card">
+
+                    <i class="fa-solid fa-shield"></i>
+
+                    <h3>Security Headers</h3>
+
+                </div>
+
+                <div class="module-card">
+
+                    <i class="fa-solid fa-globe"></i>
+
+                    <h3>DNS</h3>
+
+                </div>
+
+                <div class="module-card">
+
+                    <i class="fa-solid fa-server"></i>
+
+                    <h3>WHOIS</h3>
+
+                </div>
+
+                <div class="module-card">
+
+                    <i class="fa-solid fa-bug"></i>
+
+                    <h3>OWASP</h3>
+
+                </div>
+
+                <div class="module-card">
+
+                    <i class="fa-solid fa-microchip"></i>
+
+                    <h3>Tecnologias</h3>
+
+                </div>
+
+                <div class="module-card">
+
+                    <i class="fa-solid fa-network-wired"></i>
+
+                    <h3>Recon</h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+
+            <h3>
+
+                Cyber Shield Brasil
+
+            </h3>
+
+            <p>
+
+                Plataforma de Auditoria,
+                Compliance e Segurança Digital.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+    <!-- JS -->
+
+    <script src="audit.js"></script>
+
+</body>
+
+</html>
