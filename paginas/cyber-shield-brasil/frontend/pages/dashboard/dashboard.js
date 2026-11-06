@@ -1,150 +1,136 @@
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+function renderDashboard(data){
 
-        loadDashboard();
+    const score =
+    Number(data.score || 0);
 
-    }
-);
+    const grade =
+    getGrade(score);
 
-async function loadDashboard() {
+    const risk =
+    getRisk(score);
 
-    const dashboard =
-        document.getElementById(
-            "dashboard-container"
-        );
+    const findings =
+    buildFindings(data);
 
-    try {
+    const recommendations =
+    buildRecommendations(data);
 
-        const data = {
+    dashboard.innerHTML = `
 
-            averageScore: 91,
+        <!-- SCORE -->
 
-            totalAudits: 85,
+        <div class="result-card">
 
-            totalHosts: 40,
+            <div class="result-header">
 
-            criticalRisks: 2,
+                <div class="score-circle">
 
-            highRisks: 7,
+                    ${score}
 
-            mediumRisks: 11,
+                </div>
 
-            lowRisks: 26,
+                <div class="score-details">
 
-            lastAudit:
-                "teams.cloud.microsoft",
+                    <h2>
 
-            environment:
-                "HEALTHY"
+                        Grade ${grade}
 
-        };
+                    </h2>
 
-        dashboard.innerHTML = `
+                    <span class="risk-badge">
 
-        <div class="stats-grid">
+                        ${risk}
 
-            ${createStatCard(
-                "🛡 Score Médio",
-                data.averageScore
-            )}
+                    </span>
 
-            ${createStatCard(
-                "📊 Auditorias",
-                data.totalAudits
-            )}
-
-            ${createStatCard(
-                "🌐 Hosts",
-                data.totalHosts
-            )}
-
-            ${createStatCard(
-                "🔴 Críticos",
-                data.criticalRisks
-            )}
-
-            ${createStatCard(
-                "🟠 Altos",
-                data.highRisks
-            )}
-
-            ${createStatCard(
-                "🟡 Médios",
-                data.mediumRisks
-            )}
-
-            ${createStatCard(
-                "🟢 Baixos",
-                data.lowRisks
-            )}
-
-            ${createStatCard(
-                "🔍 Última Auditoria",
-                data.lastAudit
-            )}
-
-        </div>
-
-        <div class="status-card">
-
-            <h2>
-
-                Ambiente
-
-            </h2>
-
-            <div class="healthy">
-
-                ✅ ${data.environment}
+                </div>
 
             </div>
 
         </div>
 
-        `;
+        <!-- EXECUTIVE SUMMARY -->
 
-    }
-
-    catch(error){
-
-        console.error(error);
-
-        dashboard.innerHTML = `
+        <div class="summary-card">
 
             <h2>
 
-                Erro ao carregar Dashboard
+                Executive Summary
 
             </h2>
 
-        `;
-    }
+            <p>
 
-}
+                URL analisada:
+                ${data.url || "N/A"}
 
+            </p>
 
+            <p>
 
-function createStatCard(
-    title,
-    value
-){
+                Score geral:
+                ${score}
 
-    return `
+            </p>
 
-        <div class="card">
+            <p>
 
-            <h3>
+                Grade:
+                ${grade}
 
-                ${title}
+            </p>
 
-            </h3>
+            <p>
 
-            <div class="value">
+                Foram identificados
+                ${findings.length}
+                ponto(s) de atenção.
 
-                ${value}
+            </p>
 
-            </div>
+        </div>
+
+        <!-- FINDINGS -->
+
+        <div class="result-card">
+
+            <h2>
+
+                Findings
+
+            </h2>
+
+            <ul>
+
+                ${findings.map(item => `
+                    <li>
+                        ⚠ ${item}
+                    </li>
+                `).join("")}
+
+            </ul>
+
+        </div>
+
+        <!-- RECOMMENDATIONS -->
+
+        <div class="result-card">
+
+            <h2>
+
+                Recommendations
+
+            </h2>
+
+            <ul>
+
+                ${recommendations.map(item => `
+                    <li>
+                        ✅ ${item}
+                    </li>
+                `).join("")}
+
+            </ul>
 
         </div>
 
