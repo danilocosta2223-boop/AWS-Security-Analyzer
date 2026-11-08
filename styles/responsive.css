@@ -1,128 +1,138 @@
-/* ==================================
-   NOTEBOOK
-================================== */
+/* =========================================
+   1400px
+========================================= */
 
-@media(max-width:1200px){
-
-    .hero h1{
-
-        font-size:60px;
-        line-height:66px;
-    }
+@media (max-width:1400px){
 
     .hero-content{
 
-        max-width:650px;
+        max-width:750px;
+
     }
 
-    .section-title h2{
-
-        font-size:44px;
-    }
 }
 
-/* ==================================
-   TABLET
-================================== */
+/* =========================================
+   1200px
+========================================= */
 
-@media(max-width:992px){
-
-    .header{
-
-        padding:20px;
-    }
-
-    .menu{
-
-        display:none;
-    }
+@media (max-width:1200px){
 
     .hero{
 
         min-height:auto;
 
-        padding-top:140px;
+        padding-bottom:150px;
 
-        padding-bottom:250px;
     }
 
     .hero-content{
 
-        margin-left:30px;
-        margin-right:30px;
+        margin-left:40px;
+
+        max-width:700px;
+
     }
 
     .hero h1{
 
-        font-size:52px;
-        line-height:58px;
-    }
+        font-size:60px;
 
-    .hero p{
+        line-height:64px;
 
-        font-size:18px;
     }
 
     .stats{
 
         grid-template-columns:
         repeat(2,1fr);
+
     }
 
-    .cards-grid{
-
-        grid-template-columns:
-        repeat(2,1fr);
-    }
 }
 
-/* ==================================
-   MOBILE GRANDE
-================================== */
+/* =========================================
+   992px
+========================================= */
 
-@media(max-width:768px){
+@media (max-width:992px){
 
     .header{
 
-        padding:15px;
+        padding:0 20px;
+
     }
 
-    .logo h2{
+    .menu{
 
-        font-size:22px;
+        display:none;
+
     }
+
+    .hero-content{
+
+        margin-left:20px;
+
+        max-width:650px;
+
+    }
+
+    .hero h1{
+
+        font-size:54px;
+
+        line-height:58px;
+
+    }
+
+}
+
+/* =========================================
+   768px
+========================================= */
+
+@media (max-width:768px){
 
     .hero{
 
         min-height:auto;
 
-        padding-top:120px;
-
         padding-bottom:80px;
+
     }
 
     .hero-content{
 
-        margin:20px;
+        margin-left:0;
 
-        padding:25px;
+        max-width:100%;
+
+        width:100%;
+
+        padding:30px;
+
     }
 
     .hero h1{
 
-        font-size:40px;
+        font-size:42px;
 
         line-height:46px;
+
     }
 
     .hero p{
 
-        font-size:16px;
+        font-size:18px;
+
     }
 
     .hero-buttons{
 
         flex-direction:column;
+
+        gap:15px;
+
     }
 
     .btn-primary,
@@ -131,13 +141,13 @@
         width:100%;
 
         text-align:center;
+
     }
 
     .hero-features{
 
-        flex-direction:column;
+        justify-content:center;
 
-        gap:12px;
     }
 
     .stats{
@@ -145,99 +155,103 @@
         position:relative;
 
         left:auto;
+
         bottom:auto;
 
         transform:none;
 
-        width:95%;
-
-        margin:40px auto 0;
+        width:100%;
 
         grid-template-columns:1fr;
+
+        margin-top:50px;
+
     }
 
     .cards-grid{
 
         grid-template-columns:1fr;
+
     }
 
-    .section-title h2{
+    .dashboard-grid{
 
-        font-size:34px;
+        grid-template-columns:1fr;
+
     }
+
 }
 
-/* ==================================
-   MOBILE PEQUENO
-================================== */
+/* =========================================
+   576px
+========================================= */
 
-@media(max-width:480px){
-
-    .hero-content{
-
-        margin:15px;
-
-        padding:20px;
-    }
+@media (max-width:576px){
 
     .hero h1{
 
         font-size:34px;
 
-        line-height:40px;
+        line-height:38px;
+
     }
 
-    .subtitle{
+    .hero p{
 
-        font-size:11px;
+        font-size:16px;
+
+    }
+
+    .hero-content{
+
+        padding:25px;
+
+    }
+
+    .section-title h2{
+
+        font-size:32px;
+
+    }
+
+}
+
+/* =========================================
+   480px
+========================================= */
+
+@media (max-width:480px){
+
+    .logo h2{
+
+        font-size:22px;
+
+    }
+
+    .hero-content{
+
+        padding:20px;
+
+    }
+
+    .hero h1{
+
+        font-size:30px;
+
+        line-height:34px;
+
     }
 
     .hero p{
 
         font-size:15px;
+
     }
 
-    .logo small{
-
-        display:none;
-    }
-
-    .btn-login{
-
-        display:none;
-    }
-
-    .section-title h2{
-
-        font-size:30px;
-    }
-
-    .card{
-
-        padding:25px;
-    }
-}
-
-/* ==================================
-   MOBILE EXTRA PEQUENO
-================================== */
-
-@media(max-width:360px){
-
-    .hero h1{
-
-        font-size:28px;
-
-        line-height:34px;
-    }
-
-    .hero-content{
-
-        padding:15px;
-    }
-
-    .card{
+    .stats{
 
         padding:20px;
+
     }
+
 }
