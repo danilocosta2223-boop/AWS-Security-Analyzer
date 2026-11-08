@@ -1,0 +1,288 @@
+/* =====================================
+   LARGE DESKTOP
+===================================== */
+
+@media(max-width:1400px){
+
+    .hero h1{
+
+        font-size:72px;
+
+        line-height:1.05;
+
+    }
+
+}
+
+/* =====================================
+   DESKTOP
+===================================== */
+
+@media(max-width:1200px){
+
+    .header{
+
+        padding:0 25px;
+
+    }
+
+    .hero-container{
+
+        padding:
+        120px 30px 120px;
+
+    }
+
+    .hero-content{
+
+        max-width:100%;
+
+    }
+
+    .hero h1{
+
+        font-size:60px;
+
+        line-height:1.10;
+
+    }
+
+    .stats{
+
+        position:relative;
+
+        left:auto;
+
+        bottom:auto;
+
+        transform:none;
+
+        width:100%;
+
+        margin-top:60px;
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
+    .cards-grid{
+
+        grid-template-columns:
+        repeat(2,1fr);
+
+    }
+
+}
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media(max-width:992px){
+
+    .menu{
+
+        display:none;
+
+    }
+
+    .hero{
+
+        min-height:auto;
+
+    }
+
+    .hero-content{
+
+        text-align:center;
+
+        max-width:100%;
+
+        margin:auto;
+
+    }
+
+    .hero-buttons{
+
+        justify-content:center;
+
+    }
+
+    .hero-features{
+
+        justify-content:center;
+
+    }
+
+    .section-title h2{
+
+        font-size:48px;
+
+    }
+
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media(max-width:768px){
+
+    .header{
+
+        height:75px;
+
+        padding:0 20px;
+
+    }
+
+    .logo h2{
+
+        font-size:22px;
+
+    }
+
+    .logo small{
+
+        display:none;
+
+    }
+
+    .hero-container{
+
+        padding:
+        100px 20px 60px;
+
+    }
+
+    .hero-content{
+
+        padding:25px;
+
+    }
+
+    .hero h1{
+
+        font-size:42px;
+
+        line-height:1.15;
+
+        letter-spacing:-1px;
+
+    }
+
+    .hero p{
+
+        font-size:18px;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+    .btn-primary,
+    .btn-secondary{
+
+        width:100%;
+
+        min-width:unset;
+
+    }
+
+    .hero-features{
+
+        flex-direction:column;
+
+        gap:15px;
+
+    }
+
+    .stats{
+
+        grid-template-columns:1fr;
+
+        padding:25px;
+
+    }
+
+    .stat-box{
+
+        justify-content:center;
+
+        text-align:center;
+
+    }
+
+    .cards-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .section-title h2{
+
+        font-size:38px;
+
+    }
+
+    .section-title p{
+
+        font-size:17px;
+
+    }
+
+    .footer{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .footer-links{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+    }
+
+}
+
+/* =====================================
+   SMALL MOBILE
+===================================== */
+
+@media(max-width:480px){
+
+    .hero h1{
+
+        font-size:34px;
+
+    }
+
+    .hero p{
+
+        font-size:16px;
+
+    }
+
+    .section-title h2{
+
+        font-size:30px;
+
+    }
+
+    .card{
+
+        padding:25px;
+
+    }
+
+}

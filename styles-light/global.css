@@ -1,0 +1,301 @@
+/* =====================================
+   RESET
+===================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =====================================
+   ROOT
+===================================== */
+:root {
+    /* PRIMARY */
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #3b82f6;
+
+    /* TEXT */
+    --text: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+
+    /* BACKGROUND */
+    --bg: #f8fafc;
+    --surface: #ffffff;
+
+    /* BORDER */
+    --border: #cbd5e1;
+
+    /* SHADOW */
+    --shadow-sm: 0 0px 12px rgba(15, 23, 42, 0.05);
+    --shadow-md: 0 15px 35px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 25px 50px rgba(15, 23, 42, 0.12);
+}
+
+/* =====================================
+   HTML
+===================================== */
+html {
+    scroll-behavior: smooth;
+}
+
+/* =====================================
+   BODY
+===================================== */
+body {
+    background: linear-gradient(180deg, #f8fafc, #ffffff);
+    color: var(--text);
+    font-family: "Segoe UI", Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* =====================================
+   CONTAINER
+===================================== */
+.container {
+    width: 92%;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+/* =====================================
+   LINKS
+===================================== */
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s;
+}
+
+/* =====================================
+   IMAGES
+===================================== */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/* =====================================
+   HEADER
+===================================== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    padding: 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid #dbeafe;
+    z-index: 999;
+}
+
+/* =====================================
+   LOGO
+===================================== */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo i {
+    font-size: 52px;
+    color: #2563eb;
+}
+
+.logo h2 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.logo span {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.logo small {
+    display: block;
+    color: #475569;
+    font-size: 13px;
+}
+
+/* =====================================
+   MENU
+===================================== */
+.menu {
+    display: flex;
+    gap: 35px;
+}
+
+.menu a {
+    position: relative;
+    font-size: 17px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.menu a:hover {
+    color: #2563eb;
+}
+
+.menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    height: 3px;
+    width: 0;
+    background: #2563eb;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.menu a:hover::after {
+    width: 100%;
+}
+
+/* =====================================
+   ACTIONS
+===================================== */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* =====================================
+   THEME TOGGLE
+===================================== */
+.theme-toggle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid #e2e8f0;
+    background: white;
+    color: #0f172a;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+}
+
+.theme-toggle:hover {
+    transform: translateY(-2px);
+}
+
+/* =====================================
+   LOGIN BUTTON
+===================================== */
+.btn-login {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    padding: 14px 25px;
+    border-radius: 16px;
+    font-weight: 700;
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.25);
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+}
+
+/* =====================================
+   SECTIONS
+===================================== */
+section {
+    position: relative;
+}
+
+/* =====================================
+   TITLES
+===================================== */
+h1, h2, h3, h4, h5, h6 {
+    color: #0f172a;
+    font-weight: 800;
+}
+
+p {
+    color: #334155;
+    line-height: 1.8;
+}
+
+/* =====================================
+   FOOTER
+===================================== */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 60px;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+}
+
+.footer-logo h3 {
+    font-size: 36px;
+    color: #0f172a;
+}
+
+.footer-links {
+    display: flex;
+    gap: 25px;
+}
+
+.footer-links a {
+    color: #475569;
+    font-weight: 600;
+}
+
+.footer-links a:hover {
+    color: #2563eb;
+}
+
+/* =====================================
+   SCROLLBAR
+===================================== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #e2e8f0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #2563eb, #3b82f6);
+    border-radius: 20px;
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+@media (max-width: 900px) {
+    .menu {
+        display: none;
+    }
+
+    .header {
+        padding: 0 20px;
+    }
+
+    .footer {
+        padding: 40px 20px;
+        justify-content: center;
+        text-align: center;
+    }
+}

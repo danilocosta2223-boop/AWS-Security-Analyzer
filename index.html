@@ -7,17 +7,54 @@
 
     <title>CyberCheck PRO | Segurança Digital Inteligente</title>
 
-    <!-- CSS -->
-
-    <link rel="stylesheet" href="styles/normalize.css">
-    <link rel="stylesheet" href="styles/global.css">
-    <link rel="stylesheet" href="styles/hero.css">
-    <link rel="stylesheet" href="styles/cards.css">
-    <link rel="stylesheet" href="styles/dashboard.css">
-    <link rel="stylesheet" href="styles/responsive.css">
-
-    <!-- DEIXE POR ÚLTIMO -->
-    <link rel="stylesheet" href="styles/style.css">
+    <!-- =====================================================
+         THEME SYSTEM
+    =====================================================
+    CyberCheck PRO utiliza dois conjuntos completos de estilos:
+    📁 styles/
+       Tema Escuro (Dark Mode)
+    📁 styles-light/
+       Tema Claro (Light Mode)
+    Cada pasta possui sua própria estrutura:
+    global.css
+    hero.css
+    cards.css
+    dashboard.css
+    responsive.css
+    style.css
+    O sistema alterna os temas através do JavaScript
+    (app.js) modificando dinamicamente os caminhos dos
+    arquivos CSS.
+    Objetivos:
+    ✓ Alto contraste
+    ✓ Legibilidade máxima
+    ✓ Consistência visual
+    ✓ Responsividade
+    ✓ Sem quebra de layout
+    ✓ Acessibilidade
+    ✓ Persistência com localStorage
+    ===================================================== -->
+    <!-- =====================================================
+         THEME CSS
+    ===================================================== -->
+    <link id="global-theme"
+          rel="stylesheet"
+          href="styles-light/global.css">
+    <link id="hero-theme"
+          rel="stylesheet"
+          href="styles-light/hero.css">
+    <link id="cards-theme"
+          rel="stylesheet"
+          href="styles-light/cards.css">
+    <link id="dashboard-theme"
+          rel="stylesheet"
+          href="styles-light/dashboard.css">
+    <link id="responsive-theme"
+          rel="stylesheet"
+          href="styles-light/responsive.css">
+    <link id="theme-style"
+          rel="stylesheet"
+          href="styles-light/style.css">
 
     <!-- ICONES -->
 
@@ -81,10 +118,13 @@
 
         <div class="header-actions">
 
-            <button class="theme-toggle">
-
-                <i class="fa-solid fa-moon"></i>
-
+            <button
+                id="themeToggle"
+                class="theme-toggle">
+                <i
+                    id="themeIcon"
+                    class="fa-solid fa-moon">
+                </i>
             </button>
 
             <a href="#" class="btn-login">

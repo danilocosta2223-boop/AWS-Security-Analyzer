@@ -1,66 +1,155 @@
-// ==========================================
-// CYBERCHECK - LOGICA JS (script/app.js)
-// ==========================================
+/* =====================================================
+   CYBERCHECK PRO
+   THEME ENGINE
+===================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Validatore URL
-    window.analisaURL = function() {
-        const urlInput = document.getElementById('url-input').value.trim();
-        const result = document.getElementById('url-result');
-        if (!urlInput) return;
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-        result.style.display = 'block';
-        if (urlInput.startsWith('https://') && !urlInput.includes('pix') && !urlInput.includes('premio')) {
-            result.className = 'result-box success';
-            result.innerHTML = '🟢 <strong>Basso Rischio:</strong> Dominio protetto da HTTPS e privo di parole di phishing note.';
-        } else {
-            result.className = 'result-box danger';
-            result.innerHTML = '🔴 <strong>Alto Rischio:</strong> Il link non usa HTTPS o contiene parole chiave sospette!';
-        }
-    };
+        initializeTheme();
 
-    // 2. Verificatore Password
-    window.analisaSenha = function() {
-        const pass = document.getElementById('pass-input').value;
-        const result = document.getElementById('pass-result');
-        if (!pass) return;
+    }
+);
 
-        result.style.display = 'block';
-        const forte = pass.length >= 12 && /[A-Z]/.test(pass) && /[0-9]/.test(pass) && /[^A-Za-z0-9]/.test(pass);
+/* =====================================================
+   INITIALIZE
+===================================================== */
 
-        if (forte) {
-            result.className = 'result-box success';
-            result.innerHTML = '🟢 <strong>Password Forte:</strong> Ottima combinazione di caratteri e lunghezza.';
-        } else {
-            result.className = 'result-box danger';
-            result.innerHTML = '🔴 <strong>Password Debole:</strong> Usa almeno 12 caratteri con maiuscole, numeri e simboli.';
-        }
-    };
+function initializeTheme() {
 
-    // 3. Rilevatore Phishing E-mail / SMS
-    window.analisaGolpe = function() {
-        const text = document.getElementById('golpe-input').value.toLowerCase();
-        const result = document.getElementById('golpe-result');
-        if (!text) return;
+    const savedTheme =
+    localStorage.getItem(
+        "theme"
+    ) || "light";
 
-        result.style.display = 'block';
-        if (text.includes('bloqueado') || text.includes('clique') || text.includes('urgente') || text.includes('pix')) {
-            result.className = 'result-box danger';
-            result.innerHTML = '🚨 <strong>Possibile Truffa:</strong> Il messaggio utilizza leve psicologiche di urgenza e minaccia!';
-        } else {
-            result.className = 'result-box success';
-            result.innerHTML = '🟢 <strong>Nessun campanello d\'allarme evidente:</strong> Verifica comunque il mittente reale.';
-        }
-    };
+    applyTheme(
+        savedTheme
+    );
 
-    // 5. Checklist Sicurezza
-    window.atualizaChecklist = function() {
-        const checkboxes = document.querySelectorAll('.check-item');
-        let marcados = 0;
-        checkboxes.forEach(chk => { if (chk.checked) marcados++; });
-        const porcentagem = Math.round((marcados / checkboxes.length) * 100);
+    const themeButton =
+    document.getElementById(
+        "themeToggle"
+    );
 
-        document.getElementById('checklist-score').innerText = `La tua sicurezza: ${porcentagem}%`;
-        document.getElementById('checklist-progress').style.width = `${porcentagem}%`;
-    };
-});
+    if (themeButton) {
+
+        themeButton.addEventListener(
+            "click",
+            toggleTheme
+        );
+
+    }
+
+}
+
+/* =====================================================
+   TOGGLE
+===================================================== */
+
+function toggleTheme() {
+
+    const currentTheme =
+    localStorage.getItem(
+        "theme"
+    ) || "light";
+
+    const nextTheme =
+    currentTheme === "light"
+        ? "dark"
+        : "light";
+
+    applyTheme(
+        nextTheme
+    );
+
+}
+
+/* =====================================================
+   APPLY THEME
+===================================================== */
+
+function applyTheme(theme) {
+
+    const folder =
+    theme === "dark"
+        ? "styles"
+        : "styles-light";
+
+    setThemeFile(
+        "global-theme",
+        `${folder}/global.css`
+    );
+
+    setThemeFile(
+        "hero-theme",
+        `${folder}/hero.css`
+    );
+
+    setThemeFile(
+        "cards-theme",
+        `${folder}/cards.css`
+    );
+
+    setThemeFile(
+        "dashboard-theme",
+        `${folder}/dashboard.css`
+    );
+
+    setThemeFile(
+        "responsive-theme",
+        `${folder}/responsive.css`
+    );
+
+    setThemeFile(
+        "theme-style",
+        `${folder}/style.css`
+    );
+
+    const themeIcon =
+    document.getElementById(
+        "themeIcon"
+    );
+
+    if (themeIcon) {
+
+        themeIcon.className =
+        theme === "dark"
+            ? "fa-solid fa-sun"
+            : "fa-solid fa-moon";
+
+    }
+
+    localStorage.setItem(
+        "theme",
+        theme
+    );
+
+    console.log(
+        `Tema aplicado: ${theme}`
+    );
+
+}
+
+/* =====================================================
+   UPDATE LINK
+===================================================== */
+
+function setThemeFile(
+    id,
+    href
+) {
+
+    const element =
+    document.getElementById(
+        id
+    );
+
+    if (!element) return;
+
+    element.setAttribute(
+        "href",
+        href
+    );
+
+}

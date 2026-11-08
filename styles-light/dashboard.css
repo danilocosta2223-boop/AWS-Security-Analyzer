@@ -1,0 +1,478 @@
+/* =====================================
+   DASHBOARD
+===================================== */
+
+.dashboard{
+
+    padding:120px 50px;
+
+    background:
+    linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f8fafc 100%
+    );
+
+}
+
+/* =====================================
+   CONTAINER
+===================================== */
+
+.dashboard-container{
+
+    max-width:1500px;
+
+    margin:0 auto;
+
+}
+
+/* =====================================
+   HEADER
+===================================== */
+
+.dashboard-header{
+
+    margin-bottom:60px;
+
+}
+
+.dashboard-header h2{
+
+    color:#0f172a;
+
+    font-size:58px;
+
+    font-weight:800;
+
+    margin-bottom:15px;
+
+    letter-spacing:-2px;
+
+}
+
+.dashboard-header p{
+
+    color:#475569;
+
+    font-size:20px;
+
+    max-width:850px;
+
+}
+
+/* =====================================
+   GRID
+===================================== */
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(320px,1fr)
+    );
+
+    gap:30px;
+
+}
+
+/* =====================================
+   CARD
+===================================== */
+
+.dashboard-card{
+
+    background:white;
+
+    border:
+    2px solid #e2e8f0;
+
+    border-radius:26px;
+
+    padding:35px;
+
+    transition:.3s;
+
+    box-shadow:
+    0 15px 40px rgba(15,23,42,.05);
+
+}
+
+.dashboard-card:hover{
+
+    border-color:#2563eb;
+
+    transform:
+    translateY(-6px);
+
+    box-shadow:
+    0 25px 50px rgba(37,99,235,.10);
+
+}
+
+/* =====================================
+   CARD HEADER
+===================================== */
+
+.dashboard-card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.dashboard-card-header h3{
+
+    color:#0f172a;
+
+    font-size:24px;
+
+    font-weight:800;
+
+}
+
+.dashboard-card-header i{
+
+    color:#2563eb;
+
+    font-size:32px;
+
+}
+
+/* =====================================
+   KPI
+===================================== */
+
+.kpi{
+
+    font-size:64px;
+
+    line-height:1;
+
+    font-weight:800;
+
+    color:#0f172a;
+
+    margin-bottom:10px;
+
+}
+
+.kpi-blue{
+
+    color:#2563eb;
+
+}
+
+.kpi-green{
+
+    color:#16a34a;
+
+}
+
+.kpi-orange{
+
+    color:#f59e0b;
+
+}
+
+.kpi-red{
+
+    color:#dc2626;
+
+}
+
+.kpi-label{
+
+    color:#64748b;
+
+    font-size:15px;
+
+}
+
+/* =====================================
+   SECURITY SCORE
+===================================== */
+
+.security-score{
+
+    text-align:center;
+
+}
+
+.security-score .score{
+
+    font-size:90px;
+
+    font-weight:800;
+
+    color:#2563eb;
+
+    line-height:1;
+
+}
+
+.security-score .grade{
+
+    margin-top:10px;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+/* =====================================
+   STATUS
+===================================== */
+
+.status{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+.status-success{
+
+    background:#dcfce7;
+
+    color:#166534;
+
+}
+
+.status-warning{
+
+    background:#fef3c7;
+
+    color:#92400e;
+
+}
+
+.status-danger{
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
+}
+
+.status-info{
+
+    background:#dbeafe;
+
+    color:#1d4ed8;
+
+}
+
+/* =====================================
+   DIVIDER
+===================================== */
+
+.divider{
+
+    width:100%;
+
+    height:1px;
+
+    background:#e2e8f0;
+
+    margin:25px 0;
+
+}
+
+/* =====================================
+   ALERTS
+===================================== */
+
+.alert-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px 0;
+
+    border-bottom:
+    1px solid #e2e8f0;
+
+}
+
+.alert-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.alert-title{
+
+    color:#334155;
+
+    font-weight:600;
+
+}
+
+.alert-value{
+
+    color:#0f172a;
+
+    font-weight:800;
+
+}
+
+/* =====================================
+   CHART BOX
+===================================== */
+
+.chart-box{
+
+    height:280px;
+
+    border:
+    2px dashed #cbd5e1;
+
+    border-radius:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#64748b;
+
+    background:
+    linear-gradient(
+        135deg,
+        #eff6ff,
+        #f8fafc
+    );
+
+}
+
+/* =====================================
+   PROGRESS
+===================================== */
+
+.progress{
+
+    width:100%;
+
+    height:12px;
+
+    background:#e2e8f0;
+
+    border-radius:999px;
+
+    overflow:hidden;
+
+    margin-top:15px;
+
+}
+
+.progress-bar{
+
+    height:100%;
+
+    border-radius:999px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #2563eb,
+        #60a5fa
+    );
+
+}
+
+/* =====================================
+   METRIC LIST
+===================================== */
+
+.metric-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px 0;
+
+}
+
+.metric-item span{
+
+    color:#334155;
+
+}
+
+.metric-item strong{
+
+    color:#0f172a;
+
+}
+
+/* =====================================
+   RESPONSIVO
+===================================== */
+
+@media(max-width:768px){
+
+    .dashboard{
+
+        padding:80px 20px;
+
+    }
+
+    .dashboard-header h2{
+
+        font-size:42px;
+
+    }
+
+    .dashboard-header p{
+
+        font-size:18px;
+
+    }
+
+    .kpi{
+
+        font-size:46px;
+
+    }
+
+    .security-score .score{
+
+        font-size:70px;
+
+    }
+
+    .dashboard-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
