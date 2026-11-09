@@ -1,155 +1,98 @@
-/* =====================================================
-   CYBERCHECK PRO
-   THEME ENGINE
-===================================================== */
+document.addEventListener("DOMContentLoaded", () => {
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+    const themeToggleBtn =
+        document.getElementById("themeToggle");
 
-        initializeTheme();
+    const themeIcon =
+        document.getElementById("themeIcon");
 
-    }
-);
+    const themeLinks = {
 
-/* =====================================================
-   INITIALIZE
-===================================================== */
+        "normalize-theme": "normalize.css",
+        "global-theme": "global.css",
+        "hero-theme": "hero.css",
+        "cards-theme": "cards.css",
+        "dashboard-theme": "dashboard.css",
+        "desktop-theme": "desktop.css",
+        "mobile-theme": "mobile.css",
+        "theme-style": "style.css"
 
-function initializeTheme() {
+    };
 
-    const savedTheme =
-    localStorage.getItem(
-        "theme"
-    ) || "light";
+    function applyTheme(theme) {
 
-    applyTheme(
-        savedTheme
-    );
+        const isDark =
+            theme === "dark";
 
-    const themeButton =
-    document.getElementById(
-        "themeToggle"
-    );
+        const cssFolder =
+            isDark
+                ? "/styles-dark"
+                : "/styles-light";
 
-    if (themeButton) {
+        Object.entries(themeLinks)
+            .forEach(([id, file]) => {
 
-        themeButton.addEventListener(
-            "click",
-            toggleTheme
+                const link =
+                    document.getElementById(id);
+
+                if (link) {
+
+                    link.href =
+                        `${cssFolder}/${file}`;
+
+                }
+
+            });
+
+        document.documentElement
+            .setAttribute(
+                "data-theme",
+                theme
+            );
+
+        if (themeIcon) {
+
+            themeIcon.className =
+                isDark
+                    ? "fa-solid fa-sun"
+                    : "fa-solid fa-moon";
+
+        }
+
+        localStorage.setItem(
+            "theme",
+            theme
         );
 
     }
 
-}
+    const savedTheme =
+        localStorage.getItem("theme");
 
-/* =====================================================
-   TOGGLE
-===================================================== */
+    const initialTheme =
+        savedTheme || "dark";
 
-function toggleTheme() {
+    applyTheme(initialTheme);
 
-    const currentTheme =
-    localStorage.getItem(
-        "theme"
-    ) || "light";
+    if (themeToggleBtn) {
 
-    const nextTheme =
-    currentTheme === "light"
-        ? "dark"
-        : "light";
+        themeToggleBtn.addEventListener(
+            "click",
+            () => {
 
-    applyTheme(
-        nextTheme
-    );
+                const currentTheme =
+                    localStorage.getItem("theme") || "dark";
 
-}
+                const nextTheme =
+                    currentTheme === "dark"
+                        ? "light"
+                        : "dark";
 
-/* =====================================================
-   APPLY THEME
-===================================================== */
+                applyTheme(nextTheme);
 
-function applyTheme(theme) {
-
-    const folder =
-    theme === "dark"
-        ? "styles"
-        : "styles-light";
-
-    setThemeFile(
-        "global-theme",
-        `${folder}/global.css`
-    );
-
-    setThemeFile(
-        "hero-theme",
-        `${folder}/hero.css`
-    );
-
-    setThemeFile(
-        "cards-theme",
-        `${folder}/cards.css`
-    );
-
-    setThemeFile(
-        "dashboard-theme",
-        `${folder}/dashboard.css`
-    );
-
-    setThemeFile(
-        "responsive-theme",
-        `${folder}/responsive.css`
-    );
-
-    setThemeFile(
-        "theme-style",
-        `${folder}/style.css`
-    );
-
-    const themeIcon =
-    document.getElementById(
-        "themeIcon"
-    );
-
-    if (themeIcon) {
-
-        themeIcon.className =
-        theme === "dark"
-            ? "fa-solid fa-sun"
-            : "fa-solid fa-moon";
+            }
+        );
 
     }
 
-    localStorage.setItem(
-        "theme",
-        theme
-    );
-
-    console.log(
-        `Tema aplicado: ${theme}`
-    );
-
-}
-
-/* =====================================================
-   UPDATE LINK
-===================================================== */
-
-function setThemeFile(
-    id,
-    href
-) {
-
-    const element =
-    document.getElementById(
-        id
-    );
-
-    if (!element) return;
-
-    element.setAttribute(
-        "href",
-        href
-    );
-
-}
+});

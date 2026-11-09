@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
 
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,55 +10,43 @@
     <title>CyberCheck PRO | Segurança Digital Inteligente</title>
 
     <!-- =====================================================
-         THEME SYSTEM
-    =====================================================
-    CyberCheck PRO utiliza dois conjuntos completos de estilos:
-    📁 styles/
-       Tema Escuro (Dark Mode)
-    📁 styles-light/
-       Tema Claro (Light Mode)
-    Cada pasta possui sua própria estrutura:
-    global.css
-    hero.css
-    cards.css
-    dashboard.css
-    responsive.css
-    style.css
-    O sistema alterna os temas através do JavaScript
-    (app.js) modificando dinamicamente os caminhos dos
-    arquivos CSS.
-    Objetivos:
-    ✓ Alto contraste
-    ✓ Legibilidade máxima
-    ✓ Consistência visual
-    ✓ Responsividade
-    ✓ Sem quebra de layout
-    ✓ Acessibilidade
-    ✓ Persistência com localStorage
+         THEME SYSTEM (Inicializado em Dark Mode)
     ===================================================== -->
-    <!-- =====================================================
-         THEME CSS
-    ===================================================== -->
+
+    <link id="normalize-theme"
+          rel="stylesheet"
+          href="/styles-dark/normalize.css">
+
     <link id="global-theme"
           rel="stylesheet"
-          href="styles-light/global.css">
+          href="/styles-dark/global.css">
+
     <link id="hero-theme"
           rel="stylesheet"
-          href="styles-light/hero.css">
+          href="/styles-dark/hero.css">
+
     <link id="cards-theme"
           rel="stylesheet"
-          href="styles-light/cards.css">
+          href="/styles-dark/cards.css">
+
     <link id="dashboard-theme"
           rel="stylesheet"
-          href="styles-light/dashboard.css">
-    <link id="responsive-theme"
+          href="/styles-dark/dashboard.css">
+
+    <link id="desktop-theme"
           rel="stylesheet"
-          href="styles-light/responsive.css">
+          href="/styles-dark/desktop.css">
+
+    <link id="mobile-theme"
+          rel="stylesheet"
+          href="/styles-dark/mobile.css">
+
     <link id="theme-style"
           rel="stylesheet"
-          href="styles-light/style.css">
+          href="/styles-dark/style.css">
 
-    <!-- ICONES -->
+    <!-- FONT AWESOME -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
@@ -89,27 +78,27 @@
 
         <nav class="menu">
 
-            <a href="index.html">
+            <a href="/">
                 Início
             </a>
 
-            <a href="paginas/cyber-shield-brasil/frontend/pages/dashboard/dashboard.html">
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/dashboard/dashboard.html">
                 Dashboard
             </a>
 
-            <a href="paginas/cyber-shield-brasil/frontend/pages/audit/audit.html">
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/audit/audit.html">
                 Auditoria
             </a>
 
-            <a href="paginas/cyber-shield-brasil/frontend/pages/reports/reports.html">
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/reports/reports.html">
                 Relatórios
             </a>
 
-            <a href="paginas/cyber-shield-brasil/frontend/pages/history/history.html">
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/history/history.html">
                 Histórico
             </a>
 
-            <a href="paginas/cyber-shield-brasil/frontend/pages/settings/settings.html">
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/settings/settings.html">
                 Configurações
             </a>
 
@@ -117,13 +106,10 @@
 
         <div class="header-actions">
 
-            <button
-                id="themeToggle"
-                class="theme-toggle">
-                <i
-                    id="themeIcon"
-                    class="fa-solid fa-moon">
-                </i>
+            <button id="themeToggle" class="theme-toggle">
+
+                <i id="themeIcon" class="fa-solid fa-sun"></i>
+
             </button>
 
             <a href="#" class="btn-login">
@@ -196,44 +182,6 @@
 
             </div>
 
-            <!-- ESTATISTICAS -->
-
-            <div class="stats">
-
-                <div class="stat-box">
-
-                    <h3>24/7</h3>
-
-                    <p>Monitoramento</p>
-
-                </div>
-
-                <div class="stat-box">
-
-                    <h3>500+</h3>
-
-                    <p>Ameaças Detectadas</p>
-
-                </div>
-
-                <div class="stat-box">
-
-                    <h3>99.9%</h3>
-
-                    <p>Disponibilidade</p>
-
-                </div>
-
-                <div class="stat-box">
-
-                    <h3>50K+</h3>
-
-                    <p>Análises Realizadas</p>
-
-                </div>
-
-            </div>
-
         </div>
 
     </section>
@@ -241,81 +189,128 @@
     <!-- SOLUÇÕES -->
 
     <section class="solutions">
+
         <div class="section-title">
+
             <h2>
                 Ferramentas de Segurança
             </h2>
+
             <p>
                 Recursos para análise,
                 proteção e conscientização digital.
             </p>
+
         </div>
+
         <div class="cards-grid">
-            <a href="paginas/cyber-shield-brasil/frontend/pages/dashboard/dashboard.html"
+
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/dashboard/dashboard.html"
                class="card">
+
                 <i class="fa-solid fa-chart-line"></i>
+
                 <h3>Dashboard</h3>
+
                 <p>
                     Painel executivo de segurança.
                 </p>
+
             </a>
-            <a href="paginas/cyber-shield-brasil/frontend/pages/audit/audit.html"
+
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/audit/audit.html"
                class="card">
+
                 <i class="fa-solid fa-shield-halved"></i>
+
                 <h3>Auditoria</h3>
+
                 <p>
                     Auditoria completa de segurança.
                 </p>
+
             </a>
-            <a href="paginas/cyber-shield-brasil/frontend/pages/reports/reports.html"
+
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/reports/reports.html"
                class="card">
+
                 <i class="fa-solid fa-file-lines"></i>
+
                 <h3>Relatórios</h3>
+
                 <p>
                     Relatórios técnicos exportados.
                 </p>
+
             </a>
-            <a href="paginas/cyber-shield-brasil/frontend/pages/history/history.html"
+
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/history/history.html"
                class="card">
+
                 <i class="fa-solid fa-clock-rotate-left"></i>
+
                 <h3>Histórico</h3>
+
                 <p>
                     Histórico de auditorias realizadas.
                 </p>
+
             </a>
-            <a href="paginas/cyber-shield-brasil/frontend/pages/settings/settings.html"
+
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/settings/settings.html"
                class="card">
+
                 <i class="fa-solid fa-gear"></i>
+
                 <h3>Configurações</h3>
+
                 <p>
                     Preferências e ajustes do sistema.
                 </p>
+
             </a>
-            <a href="paginas/cyber-shield-brasil/frontend/pages/help/help.html"
+
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/help/help.html"
                class="card">
+
                 <i class="fa-solid fa-circle-question"></i>
+
                 <h3>Central de Ajuda</h3>
+
                 <p>
                     Documentação e suporte.
                 </p>
+
             </a>
-            <a href="paginas/cyber-shield-brasil/frontend/pages/scans/scans.html"
+
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/scans/scans.html"
                class="card">
+
                 <i class="fa-solid fa-radar"></i>
+
                 <h3>Scans</h3>
+
                 <p>
                     Escaneamentos avançados.
                 </p>
+
             </a>
-            <a href="paginas/cyber-shield-brasil/frontend/pages/profile/profile.html"
+
+            <a href="/paginas/cyber-shield-brasil/frontend/pages/profile/profile.html"
                class="card">
+
                 <i class="fa-solid fa-user-shield"></i>
+
                 <h3>Perfil</h3>
+
                 <p>
                     Dados e permissões da conta.
                 </p>
+
             </a>
+
         </div>
+
     </section>
 
     <!-- FOOTER -->
@@ -349,7 +344,7 @@
 
     </footer>
 
-    <script src="script/app.js"></script>
+    <script src="/script/app.js"></script>
 
 </body>
 

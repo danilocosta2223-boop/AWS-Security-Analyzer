@@ -1,111 +1,200 @@
-/* =====================================
+/* =====================================================
+   CYBERCHECK PRO
    NORMALIZE CSS
-===================================== */
+===================================================== */
 
-html{
-    line-height:1.15;
-    -webkit-text-size-adjust:100%;
+/* =========================
+   RESET
+========================= */
+
+*,
+*::before,
+*::after {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
 }
 
-body{
-    margin:0;
+/* =========================
+   HTML
+========================= */
+
+html {
+
+    font-size: 16px;
+
+    scroll-behavior: smooth;
+
+    -webkit-text-size-adjust: 100%;
+
+    text-size-adjust: 100%;
+
 }
 
-main{
-    display:block;
+/* =========================
+   BODY
+========================= */
+
+body {
+
+    min-height: 100vh;
+
+    line-height: 1.5;
+
+    text-rendering: optimizeLegibility;
+
+    -webkit-font-smoothing: antialiased;
+
+    -moz-osx-font-smoothing: grayscale;
+
 }
 
-h1{
-    font-size:2em;
-    margin:0;
+/* =========================
+   MEDIA
+========================= */
+
+img,
+picture,
+svg,
+video,
+canvas {
+
+    display: block;
+
+    max-width: 100%;
+
 }
 
-hr{
-    box-sizing:content-box;
-    height:0;
-    overflow:visible;
-}
+/* =========================
+   FORMULÁRIOS
+========================= */
 
-pre{
-    font-family:monospace;
-    font-size:1em;
-}
-
-a{
-    background-color:transparent;
-}
-
-abbr[title]{
-    border-bottom:none;
-    text-decoration:underline dotted;
-}
-
-b,
-strong{
-    font-weight:bolder;
-}
-
-code,
-kbd,
-samp{
-    font-family:monospace;
-    font-size:1em;
-}
-
-small{
-    font-size:80%;
-}
-
-img{
-    border-style:none;
-    max-width:100%;
-}
-
-button,
 input,
-optgroup,
-select,
-textarea{
-    font-family:inherit;
-    font-size:100%;
-    line-height:1.15;
-    margin:0;
-}
-
 button,
-input{
-    overflow:visible;
+textarea,
+select {
+
+    font: inherit;
+
 }
 
-button,
-select{
-    text-transform:none;
+/* =========================
+   BUTTON
+========================= */
+
+button {
+
+    border: none;
+
+    background: none;
+
+    cursor: pointer;
+
 }
 
-button,
-[type="button"],
-[type="reset"],
-[type="submit"]{
-    appearance:none;
+/* =========================
+   LINKS
+========================= */
+
+a {
+
+    text-decoration: none;
+
+    color: inherit;
+
 }
 
-fieldset{
-    padding:.35em .75em .625em;
+/* =========================
+   LISTAS
+========================= */
+
+ul,
+ol {
+
+    list-style: none;
+
 }
 
-legend{
-    box-sizing:border-box;
-    color:inherit;
-    display:table;
-    max-width:100%;
-    padding:0;
-    white-space:normal;
+/* =========================
+   TABELAS
+========================= */
+
+table {
+
+    border-collapse: collapse;
+
+    border-spacing: 0;
+
+    width: 100%;
+
 }
 
-textarea{
-    overflow:auto;
+/* =========================
+   TITULOS
+========================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+    font-weight: inherit;
+
 }
 
-[hidden]{
-    display:none;
+/* =========================
+   PARÁGRAFOS
+========================= */
+
+p {
+
+    overflow-wrap: break-word;
+
+}
+
+/* =========================
+   TEXTAREA
+========================= */
+
+textarea {
+
+    resize: vertical;
+
+}
+
+/* =========================
+   INPUT NUMBER
+========================= */
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+
+input[type="number"] {
+
+    appearance: textfield;
+
+}
+
+/* =========================
+   FOCUS
+========================= */
+
+:focus-visible {
+
+    outline: 2px solid #0d8bff;
+
+    outline-offset: 2px;
+
 }
