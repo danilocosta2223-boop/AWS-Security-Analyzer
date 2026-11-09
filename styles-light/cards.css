@@ -1,14 +1,25 @@
 /* =====================================================
-   SOLUTIONS SECTION
+   CYBERCHECK PRO
+   CARDS SECTION - LIGHT THEME
+===================================================== */
+
+/* =====================================================
+   SOLUTIONS
 ===================================================== */
 
 .solutions {
 
     width: 100%;
 
-    padding: 80px 50px 120px;
+    padding: 100px 50px;
 
-    position: relative;
+    background:
+        linear-gradient(
+            180deg,
+            #0f172a 0%,
+            #1e3a8a 50%,
+            #0f172a 100%
+        );
 
 }
 
@@ -20,33 +31,33 @@
 
     text-align: center;
 
-    margin-bottom: 70px;
+    margin-bottom: 80px;
 
 }
 
 .section-title h2 {
 
+    color: #ffffff;
+
     font-size: 56px;
 
     font-weight: 800;
 
-    color: #ffffff;
-
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 
 }
 
 .section-title p {
 
-    max-width: 700px;
-
-    margin: 0 auto;
+    color: rgba(255,255,255,.85);
 
     font-size: 18px;
 
-    line-height: 1.7;
+    line-height: 1.8;
 
-    color: rgba(255,255,255,.80);
+    max-width: 800px;
+
+    margin: 0 auto;
 
 }
 
@@ -78,11 +89,13 @@
 
 .card {
 
-    min-height: 220px;
+    position: relative;
+
+    min-height: 240px;
 
     padding: 35px;
 
-    border-radius: 18px;
+    border-radius: 24px;
 
     display: flex;
 
@@ -91,23 +104,26 @@
     justify-content: flex-start;
 
     background:
-        rgba(4,17,38,.70);
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f8fbff 100%
+        );
 
     border:
-        1px solid rgba(56,189,248,.18);
+        1px solid rgba(255,255,255,.80);
 
-    backdrop-filter: blur(12px);
-
-    transition: .3s;
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.15);
 
     overflow: hidden;
 
-    position: relative;
+    transition: all .35s ease;
 
 }
 
 /* =====================================================
-   CARD GLOW
+   LIGHT EFFECT
 ===================================================== */
 
 .card::before {
@@ -116,13 +132,13 @@
 
     position: absolute;
 
-    top: -50%;
+    width: 260px;
 
-    right: -50%;
+    height: 260px;
 
-    width: 220px;
+    top: -130px;
 
-    height: 220px;
+    right: -130px;
 
     border-radius: 50%;
 
@@ -130,7 +146,7 @@
 
         radial-gradient(
 
-            rgba(56,189,248,.10),
+            rgba(37,99,235,.12),
 
             transparent 70%
 
@@ -141,22 +157,22 @@
 }
 
 /* =====================================================
-   CARD HOVER
+   HOVER
 ===================================================== */
 
 .card:hover {
 
     transform:
-        translateY(-8px);
+        translateY(-10px);
 
     border-color:
-        rgba(56,189,248,.55);
+        rgba(37,99,235,.35);
 
     box-shadow:
 
-        0 0 30px rgba(56,189,248,.15),
+        0 30px 60px rgba(37,99,235,.18),
 
-        0 15px 40px rgba(0,0,0,.35);
+        0 15px 40px rgba(0,0,0,.18);
 
 }
 
@@ -166,9 +182,9 @@
 
 .card i {
 
-    font-size: 34px;
+    font-size: 42px;
 
-    color: #38bdf8;
+    color: #2563eb;
 
     margin-bottom: 25px;
 
@@ -180,59 +196,45 @@
 
 .card h3 {
 
-    font-size: 24px;
+    color: #0f172a;
 
-    font-weight: 700;
+    font-size: 26px;
 
-    color: #ffffff;
+    font-weight: 800;
 
     margin-bottom: 15px;
 
 }
 
 /* =====================================================
-   TEXT
+   DESCRIPTION
 ===================================================== */
 
 .card p {
 
+    color: #475569;
+
     font-size: 16px;
 
-    line-height: 1.7;
-
-    color: rgba(255,255,255,.85);
+    line-height: 1.8;
 
 }
 
 /* =====================================================
-   RESPONSIVE
+   MOBILE
 ===================================================== */
 
-@media screen and (max-width: 1200px) {
-
-    .cards-grid {
-
-        grid-template-columns:
-            repeat(
-                2,
-                1fr
-            );
-
-    }
-
-}
-
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
 
     .solutions {
 
-        padding: 60px 20px 80px;
+        padding: 60px 20px;
 
     }
 
     .section-title h2 {
 
-        font-size: 38px;
+        font-size: 40px;
 
     }
 
@@ -244,7 +246,7 @@
 
     .card {
 
-        min-height: 180px;
+        min-height: 200px;
 
         padding: 25px;
 
