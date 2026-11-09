@@ -9,55 +9,17 @@
 
 :root {
 
-    --container-width: 1400px;
+    --background-primary: #020817;
+    --background-secondary: #041126;
 
-    --header-height: 90px;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255,255,255,.85);
 
-    --border-radius: 16px;
+    --primary-color: #38bdf8;
 
-    --transition-speed: .3s;
+    --border-color: rgba(56,189,248,.18);
 
-    --text-color: #ffffff;
-
-    --accent-color: #38bdf8;
-
-}
-
-/* =====================================================
-   HTML
-===================================================== */
-
-html {
-
-    font-size: 16px;
-
-    scroll-behavior: smooth;
-
-}
-
-/* =====================================================
-   BODY
-===================================================== */
-
-body {
-
-    margin: 0;
-
-    min-height: 100vh;
-
-    overflow-x: hidden;
-
-    font-family:
-        "Segoe UI",
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    color: #ffffff;
-
-    font-weight: 500;
-
-    text-align: left;
+    --container-width: 1600px;
 
 }
 
@@ -71,6 +33,44 @@ body {
 
     box-sizing: border-box;
 
+    margin: 0;
+
+    padding: 0;
+
+}
+
+/* =====================================================
+   HTML
+===================================================== */
+
+html {
+
+    scroll-behavior: smooth;
+
+    background: var(--background-primary);
+
+}
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body {
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+
+    background: var(--background-primary);
+
+    color: var(--text-primary);
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+
 }
 
 /* =====================================================
@@ -79,9 +79,33 @@ body {
 
 a {
 
-    color: #ffffff;
+    color: inherit;
 
     text-decoration: none;
+
+}
+
+/* =====================================================
+   IMAGES
+===================================================== */
+
+img {
+
+    display: block;
+
+    max-width: 100%;
+
+}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+section {
+
+    width: 100%;
+
+    background: var(--background-primary);
 
 }
 
@@ -123,58 +147,33 @@ a {
 
     align-items: center;
 
-    gap: 14px;
+    gap: 12px;
 
 }
 
 .logo i {
 
-    color: var(--accent-color);
+    font-size: 30px;
 
-    font-size: 28px;
+    color: var(--primary-color);
 
 }
 
 .logo h2 {
 
-    margin: 0;
-
     color: #ffffff;
 
-    font-size: 30px;
+    font-size: 32px;
 
     font-weight: 800;
-
-    line-height: 1;
-
-    text-shadow:
-        0 2px 8px rgba(0,0,0,.80);
-
-}
-
-.logo span {
-
-    color: #ffffff;
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-    margin-left: 2px;
 
 }
 
 .logo small {
 
-    display: block;
-
-    margin-top: 4px;
-
-    color: rgba(255,255,255,.90);
+    color: rgba(255,255,255,.80);
 
     font-size: 11px;
-
-    font-weight: 500;
 
 }
 
@@ -194,22 +193,11 @@ a {
 
 .menu a {
 
-    color: #ffffff;
-
     font-size: 14px;
 
     font-weight: 700;
 
-    text-shadow:
-        0 1px 6px rgba(0,0,0,.80);
-
-    transition: .3s;
-
-}
-
-.menu a:hover {
-
-    color: var(--accent-color);
+    color: #ffffff;
 
 }
 
@@ -223,7 +211,7 @@ a {
 
     align-items: center;
 
-    gap: 14px;
+    gap: 12px;
 
 }
 
@@ -233,11 +221,9 @@ a {
 
 .theme-toggle {
 
-    width: 48px;
+    width: 50px;
 
-    height: 48px;
-
-    border-radius: 50%;
+    height: 50px;
 
     display: flex;
 
@@ -245,54 +231,43 @@ a {
 
     justify-content: center;
 
-    cursor: pointer;
+    border-radius: 50%;
 
     background:
-        rgba(255,255,255,.08);
+        rgba(4,17,38,.95);
 
     border:
-        1px solid rgba(255,255,255,.12);
+        1px solid rgba(56,189,248,.35);
 
     color: #ffffff;
 
-    backdrop-filter: blur(10px);
-
-    transition: .3s;
-
-}
-
-.theme-toggle:hover {
-
-    background:
-        rgba(255,255,255,.12);
-
-    transform: translateY(-2px);
+    cursor: pointer;
 
 }
 
 .theme-toggle i {
 
-    font-size: 20px;
+    font-size: 18px;
 
 }
 
 /* =====================================================
-   LOGIN BUTTON
+   LOGIN
 ===================================================== */
 
 .btn-login {
 
-    height: 48px;
+    height: 50px;
 
-    padding: 0 20px;
+    padding: 0 22px;
 
     display: flex;
 
     align-items: center;
 
-    justify-content: center;
-
     gap: 10px;
+
+    border-radius: 12px;
 
     color: #ffffff;
 
@@ -300,77 +275,11 @@ a {
 
     font-weight: 700;
 
-    border-radius: 12px;
-
     background:
-        rgba(255,255,255,.08);
+        rgba(4,17,38,.95);
 
     border:
-        1px solid rgba(255,255,255,.12);
-
-    backdrop-filter: blur(10px);
-
-    transition: .3s;
-
-}
-
-.btn-login:hover {
-
-    background:
-        rgba(255,255,255,.12);
-
-    transform: translateY(-2px);
-
-}
-
-/* =====================================================
-   CONTAINER
-===================================================== */
-
-.container {
-
-    width: 100%;
-
-    max-width: var(--container-width);
-
-    margin: 0 auto;
-
-    padding-left: 30px;
-
-    padding-right: 30px;
-
-}
-
-/* =====================================================
-   HEADINGS
-===================================================== */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-
-    color: #ffffff;
-
-    text-align: left;
-
-    font-weight: 800;
-
-}
-
-/* =====================================================
-   PARAGRAPHS
-===================================================== */
-
-p {
-
-    color: #ffffff;
-
-    text-align: left;
-
-    font-weight: 500;
+        1px solid rgba(56,189,248,.35);
 
 }
 
@@ -382,35 +291,27 @@ p {
 
     text-align: center;
 
-    margin-bottom: 60px;
+    margin-bottom: 70px;
 
 }
 
 .section-title h2 {
 
-    text-align: center;
+    color: #ffffff;
 
-    font-size: 48px;
-
-    line-height: 52px;
+    font-size: 56px;
 
     font-weight: 800;
 
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 
 }
 
 .section-title p {
 
-    text-align: center;
-
-    max-width: 700px;
-
-    margin: 0 auto;
+    color: rgba(255,255,255,.80);
 
     font-size: 18px;
-
-    line-height: 1.8;
 
 }
 
@@ -420,11 +321,16 @@ p {
 
 .footer {
 
+    background:
+        var(--background-primary);
+
     padding: 80px 40px;
 
 }
 
 .footer-logo h3 {
+
+    color: #ffffff;
 
     font-size: 28px;
 
@@ -434,9 +340,7 @@ p {
 
 .footer-logo p {
 
-    max-width: 600px;
-
-    line-height: 1.8;
+    color: rgba(255,255,255,.80);
 
 }
 
@@ -455,31 +359,5 @@ p {
 .footer-links a {
 
     color: #ffffff;
-
-    font-weight: 600;
-
-}
-
-/* =====================================================
-   IMAGES
-===================================================== */
-
-img {
-
-    display: block;
-
-    max-width: 100%;
-
-}
-
-/* =====================================================
-   TRANSITIONS
-===================================================== */
-
-button,
-a {
-
-    transition:
-        all .3s ease;
 
 }
