@@ -4,11 +4,9 @@
 
 .hero {
 
-    min-height: 950px;
+    min-height: 900px;
 
-    padding-top: 90px;
-
-    padding-bottom: 80px;
+    padding-bottom: 60px;
 
     display: flex;
 
@@ -21,8 +19,8 @@
     background-image:
         linear-gradient(
             90deg,
-            rgba(255,255,255,.45),
-            rgba(255,255,255,.15)
+            rgba(255,255,255,.40),
+            rgba(255,255,255,.12)
         ),
         url("../imagens/light-theme/hero-cybercheck.png");
 
@@ -42,11 +40,11 @@
 
     width: 100%;
 
-    max-width: 1600px;
+    max-width: 100%;
 
-    margin: 0 auto;
+    margin: 0;
 
-    padding: 80px 40px 0;
+    padding: 120px 40px 0 40px;
 
     position: relative;
 
@@ -60,16 +58,24 @@
 
 .hero-content {
 
-    width: 100%;
+    width: 750px;
 
-    max-width: 760px;
+    max-width: 750px;
 
-    padding: 45px;
+    margin-left: 0;
+
+    padding: 40px;
 
     border-radius: 24px;
 
+    position: relative;
+
+    z-index: 10;
+
+    text-align: left;
+
     background:
-        rgba(255,255,255,.84);
+        rgba(255,255,255,.82);
 
     backdrop-filter: blur(14px);
 
@@ -77,7 +83,7 @@
         1px solid rgba(15,23,42,.08);
 
     box-shadow:
-        0 25px 60px rgba(15,23,42,.10);
+        0 20px 60px rgba(15,23,42,.08);
 
 }
 
@@ -117,9 +123,13 @@
 
     font-weight: 800;
 
+    max-width: 700px;
+
     letter-spacing: -2px;
 
     margin-bottom: 25px;
+
+    text-align: left;
 
 }
 
@@ -139,20 +149,22 @@
 
 .hero p {
 
-    color: #475569;
+    max-width: 650px;
 
     font-size: 20px;
 
     line-height: 1.8;
 
+    color: #334155;
+
     margin-bottom: 35px;
 
-    max-width: 650px;
+    text-align: left;
 
 }
 
 /* =====================================================
-   BUTTONS
+   HERO BUTTONS
 ===================================================== */
 
 .hero-buttons {
@@ -163,22 +175,24 @@
 
     margin-bottom: 30px;
 
+    justify-content: flex-start;
+
 }
 
 .btn-primary,
 .btn-secondary {
-
-    min-height: 56px;
-
-    padding: 18px 34px;
-
-    border-radius: 12px;
 
     display: flex;
 
     align-items: center;
 
     justify-content: center;
+
+    min-height: 56px;
+
+    padding: 18px 34px;
+
+    border-radius: 12px;
 
     text-decoration: none;
 
@@ -188,6 +202,10 @@
 
 }
 
+/* =====================================================
+   PRIMARY BUTTON
+===================================================== */
+
 .btn-primary {
 
     background: #2563eb;
@@ -195,19 +213,22 @@
     color: #ffffff;
 
     box-shadow:
-        0 15px 35px rgba(37,99,235,.20);
+        0 15px 35px rgba(37,99,235,.15);
 
 }
 
 .btn-primary:hover {
 
-    transform:
-        translateY(-3px);
+    transform: translateY(-3px);
 
     box-shadow:
-        0 20px 40px rgba(37,99,235,.30);
+        0 20px 40px rgba(37,99,235,.25);
 
 }
+
+/* =====================================================
+   SECONDARY BUTTON
+===================================================== */
 
 .btn-secondary {
 
@@ -216,7 +237,7 @@
     color: #0f172a;
 
     border:
-        1px solid rgba(15,23,42,.12);
+        1px solid rgba(15,23,42,.10);
 
 }
 
@@ -238,48 +259,22 @@
 
     gap: 25px;
 
+    justify-content: flex-start;
+
 }
 
 .hero-features span {
 
-    color: #334155;
+    color: #0f172a;
 
     font-size: 15px;
 
-    font-weight: 600;
+    font-weight: 500;
 
 }
 
 /* =====================================================
-   TRANSITION TO CARDS SECTION
-===================================================== */
-
-.hero::after {
-
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-
-    bottom: 0;
-
-    width: 100%;
-
-    height: 180px;
-
-    background:
-
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,0),
-            #1e3a8a
-        );
-
-}
-
-/* =====================================================
-   GLOW
+   LIGHT EFFECTS
 ===================================================== */
 
 .hero::before {
@@ -299,22 +294,58 @@
     border-radius: 50%;
 
     background:
-
         radial-gradient(
-
             rgba(37,99,235,.08),
-
             transparent 70%
-
         );
+
+    pointer-events: none;
+
+}
+
+.hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+
+    height: 500px;
+
+    bottom: -200px;
+
+    left: -150px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            rgba(59,130,246,.08),
+            transparent 70%
+        );
+
+    pointer-events: none;
 
 }
 
 /* =====================================================
-   MOBILE
+   RESPONSIVE
 ===================================================== */
 
-@media (max-width:768px) {
+@media (max-width: 1024px) {
+
+    .hero h1 {
+
+        font-size: 60px;
+
+        line-height: 65px;
+
+    }
+
+}
+
+@media (max-width: 768px) {
 
     .hero {
 
@@ -326,11 +357,15 @@
 
     .hero-container {
 
-        padding: 40px 20px;
+        padding: 120px 20px 0 20px;
 
     }
 
     .hero-content {
+
+        width: 100%;
+
+        max-width: 100%;
 
         padding: 25px;
 
