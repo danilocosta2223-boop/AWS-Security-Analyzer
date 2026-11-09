@@ -342,3 +342,68 @@
     pointer-events: none;
 
 }
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px){
+
+    .hero{
+        min-height:auto;
+        padding-top:110px;
+        padding-bottom:40px;
+    }
+
+    .hero-container{
+        padding:0 15px;
+    }
+
+    .hero-content{
+        width:100%;
+        max-width:100%;
+        padding:24px;
+        margin:0;
+    }
+
+    .hero h1{
+        font-size:42px;
+        line-height:1.1;
+        margin-bottom:16px;
+    }
+
+    .hero p{
+        font-size:16px;
+        line-height:1.6;
+        margin-bottom:20px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+        gap:12px;
+    }
+
+    .btn-primary,
+    .btn-secondary{
+        width:100%;
+        min-height:52px;
+    }
+
+    .hero-features{
+        gap:12px;
+        justify-content:center;
+    }
+
+    .stats{
+        position:relative;
+        width:100%;
+        left:auto;
+        bottom:auto;
+        transform:none;
+
+        margin-top:25px;
+
+        grid-template-columns:1fr;
+        padding:20px;
+    }
+}

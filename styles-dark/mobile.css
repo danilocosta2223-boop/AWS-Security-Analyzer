@@ -1,146 +1,169 @@
-/* =====================================================
-   RESPONSIVE.CSS - MOBILE PEQUENO
-   Até 480px
-===================================================== */
+/* =========================================
+   MOBILE PREMIUM
+========================================= */
 
-@media (max-width: 480px) {
+@media screen and (max-width: 768px){
 
-    /* =========================
-       HEADER
-    ========================= */
-
-    .header {
-        height: 80px;
-        padding: 0 15px;
+    .hero{
+        min-height:auto;
+        padding-top:110px;
+        padding-bottom:40px;
+        background-position:center;
     }
 
-    .menu {
-        display: none;
+    .hero-container{
+        width:100%;
+        padding:0 15px;
+        display:flex;
+        justify-content:center;
     }
 
-    .header-actions {
-        gap: 10px;
+    .hero-content{
+        width:100%;
+        max-width:100%;
+        margin:0;
+        padding:24px;
+        border-radius:24px;
+        backdrop-filter:blur(20px);
     }
 
-    .logo h2 {
-        font-size: 22px;
+    .hero-subtitle{
+        font-size:14px;
+        letter-spacing:3px;
+        line-height:1.4;
+        margin-bottom:15px;
     }
 
-    .logo small {
-        display: none;
+    .hero h1{
+        font-size:36px;
+        line-height:1.1;
+        margin-bottom:20px;
+        text-align:left;
     }
 
-    /* =========================
-       HERO
-    ========================= */
-
-    .hero {
-        min-height: auto;
-        padding-bottom: 80px;
+    .hero p{
+        font-size:16px;
+        line-height:1.6;
+        margin-bottom:25px;
     }
 
-    .hero-container {
-        padding: 100px 20px 0;
-    }
-
-    .hero-content {
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        padding: 20px;
-    }
-
-    .hero h1 {
-        font-size: 30px;
-        line-height: 34px;
-    }
-
-    .hero p {
-        font-size: 15px;
-        line-height: 1.7;
-    }
-
-    /* =========================
-       BOTÕES
-    ========================= */
-
-    .hero-buttons {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        gap: 15px;
+    .hero-buttons{
+        display:flex;
+        flex-direction:column;
+        gap:12px;
+        margin-bottom:25px;
+        width:100%;
     }
 
     .btn-primary,
-    .btn-secondary {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .btn-secondary{
+        width:100%;
+        height:54px;
+        border-radius:14px;
+        font-size:16px;
+        font-weight:600;
     }
 
-    /* =========================
-       FEATURES
-    ========================= */
-
-    .hero-features {
-        justify-content: center;
-        gap: 15px;
-        flex-wrap: wrap;
+    .hero-features{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:12px;
+        margin-top:15px;
     }
 
-    /* =========================
-       STATS
-    ========================= */
-
-    .stats {
-        position: relative;
-        width: 100%;
-        left: auto;
-        bottom: auto;
-        transform: none;
-        margin-top: 40px;
-        padding: 25px;
-        grid-template-columns: 1fr;
-        gap: 20px;
+    .hero-features span{
+        font-size:14px;
+        white-space:nowrap;
     }
 
-    .stat-box h3 {
-        font-size: 32px;
+    .stats{
+        position:relative;
+        left:auto;
+        bottom:auto;
+        width:100%;
+        margin-top:25px;
+        transform:none;
+        grid-template-columns:1fr;
+        padding:20px;
+        gap:15px;
     }
 
-    /* =========================
-       CARDS
-    ========================= */
-
-    .cards-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    .stat-box{
+        text-align:center;
     }
 
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    .stat-box h3{
+        font-size:28px;
     }
 
-    /* =========================
-       TÍTULOS
-    ========================= */
-
-    .section-title h2 {
-        font-size: 32px;
+    .section-title h2{
+        font-size:34px;
+        line-height:1.2;
     }
 
-    .section-title p {
-        font-size: 16px;
+    .section-title p{
+        font-size:16px;
     }
 
-    /* =========================
-       ESPAÇAMENTO GERAL
-    ========================= */
+    .cards-grid,
+    .dashboard-grid{
+        grid-template-columns:1fr;
+        gap:20px;
+    }
+}
 
-    section {
-        padding-left: 20px;
-        padding-right: 20px;
+/* =========================================
+   CELULAR PEQUENO
+========================================= */
+
+@media screen and (max-width:480px){
+
+    .hero-container{
+        padding:0 10px;
+    }
+
+    .hero-content{
+        padding:20px;
+        border-radius:20px;
+    }
+
+    .hero h1{
+        font-size:30px;
+        line-height:1.1;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .hero-subtitle{
+        font-size:12px;
+        letter-spacing:2px;
+    }
+
+    .btn-primary,
+    .btn-secondary{
+        height:50px;
+        font-size:15px;
+    }
+
+    .hero-features{
+        flex-direction:column;
+        align-items:center;
+        gap:8px;
+    }
+
+    .hero-features span{
+        width:100%;
+        text-align:center;
+    }
+
+    .section-title h2{
+        font-size:28px;
+    }
+
+    .stat-box h3{
+        font-size:24px;
     }
 }
