@@ -1,0 +1,7 @@
+{
+    "module": "domain_analysis",
+    "version": "1.0.0",
+    "enabled": true,
+    "timeout": 15,
+    "description": "Análise de domínios e DNS"
+}

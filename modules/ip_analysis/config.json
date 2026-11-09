@@ -1,0 +1,7 @@
+{
+    "module": "ip_analysis",
+    "enabled": true,
+    "version": "1.0.0",
+    "timeout": 10,
+    "description": "Análise de endereços IPv4 e IPv6"
+}
