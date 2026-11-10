@@ -2,14 +2,19 @@ from flask import Flask
 from flask_cors import CORS
 
 from backend.config import Config
+
 from backend.routes.audit import audit_bp
+from backend.routes.history import history_bp
+from backend.routes.reports import reports_bp
 
 
 def create_app():
 
     app = Flask(__name__)
 
-    app.config.from_object(Config)
+    app.config.from_object(
+        Config
+    )
 
     CORS(app)
 
@@ -22,6 +27,16 @@ def create_app():
         url_prefix="/api/audit"
     )
 
+    app.register_blueprint(
+        history_bp,
+        url_prefix="/api/history"
+    )
+
+    app.register_blueprint(
+        reports_bp,
+        url_prefix="/api/reports"
+    )
+
     # ==========================
     # HOME
     # ==========================
@@ -30,12 +45,15 @@ def create_app():
     def home():
 
         return {
+
             "project": "Cyber Shield Brasil",
+
             "version": getattr(
                 Config,
                 "VERSION",
                 "1.0.0"
             ),
+
             "status": "online"
         }
 
@@ -47,14 +65,22 @@ def create_app():
     def api():
 
         return {
+
             "project": "Cyber Shield Brasil",
+
             "version": getattr(
                 Config,
                 "VERSION",
                 "1.0.0"
             ),
+
             "modules": [
-                "audit"
+
+                "audit",
+
+                "history",
+
+                "reports"
             ]
         }
 
