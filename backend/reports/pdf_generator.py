@@ -1,10 +1,14 @@
 from pathlib import Path
 from datetime import datetime
 
+from reportlab.pdfgen import canvas
+
 
 def generate_pdf(data):
 
-    reports_dir = Path("storage/reports")
+    reports_dir = Path(
+        "storage/reports"
+    )
 
     reports_dir.mkdir(
         parents=True,
@@ -18,19 +22,35 @@ def generate_pdf(data):
 
     file_path = reports_dir / filename
 
-    with open(
-        file_path,
-        "w",
-        encoding="utf-8"
-    ) as file:
+    pdf = canvas.Canvas(
+        str(file_path)
+    )
 
-        file.write(
-            "CYBERCHECK PRO REPORT\n\n"
+    pdf.setTitle(
+        "CyberCheck PRO Report"
+    )
+
+    y = 800
+
+    pdf.drawString(
+        50,
+        y,
+        "CYBERCHECK PRO REPORT"
+    )
+
+    y -= 40
+
+    for key, value in data.items():
+
+        pdf.drawString(
+            50,
+            y,
+            f"{key}: {value}"
         )
 
-        file.write(
-            str(data)
-        )
+        y -= 20
+
+    pdf.save()
 
     return {
 

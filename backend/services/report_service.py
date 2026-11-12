@@ -1,26 +1,38 @@
-from datetime import datetime
+from backend.reports.csv_generator import generate_csv
+from backend.reports.html_generator import generate_html
+from backend.reports.pdf_generator import generate_pdf
+
+from backend.database.database import save_report
 
 
-class ReportService:
+def generate_report(
+    data,
+    report_format
+):
 
-    @staticmethod
-    def generate(data):
+    if report_format == "csv":
+
+        result = generate_csv(data)
+
+    elif report_format == "html":
+
+        result = generate_html(data)
+
+    elif report_format == "pdf":
+
+        result = generate_pdf(data)
+
+    else:
 
         return {
-
-            "success": True,
-
-            "generated_at": datetime.now().isoformat(),
-
-            "report": data
+            "success": False,
+            "error": "Formato inválido"
         }
 
-    @staticmethod
-    def summary(data):
+    save_report(
+        result["file"],
+        report_format,
+        result["file"]
+    )
 
-        return {
-
-            "total_items": len(data),
-
-            "generated_at": datetime.now().isoformat()
-        }
+    return result
