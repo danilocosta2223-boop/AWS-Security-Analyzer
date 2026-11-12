@@ -172,3 +172,50 @@ def get_reports():
     conn.close()
 
     return rows
+
+def get_dashboard_stats():
+
+    conn = get_connection()
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM scans"
+    )
+
+    total_scans = cursor.fetchone()[0]
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM reports"
+    )
+
+    total_reports = cursor.fetchone()[0]
+
+    cursor.execute(
+        """
+        SELECT target
+        FROM scans
+        ORDER BY id DESC
+        LIMIT 1
+        """
+    )
+
+    latest = cursor.fetchone()
+
+    conn.close()
+
+    return {
+
+        "status": "online",
+
+        "total_scans": total_scans,
+
+        "total_reports": total_reports,
+
+        "latest_scan": (
+            latest[0]
+            if latest
+            else None
+        )
+    }
+
