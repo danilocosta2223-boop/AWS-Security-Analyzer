@@ -1,0 +1,179 @@
+/* =====================================================
+   DESKTOP
+   Mesma escala para Dark e Light
+===================================================== */
+
+/* =========================================
+   LARGE DESKTOP
+========================================= */
+
+@media screen and (min-width:1400px){
+
+    .hero-container{
+
+        max-width:1400px;
+
+    }
+
+    .hero-content{
+
+        max-width:750px;
+
+        margin-left:70px;
+
+        padding:40px;
+
+    }
+
+    .hero h1{
+
+        font-size:72px;
+
+        line-height:76px;
+
+    }
+
+}
+
+/* =========================================
+   DESKTOP PADRÃO
+========================================= */
+
+@media screen and (min-width:1201px){
+
+    .header{
+
+        height:90px;
+
+    }
+
+    .menu{
+
+        display:flex;
+
+        gap:35px;
+
+    }
+
+    .hero{
+
+        min-height:1200px;
+
+        padding-bottom:380px;
+
+    }
+
+    .hero-content{
+
+        width:100%;
+
+        max-width:750px;
+
+        margin-left:70px;
+
+        padding:40px;
+
+    }
+
+    .hero h1{
+
+        font-size:72px;
+
+        line-height:76px;
+
+    }
+
+    .hero p{
+
+        font-size:20px;
+
+        line-height:1.8;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:row;
+
+        gap:15px;
+
+    }
+
+    .hero-features{
+
+        gap:25px;
+
+    }
+
+    .stats{
+
+        width:90%;
+
+        max-width:1450px;
+
+        display:grid;
+
+        grid-template-columns:
+        repeat(4,1fr);
+
+        gap:20px;
+
+        padding:35px;
+
+    }
+
+    .cards-grid{
+
+        display:grid;
+
+        grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(320px,1fr)
+        );
+
+        gap:30px;
+
+    }
+
+    .dashboard-grid{
+
+        display:grid;
+
+        grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(320px,1fr)
+        );
+
+        gap:30px;
+
+    }
+
+}
+
+/* =========================================
+   ULTRA WIDE
+========================================= */
+
+@media screen and (min-width:1920px){
+
+    .hero-container{
+
+        max-width:1600px;
+
+    }
+
+    .hero-content{
+
+        max-width:800px;
+
+    }
+
+    .stats{
+
+        max-width:1600px;
+
+    }
+
+}

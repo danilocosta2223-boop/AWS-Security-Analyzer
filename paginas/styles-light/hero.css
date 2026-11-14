@@ -1,0 +1,394 @@
+/* =====================================================
+   HERO SECTION - LIGHT THEME
+===================================================== */
+
+.hero {
+
+    min-height: 900px;
+
+    padding-bottom: 60px;
+
+    display: flex;
+
+    align-items: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.40),
+            rgba(255,255,255,.12)
+        ),
+        url("../imagens/light-theme/hero-cybercheck.png");
+
+    background-size: cover;
+
+    background-position: center center;
+
+    background-repeat: no-repeat;
+
+}
+
+/* =====================================================
+   HERO CONTAINER
+===================================================== */
+
+.hero-container {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    margin: 0;
+
+    padding: 120px 40px 0 40px;
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+/* =====================================================
+   HERO CONTENT
+===================================================== */
+
+.hero-content {
+
+    width: 750px;
+
+    max-width: 750px;
+
+    margin-left: 0;
+
+    padding: 40px;
+
+    border-radius: 24px;
+
+    position: relative;
+
+    z-index: 10;
+
+    text-align: left;
+
+    background:
+        rgba(255,255,255,.82);
+
+    backdrop-filter: blur(14px);
+
+    border:
+        1px solid rgba(15,23,42,.08);
+
+    box-shadow:
+        0 20px 60px rgba(15,23,42,.08);
+
+}
+
+/* =====================================================
+   SUBTITLE
+===================================================== */
+
+.subtitle {
+
+    display: inline-block;
+
+    color: #2563eb;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 20px;
+
+}
+
+/* =====================================================
+   HERO TITLE
+===================================================== */
+
+.hero h1 {
+
+    color: #0f172a;
+
+    font-size: 72px;
+
+    line-height: 76px;
+
+    font-weight: 800;
+
+    max-width: 700px;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 25px;
+
+    text-align: left;
+
+}
+
+/* =====================================================
+   BLUE HIGHLIGHT
+===================================================== */
+
+.blue {
+
+    color: #2563eb;
+
+}
+
+/* =====================================================
+   HERO DESCRIPTION
+===================================================== */
+
+.hero p {
+
+    max-width: 650px;
+
+    font-size: 20px;
+
+    line-height: 1.8;
+
+    color: #334155;
+
+    margin-bottom: 35px;
+
+    text-align: left;
+
+}
+
+/* =====================================================
+   HERO BUTTONS
+===================================================== */
+
+.hero-buttons {
+
+    display: flex;
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+
+    justify-content: flex-start;
+
+}
+
+.btn-primary,
+.btn-secondary {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 56px;
+
+    padding: 18px 34px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    transition: .3s;
+
+}
+
+/* =====================================================
+   PRIMARY BUTTON
+===================================================== */
+
+.btn-primary {
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 15px 35px rgba(37,99,235,.15);
+
+}
+
+.btn-primary:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 20px 40px rgba(37,99,235,.25);
+
+}
+
+/* =====================================================
+   SECONDARY BUTTON
+===================================================== */
+
+.btn-secondary {
+
+    background: #ffffff;
+
+    color: #0f172a;
+
+    border:
+        1px solid rgba(15,23,42,.10);
+
+}
+
+.btn-secondary:hover {
+
+    background: #f8fafc;
+
+}
+
+/* =====================================================
+   FEATURES
+===================================================== */
+
+.hero-features {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 25px;
+
+    justify-content: flex-start;
+
+}
+
+.hero-features span {
+
+    color: #0f172a;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+}
+
+/* =====================================================
+   LIGHT EFFECTS
+===================================================== */
+
+.hero::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 700px;
+
+    height: 700px;
+
+    top: -250px;
+
+    right: -250px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            rgba(37,99,235,.08),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+}
+
+.hero::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+
+    height: 500px;
+
+    bottom: -200px;
+
+    left: -150px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            rgba(59,130,246,.08),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1024px) {
+
+    .hero h1 {
+
+        font-size: 60px;
+
+        line-height: 65px;
+
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .hero {
+
+        min-height: auto;
+
+        padding-bottom: 40px;
+
+    }
+
+    .hero-container {
+
+        padding: 120px 20px 0 20px;
+
+    }
+
+    .hero-content {
+
+        width: 100%;
+
+        max-width: 100%;
+
+        padding: 25px;
+
+    }
+
+    .hero h1 {
+
+        font-size: 42px;
+
+        line-height: 48px;
+
+    }
+
+    .hero p {
+
+        font-size: 16px;
+
+    }
+
+    .hero-buttons {
+
+        flex-direction: column;
+
+    }
+
+}

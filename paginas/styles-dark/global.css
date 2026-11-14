@@ -1,0 +1,363 @@
+/* =====================================================
+   CYBERCHECK PRO
+   GLOBAL CSS - DARK THEME
+===================================================== */
+
+/* =====================================================
+   ROOT
+===================================================== */
+
+:root {
+
+    --background-primary: #020817;
+    --background-secondary: #041126;
+
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255,255,255,.85);
+
+    --primary-color: #38bdf8;
+
+    --border-color: rgba(56,189,248,.18);
+
+    --container-width: 1600px;
+
+}
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*,
+*::before,
+*::after {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+/* =====================================================
+   HTML
+===================================================== */
+
+html {
+
+    scroll-behavior: smooth;
+
+    background: var(--background-primary);
+
+}
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body {
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+
+    background: var(--background-primary);
+
+    color: var(--text-primary);
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+
+}
+
+/* =====================================================
+   LINKS
+===================================================== */
+
+a {
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+/* =====================================================
+   IMAGES
+===================================================== */
+
+img {
+
+    display: block;
+
+    max-width: 100%;
+
+}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+section {
+
+    width: 100%;
+
+    background: var(--background-primary);
+
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 90px;
+
+    padding: 0 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    z-index: 1000;
+
+}
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+.logo i {
+
+    font-size: 30px;
+
+    color: var(--primary-color);
+
+}
+
+.logo h2 {
+
+    color: #ffffff;
+
+    font-size: 32px;
+
+    font-weight: 800;
+
+}
+
+.logo small {
+
+    color: rgba(255,255,255,.80);
+
+    font-size: 11px;
+
+}
+
+/* =====================================================
+   MENU
+===================================================== */
+
+.menu {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 28px;
+
+}
+
+.menu a {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #ffffff;
+
+}
+
+/* =====================================================
+   HEADER ACTIONS
+===================================================== */
+
+.header-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+/* =====================================================
+   THEME TOGGLE
+===================================================== */
+
+.theme-toggle {
+
+    width: 50px;
+
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(4,17,38,.95);
+
+    border:
+        1px solid rgba(56,189,248,.35);
+
+    color: #ffffff;
+
+    cursor: pointer;
+
+}
+
+.theme-toggle i {
+
+    font-size: 18px;
+
+}
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+.btn-login {
+
+    height: 50px;
+
+    padding: 0 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    border-radius: 12px;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    background:
+        rgba(4,17,38,.95);
+
+    border:
+        1px solid rgba(56,189,248,.35);
+
+}
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.section-title {
+
+    text-align: center;
+
+    margin-bottom: 70px;
+
+}
+
+.section-title h2 {
+
+    color: #ffffff;
+
+    font-size: 56px;
+
+    font-weight: 800;
+
+    margin-bottom: 15px;
+
+}
+
+.section-title p {
+
+    color: rgba(255,255,255,.80);
+
+    font-size: 18px;
+
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+
+    background:
+        var(--background-primary);
+
+    padding: 80px 40px;
+
+}
+
+.footer-logo h3 {
+
+    color: #ffffff;
+
+    font-size: 28px;
+
+    margin-bottom: 15px;
+
+}
+
+.footer-logo p {
+
+    color: rgba(255,255,255,.80);
+
+}
+
+.footer-links {
+
+    display: flex;
+
+    gap: 20px;
+
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+
+}
+
+.footer-links a {
+
+    color: #ffffff;
+
+}

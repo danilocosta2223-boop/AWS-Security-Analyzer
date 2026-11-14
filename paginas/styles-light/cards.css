@@ -1,0 +1,255 @@
+/* =====================================================
+   CYBERCHECK PRO
+   CARDS SECTION - LIGHT THEME
+===================================================== */
+
+/* =====================================================
+   SOLUTIONS
+===================================================== */
+
+.solutions {
+
+    width: 100%;
+
+    padding: 100px 50px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #0f172a 0%,
+            #1e3a8a 50%,
+            #0f172a 100%
+        );
+
+}
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.section-title {
+
+    text-align: center;
+
+    margin-bottom: 80px;
+
+}
+
+.section-title h2 {
+
+    color: #ffffff;
+
+    font-size: 56px;
+
+    font-weight: 800;
+
+    margin-bottom: 20px;
+
+}
+
+.section-title p {
+
+    color: rgba(255,255,255,.85);
+
+    font-size: 18px;
+
+    line-height: 1.8;
+
+    max-width: 800px;
+
+    margin: 0 auto;
+
+}
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.cards-grid {
+
+    max-width: 1600px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(320px,1fr)
+        );
+
+    gap: 30px;
+
+}
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card {
+
+    position: relative;
+
+    min-height: 240px;
+
+    padding: 35px;
+
+    border-radius: 24px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-start;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f8fbff 100%
+        );
+
+    border:
+        1px solid rgba(255,255,255,.80);
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,.15);
+
+    overflow: hidden;
+
+    transition: all .35s ease;
+
+}
+
+/* =====================================================
+   LIGHT EFFECT
+===================================================== */
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+
+    height: 260px;
+
+    top: -130px;
+
+    right: -130px;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(37,99,235,.12),
+
+            transparent 70%
+
+        );
+
+    pointer-events: none;
+
+}
+
+/* =====================================================
+   HOVER
+===================================================== */
+
+.card:hover {
+
+    transform:
+        translateY(-10px);
+
+    border-color:
+        rgba(37,99,235,.35);
+
+    box-shadow:
+
+        0 30px 60px rgba(37,99,235,.18),
+
+        0 15px 40px rgba(0,0,0,.18);
+
+}
+
+/* =====================================================
+   ICON
+===================================================== */
+
+.card i {
+
+    font-size: 42px;
+
+    color: #2563eb;
+
+    margin-bottom: 25px;
+
+}
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.card h3 {
+
+    color: #0f172a;
+
+    font-size: 26px;
+
+    font-weight: 800;
+
+    margin-bottom: 15px;
+
+}
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.card p {
+
+    color: #475569;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .solutions {
+
+        padding: 60px 20px;
+
+    }
+
+    .section-title h2 {
+
+        font-size: 40px;
+
+    }
+
+    .cards-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .card {
+
+        min-height: 200px;
+
+        padding: 25px;
+
+    }
+
+}

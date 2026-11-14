@@ -1,0 +1,200 @@
+/* =====================================================
+   CYBERCHECK PRO
+   NORMALIZE CSS
+===================================================== */
+
+/* =========================
+   RESET
+========================= */
+
+*,
+*::before,
+*::after {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+/* =========================
+   HTML
+========================= */
+
+html {
+
+    font-size: 16px;
+
+    scroll-behavior: smooth;
+
+    -webkit-text-size-adjust: 100%;
+
+    text-size-adjust: 100%;
+
+}
+
+/* =========================
+   BODY
+========================= */
+
+body {
+
+    min-height: 100vh;
+
+    line-height: 1.5;
+
+    text-rendering: optimizeLegibility;
+
+    -webkit-font-smoothing: antialiased;
+
+    -moz-osx-font-smoothing: grayscale;
+
+}
+
+/* =========================
+   MEDIA
+========================= */
+
+img,
+picture,
+svg,
+video,
+canvas {
+
+    display: block;
+
+    max-width: 100%;
+
+}
+
+/* =========================
+   FORMULÁRIOS
+========================= */
+
+input,
+button,
+textarea,
+select {
+
+    font: inherit;
+
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+
+    border: none;
+
+    background: none;
+
+    cursor: pointer;
+
+}
+
+/* =========================
+   LINKS
+========================= */
+
+a {
+
+    text-decoration: none;
+
+    color: inherit;
+
+}
+
+/* =========================
+   LISTAS
+========================= */
+
+ul,
+ol {
+
+    list-style: none;
+
+}
+
+/* =========================
+   TABELAS
+========================= */
+
+table {
+
+    border-collapse: collapse;
+
+    border-spacing: 0;
+
+    width: 100%;
+
+}
+
+/* =========================
+   TITULOS
+========================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+    font-weight: inherit;
+
+}
+
+/* =========================
+   PARÁGRAFOS
+========================= */
+
+p {
+
+    overflow-wrap: break-word;
+
+}
+
+/* =========================
+   TEXTAREA
+========================= */
+
+textarea {
+
+    resize: vertical;
+
+}
+
+/* =========================
+   INPUT NUMBER
+========================= */
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+
+input[type="number"] {
+
+    appearance: textfield;
+
+}
+
+/* =========================
+   FOCUS
+========================= */
+
+:focus-visible {
+
+    outline: 2px solid #0d8bff;
+
+    outline-offset: 2px;
+
+}

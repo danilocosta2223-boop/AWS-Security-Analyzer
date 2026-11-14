@@ -1,0 +1,269 @@
+/* =====================================================
+   CYBERCHECK PRO
+   CARDS SECTION - DARK THEME
+===================================================== */
+
+/* =====================================================
+   SOLUTIONS
+===================================================== */
+
+.solutions {
+
+    width: 100%;
+
+    padding: 80px 50px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #020817,
+            #041126
+        );
+
+}
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.section-title {
+
+    text-align: center;
+
+    margin-bottom: 70px;
+
+}
+
+.section-title h2 {
+
+    color: #ffffff;
+
+    font-size: 56px;
+
+    font-weight: 800;
+
+    margin-bottom: 15px;
+
+}
+
+.section-title p {
+
+    color: rgba(255,255,255,.80);
+
+    font-size: 18px;
+
+    line-height: 1.8;
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+}
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.cards-grid {
+
+    max-width: 1600px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(300px,1fr)
+        );
+
+    gap: 30px;
+
+}
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card {
+
+    position: relative;
+
+    min-height: 220px;
+
+    padding: 35px;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-start;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(7,18,38,.95),
+            rgba(2,10,25,.98)
+        );
+
+    border:
+        1px solid rgba(56,189,248,.18);
+
+    overflow: hidden;
+
+    transition: all .3s ease;
+
+}
+
+/* =====================================================
+   CYBER GLOW
+===================================================== */
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+
+    height: 220px;
+
+    top: -120px;
+
+    right: -120px;
+
+    border-radius: 50%;
+
+    background:
+
+        radial-gradient(
+
+            rgba(56,189,248,.12),
+
+            transparent 70%
+
+        );
+
+    pointer-events: none;
+
+}
+
+/* =====================================================
+   HOVER
+===================================================== */
+
+.card:hover {
+
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(56,189,248,.60);
+
+    box-shadow:
+
+        0 0 30px rgba(56,189,248,.20),
+
+        0 20px 50px rgba(0,0,0,.50);
+
+}
+
+/* =====================================================
+   ICON
+===================================================== */
+
+.card i {
+
+    font-size: 34px;
+
+    color: #38bdf8;
+
+    margin-bottom: 25px;
+
+}
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.card h3 {
+
+    color: #ffffff;
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    margin-bottom: 15px;
+
+}
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.card p {
+
+    color: rgba(255,255,255,.85);
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+}
+
+/* =====================================================
+   RESPONSIVE TABLET
+===================================================== */
+
+@media (max-width: 1200px) {
+
+    .cards-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                1fr
+            );
+
+    }
+
+}
+
+/* =====================================================
+   RESPONSIVE MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .solutions {
+
+        padding: 60px 20px;
+
+    }
+
+    .section-title h2 {
+
+        font-size: 40px;
+
+    }
+
+    .cards-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .card {
+
+        min-height: 180px;
+
+        padding: 25px;
+
+    }
+
+}
