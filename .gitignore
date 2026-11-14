@@ -1,4 +1,48 @@
+# Variáveis de ambiente
 .env
 **/.env
+
+# Node.js
 node_modules/
 **/node_modules/
+
+# Python
+.venv/
+**/.venv/
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# VS Code
+.vscode/
+
+# Banco de dados
+security.db
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+
+# Arquivos temporários
+tmp/
+temp/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Build
+dist/
+build/
+
+# Cache
+.cache/
+
+# Arquivos locais
+.env.local
+.env.development
+.env.production
