@@ -10,6 +10,7 @@ dashboard_bp = Blueprint(
     __name__
 )
 
+
 @dashboard_bp.route(
     "/",
     methods=["GET"]
