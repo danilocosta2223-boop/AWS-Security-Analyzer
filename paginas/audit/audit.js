@@ -1,13 +1,29 @@
-// Configuração da API para o Flask local (127.0.0.1)
-const API_BASE_URL = "http://127.0.0.1:5000";
+// Configuração limpa da API apontando para o Render (Produção)
+const API_BASE_URL = "https://aws-security-analyzer-6ayz.onrender.com";
 
 // Executa ao carregar a página
 document.addEventListener("DOMContentLoaded", () => {
+    checkSystemHealth();
     checkApiStatus();
     loadHistoryPreview();
 });
 
-// 1. Função para verificar o status da API Flask
+// 0. Verificação rápida de saúde usando /health
+async function checkSystemHealth() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/health`);
+        if (response.ok) {
+            const data = await response.json();
+            console.log("Sistema saudável (Render Online):", data.status);
+        } else {
+            console.warn("Aviso: Endpoint /health respondeu com erro.");
+        }
+    } catch (error) {
+        console.error("Erro ao contatar o /health (o servidor no Render pode estar hibernando):", error);
+    }
+}
+
+// 1. Função para verificar o status da API Flask (/api)
 async function checkApiStatus() {
     const apiStatusEl = document.getElementById("apiStatus");
     const apiVersionEl = document.getElementById("apiVersion");
