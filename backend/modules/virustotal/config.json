@@ -1,8 +1,0 @@
-{
-    "module": "virustotal",
-    "version": "1.0.0",
-    "enabled": true,
-    "timeout": 15,
-    "provider": "VirusTotal",
-    "mode": "simulation"
-}

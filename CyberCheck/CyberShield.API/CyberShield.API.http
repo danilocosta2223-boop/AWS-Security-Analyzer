@@ -1,0 +1,27 @@
+@CyberShield_HostAddress = http://localhost:5287
+
+### HEALTH
+GET {{CyberShield_HostAddress}}/api/health
+Accept: application/json
+
+###
+
+### DASHBOARD
+GET {{CyberShield_HostAddress}}/api/dashboard
+Accept: application/json
+
+###
+
+### HISTORY
+GET {{CyberShield_HostAddress}}/api/history
+Accept: application/json
+
+###
+
+### VIRUSTOTAL
+POST {{CyberShield_HostAddress}}/api/virustotal
+Content-Type: application/json
+
+{
+  "url": "https://google.com"
+}

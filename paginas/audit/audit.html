@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CyberCheck PRO - Auditoria de Segurança</title>
-    
+
     <!-- Meta SEO -->
     <meta name="description" content="CyberCheck PRO - Plataforma de Auditoria de Segurança Digital">
 
     <!-- Favicon -->
     <link rel="icon" href="../imagens/dark-theme/logo.png">
 
-    <!-- Font Awesome com segurança e integridade -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-    <!-- Caminhos corretos dos arquivos CSS -->
+    <!-- Folhas de Estilo do Tema Escuro -->
     <link rel="stylesheet" href="../styles-dark/normalize.css">
     <link rel="stylesheet" href="../styles-dark/global.css">
     <link rel="stylesheet" href="../styles-dark/cards.css">
@@ -24,120 +24,151 @@
     <link rel="stylesheet" href="../styles-dark/desktop.css">
 </head>
 <body data-theme="dark">
-    <div class="container">
-        <!-- HEADER -->
+    <main class="container">
+        <!-- ==========================================
+             1. Cabeçalho e Navegação
+             ========================================== -->
         <header class="header">
             <h1>
-                <a href="../dashboard/dashboard.html" style="text-decoration: none; color: inherit;">
+                <a href="../../index.html" class="brand-link">
                     <i class="fa-solid fa-shield-halved"></i> CyberCheck PRO
                 </a>
             </h1>
             <h2>Auditoria de Segurança</h2>
         </header>
 
-        <!-- Menu de Navegação Global -->
-        <nav class="main-nav">
+        <nav class="main-nav" aria-label="Navegação principal">
+            <a href="../../index.html"><i class="fa-solid fa-house"></i> Início</a>
             <a href="../dashboard/dashboard.html"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
-            <a href="../audit/audit.html" class="active"><i class="fa-solid fa-magnifying-glass-chart"></i> Auditoria</a>
+            <a href="./audit.html" class="active"><i class="fa-solid fa-magnifying-glass-chart"></i> Auditoria</a>
             <a href="../reports/reports.html"><i class="fa-solid fa-file-lines"></i> Relatórios</a>
             <a href="../history/history.html"><i class="fa-solid fa-clock-rotate-left"></i> Histórico</a>
         </nav>
 
         <hr>
 
-        <!-- Status da API dinâmico para o JS -->
-        <div id="api-status">
+        <!-- ==========================================
+             2. Status da API
+             ========================================== -->
+        <section id="api-status" aria-label="Status da API" aria-live="polite">
             <p id="apiStatus"><i class="fa-solid fa-circle-notch fa-spin"></i> Verificando API...</p>
-            <div id="apiVersion">Versão: --</div>
-            <p id="backendType">Backend: --</p>
-        </div>
+            <div id="apiVersion">Aplicação: --</div>
+            <p id="backendType">Timestamp: --</p>
+        </section>
 
         <hr>
 
-        <!-- Campo URL otimizado -->
-        <div class="input-group">
+        <!-- ==========================================
+             3. Formulário de Auditoria e Atalhos
+             ========================================== -->
+        <form id="auditForm" class="input-group">
             <label for="urlInput"><i class="fa-solid fa-globe"></i> Domínio ou URL Alvo</label>
             <div class="input-wrapper">
-                <input 
+                <input
                     id="urlInput"
+                    name="urlInput"
                     type="url"
                     spellcheck="false"
                     autocomplete="off"
                     placeholder="https://google.com"
                     required
                 >
-                <button onclick="runAudit()">
+                <button type="submit" id="runAuditBtn">
                     <i class="fa-solid fa-play"></i> Executar Auditoria
                 </button>
             </div>
-        </div>
+
+            <div class="quick-targets" aria-label="Exemplos rápidos de URLs">
+                <span>Testar rápido:</span>
+                <button type="button" class="quick-url-btn" data-url="https://google.com">google.com</button>
+                <button type="button" class="quick-url-btn" data-url="https://github.com">github.com</button>
+                <button type="button" class="quick-url-btn" data-url="https://fiap.com.br">fiap.com.br</button>
+            </div>
+        </form>
 
         <hr>
 
-        <!-- Indicadores rápidos -->
-        <div id="summary">
+        <!-- ==========================================
+             4. Resumo, Score Circular, Tempo e Progresso
+             ========================================== -->
+        <section id="summary" aria-label="Resumo da auditoria" aria-live="polite">
             <span id="scoreLabel">Security Score</span>
             <div class="score-circle" id="scoreValue">--</div>
             <h2 id="gradeValue">Aguardando Auditoria</h2>
             <span id="riskValue" class="risk-badge">READY</span>
+            <div id="analysisInfo">Tempo da análise: <strong id="analysisTime">--</strong></div>
+        </section>
+
+        <!-- Loading e Barra de Progresso -->
+        <div id="loading" class="loading-box is-hidden" role="status" aria-live="polite">
+            <i class="fa-solid fa-spinner fa-spin"></i> Analisando alvo...
+            <div id="auditProgress" aria-label="Progresso da auditoria">
+                <div id="auditProgressBar"></div>
+            </div>
         </div>
 
         <hr>
 
-        <!-- Loading -->
-        <div id="loading" style="display: none;">
-            <i class="fa-solid fa-spinner fa-spin"></i> Analisando alvo...
-        </div>
-
-        <!-- Área de resultados organizada com IDs preparados para o JS -->
-        <div id="audit-results">
+        <!-- ==========================================
+             5. Resultados Detalhados por Módulo
+             ========================================== -->
+        <section id="audit-results" aria-label="Resultados da auditoria">
+            <div id="virustotal-result">
+                <h3><i class="fa-solid fa-virus"></i> VirusTotal</h3>
+                <div id="virusTotalStatus">Aguardando análise...</div>
+            </div>
             <div id="ssl-result">
-                <div id="sslStatus"></div>
+                <h3><i class="fa-solid fa-lock"></i> SSL / TLS</h3>
+                <div id="sslStatus">Aguardando análise...</div>
             </div>
             <div id="whois-result">
-                <div id="whoisStatus"></div>
+                <h3><i class="fa-solid fa-id-card"></i> WHOIS</h3>
+                <div id="whoisStatus">Aguardando análise...</div>
             </div>
             <div id="technology-result">
-                <div id="technologyList"></div>
+                <h3><i class="fa-solid fa-microchip"></i> Tecnologias</h3>
+                <div id="technologyList">Aguardando análise...</div>
             </div>
-            <div id="recon-result"></div>
+            <div id="recon-result">
+                <h3><i class="fa-solid fa-radar"></i> Recon (Robots / Sitemap / Exposure)</h3>
+                <div id="reconStatus">Aguardando análise...</div>
+            </div>
             <div id="dns-result">
-                <div id="dnsStatus"></div>
+                <h3><i class="fa-solid fa-network-wired"></i> DNS</h3>
+                <div id="dnsStatus">Aguardando análise...</div>
             </div>
             <div id="headers-result">
-                <div id="headersStatus"></div>
+                <h3><i class="fa-solid fa-shield"></i> Headers HTTP</h3>
+                <div id="headersStatus">Aguardando análise...</div>
             </div>
-        </div>
+        </section>
 
         <hr>
 
-        <!-- Histórico rápido em lista -->
-        <div id="history-preview">
+        <!-- ==========================================
+             6. Histórico (Oculto na Tela), Relatórios e JSON
+             ========================================== -->
+        <section id="history-preview" aria-label="Últimas auditorias">
             <h3><i class="fa-solid fa-history"></i> Últimas Auditorias</h3>
             <ul id="historyList"></ul>
+        </section>
+
+        <div id="report-buttons" aria-label="Exportar relatório">
+            <button type="button" id="exportPdf"><i class="fa-solid fa-file-pdf"></i> Gerar PDF</button>
+            <button type="button" id="exportHtml"><i class="fa-solid fa-file-code"></i> Gerar HTML</button>
+            <button type="button" id="exportCsv"><i class="fa-solid fa-file-csv"></i> Gerar CSV</button>
         </div>
 
         <hr>
 
-        <!-- Botões de relatório -->
-        <div id="report-buttons">
-            <button id="exportPdf"><i class="fa-solid fa-file-pdf"></i> Gerar PDF</button>
-            <button id="exportHtml"><i class="fa-solid fa-file-code"></i> Gerar HTML</button>
-            <button id="exportCsv"><i class="fa-solid fa-file-csv"></i> Gerar CSV</button>
-        </div>
-
-        <hr>
-
-        <!-- Seção de Resultado JSON para Debug -->
-        <section class="json-section">
+        <section class="json-section" aria-label="Resultado JSON para Debug">
             <div class="audit-container">
                 <h2><i class="fa-solid fa-code"></i> Resultado JSON</h2>
                 <pre id="jsonResult">Aguardando auditoria...</pre>
             </div>
         </section>
-    </div>
+    </main>
 
-    <!-- Caminho do JavaScript -->
-    <script src="audit.js"></script>
+    <script src="./audit.js"></script>
 </body>
 </html>
