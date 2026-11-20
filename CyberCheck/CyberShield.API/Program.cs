@@ -8,8 +8,16 @@ using Microsoft.EntityFrameworkCore;
 // ==========================================
 var builder = WebApplication.CreateBuilder(args);
 
-// Escuta limpa em HTTP na porta 5287
-builder.WebHost.UseUrls("http://localhost:5287");
+// Porta dinâmica para Render (PORT) ou porta fixa 5287 em desenvolvimento local
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrWhiteSpace(port))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
+else
+{
+    builder.WebHost.UseUrls("http://localhost:5287");
+}
 
 // Controllers e serialização JSON
 builder.Services.AddControllers()
@@ -32,17 +40,28 @@ builder.Services.AddDbContext<CyberCheckContext>(options =>
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<HttpClientHelper>();
 
-// Política de CORS para o Frontend (Live Server e localhost)
+// Política de CORS para Frontend Local (Live Server) e Produção (Vercel / Domínio)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CyberCheckCors", policy =>
     {
         policy
-            .WithOrigins(
-                "http://127.0.0.1:5500",
-                "http://localhost:5500",
-                "http://localhost:3000"
-            )
+            .SetIsOriginAllowed(origin =>
+            {
+                if (string.IsNullOrWhiteSpace(origin)) return false;
+
+                if (origin is "http://127.0.0.1:5500"
+                    or "http://localhost:5500"
+                    or "http://localhost:3000"
+                    or "https://cybercheck.com")
+                {
+                    return true;
+                }
+
+                return Uri.TryCreate(origin, UriKind.Absolute, out var uri)
+                       && uri.Scheme == Uri.UriSchemeHttps
+                       && uri.Host.EndsWith(".vercel.app", StringComparison.OrdinalIgnoreCase);
+            })
             .AllowAnyHeader()
             .AllowAnyMethod();
     });

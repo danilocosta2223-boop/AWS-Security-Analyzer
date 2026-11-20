@@ -1,6 +1,11 @@
 services:
   - type: web
     name: cybercheck-backend
-    runtime: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    runtime: dotnet
+    buildCommand: dotnet publish CyberCheck/CyberShield.API/CyberShield.API.csproj -c Release -o out
+    startCommand: dotnet out/CyberShield.API.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: PORT
+        value: "10000"
