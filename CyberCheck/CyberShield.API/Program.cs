@@ -1,14 +1,18 @@
+// ==========================================
+// BLOCO 01: Imports
+// ==========================================
 using System.Text.Json.Serialization;
 using CyberShield.API.Database;
 using CyberShield.API.Helpers;
+using CyberShield.API.Interfaces;
+using CyberShield.API.Services;
 using Microsoft.EntityFrameworkCore;
 
 // ==========================================
-// 1. Builder & Configuração de Serviços
+// BLOCO 02: Builder & Configuracao de Servicos
 // ==========================================
 var builder = WebApplication.CreateBuilder(args);
 
-// Porta dinâmica para Render (PORT) ou porta fixa 5287 em desenvolvimento local
 var port = Environment.GetEnvironmentVariable("PORT");
 if (!string.IsNullOrWhiteSpace(port))
 {
@@ -19,7 +23,6 @@ else
     builder.WebHost.UseUrls("http://localhost:5287");
 }
 
-// Controllers e serialização JSON
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -29,18 +32,16 @@ builder.Services.AddControllers()
 
 builder.Services.AddEndpointsApiExplorer();
 
-// Banco de dados SQLite (CyberCheckContext)
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "Data Source=cybershield.db";
 
 builder.Services.AddDbContext<CyberCheckContext>(options =>
     options.UseSqlite(connectionString));
 
-// HttpClient e Helper para chamadas HTTP externas
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<HttpClientHelper>();
+builder.Services.AddHttpClient<ICyberUzCheckService, CyberUzCheckService>();
 
-// Política de CORS para Frontend Local (Live Server) e Produção (Vercel / Domínio)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CyberCheckCors", policy =>
@@ -68,7 +69,7 @@ builder.Services.AddCors(options =>
 });
 
 // ==========================================
-// 2. Pipeline HTTP e Middlewares
+// BLOCO 03: Pipeline HTTP e Middlewares
 // ==========================================
 var app = builder.Build();
 
@@ -78,10 +79,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("CyberCheckCors");
-
 app.UseAuthorization();
 
-// Endpoint de Health Check (/api/health)
 app.MapGet("/api/health", () => Results.Ok(new
 {
     status = "healthy",
@@ -89,10 +88,9 @@ app.MapGet("/api/health", () => Results.Ok(new
     timestamp = DateTime.UtcNow
 }));
 
-// Mapeia os controllers (/api/audit, /api/virustotal, etc.)
 app.MapControllers();
 
 // ==========================================
-// 3. Inicialização da Aplicação
+// BLOCO 04: Inicializacao da Aplicacao
 // ==========================================
 app.Run();
