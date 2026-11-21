@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: cybercheck-backend
-    runtime: dotnet
-    buildCommand: dotnet publish CyberCheck/CyberShield.API/CyberShield.API.csproj -c Release -o out
-    startCommand: dotnet out/CyberShield.API.dll
+    name: cybershield-backend
+    env: dotnet
+    buildCommand: dotnet publish CyberCheck/CyberShield.API/CyberShield.API.csproj -c Release -o ./publish
+    startCommand: dotnet ./publish/CyberShield.API.dll
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
