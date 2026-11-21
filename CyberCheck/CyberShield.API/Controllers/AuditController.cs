@@ -1,10 +1,16 @@
+// ==========================================
+// BLOCO 01: Imports e Namespace do Controller
+// ==========================================
 using System.Net;
 using System.Net.Sockets;
-using CyberShield.Api.Models;
+using CyberShield.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CyberShield.Api.Controllers;
+namespace CyberShield.API.Controllers;
 
+// ==========================================
+// BLOCO 02: Definicao do AuditController e Endpoint POST
+// ==========================================
 [ApiController]
 [Route("api/[controller]")]
 public sealed class AuditController : ControllerBase
@@ -23,13 +29,13 @@ public sealed class AuditController : ControllerBase
     {
         if (request is null || string.IsNullOrWhiteSpace(request.Url))
         {
-            return BadRequest(new { error = "Informe uma URL válida no campo 'url'." });
+            return BadRequest(new { error = "Informe uma URL valida no campo 'url'." });
         }
 
         if (!Uri.TryCreate(request.Url.Trim(), UriKind.Absolute, out var targetUri) ||
             (targetUri.Scheme != Uri.UriSchemeHttp && targetUri.Scheme != Uri.UriSchemeHttps))
         {
-            return BadRequest(new { error = "A URL deve começar com http:// ou https://." });
+            return BadRequest(new { error = "A URL deve comecar com http:// ou https://." });
         }
 
         var host = targetUri.Host;
@@ -86,6 +92,9 @@ public sealed class AuditController : ControllerBase
         return Ok(response);
     }
 
+    // ==========================================
+    // BLOCO 03: Resolucao DNS e Sonda HTTP
+    // ==========================================
     private static async Task<DnsInfoDto> ResolveDnsAsync(string host, CancellationToken ct)
     {
         var dto = new DnsInfoDto { Host = host };
@@ -117,7 +126,7 @@ public sealed class AuditController : ControllerBase
             Enabled = targetUri.Scheme == Uri.UriSchemeHttps,
             Scheme = targetUri.Scheme,
             Detail = targetUri.Scheme == Uri.UriSchemeHttps
-                ? "Conexão HTTPS detectada"
+                ? "Conexao HTTPS detectada"
                 : "Alvo utiliza HTTP sem TLS"
         };
 
@@ -127,7 +136,7 @@ public sealed class AuditController : ControllerBase
 
         try
         {
-            var client = _httpClientFactory.CreateClient();
+            var client = _httpClientFactory.CreateClient("AuditClient");
             client.Timeout = TimeSpan.FromSeconds(6);
 
             using var req = new HttpRequestMessage(HttpMethod.Get, targetUri);
@@ -156,7 +165,7 @@ public sealed class AuditController : ControllerBase
         }
         catch (Exception ex)
         {
-            ssl.Detail = $"Sonda HTTP indisponível: {ex.Message}";
+            ssl.Detail = $"Sonda HTTP indisponivel: {ex.Message}";
         }
 
         return (ssl, headers, technologies, recon);

@@ -10,19 +10,23 @@
   <title>CyberCheck PRO - Auditoria de Seguranca</title>
 
   <link rel="icon" href="../imagens/dark-theme/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
   <link rel="stylesheet" href="../styles-dark/normalize.css">
   <link rel="stylesheet" href="../styles-dark/global.css">
   <link rel="stylesheet" href="../styles-dark/cards.css">
   <link rel="stylesheet" href="../styles-dark/hero.css">
-  <link rel="stylesheet" href="../styles-dark/audit.css">
+  <link id="audit-theme-css" rel="stylesheet" href="../styles-dark/audit.css">
   <link rel="stylesheet" href="../styles-dark/mobile.css">
   <link rel="stylesheet" href="../styles-dark/desktop.css">
 </head>
 <body data-theme="dark">
   <main class="container">
     <!-- ==========================================
-         BLOCO 02: Cabecalho e Navegacao
+         BLOCO 02: Cabecalho, Navegacao e Tema
          ========================================== -->
     <header class="header">
       <h1>
@@ -31,6 +35,9 @@
         </a>
       </h1>
       <h2>Auditoria de Seguranca</h2>
+      <button type="button" id="themeToggle" aria-label="Alternar tema">
+        <i class="fa-solid fa-circle-half-stroke"></i> Tema
+      </button>
     </header>
 
     <nav class="main-nav" aria-label="Navegacao principal">

@@ -3,12 +3,15 @@
 // ==========================================
 const API_BASE_URL = "https://aws-security-analyzer.onrender.com";
 const STORAGE_KEY = "cybershield_audit_history_v1";
+const THEME_STORAGE_KEY = "cybershield_theme";
 
 const elements = {
   auditForm: document.getElementById("auditForm"),
   targetInput: document.getElementById("urlInput"),
   runAuditBtn: document.getElementById("runAuditBtn"),
   quickUrlButtons: document.querySelectorAll(".quick-url-btn"),
+  themeToggleBtn: document.getElementById("themeToggle"),
+  auditThemeLink: document.getElementById("audit-theme-css"),
   healthStatus: document.getElementById("apiStatus"),
   apiVersion: document.getElementById("apiVersion"),
   backendType: document.getElementById("backendType"),
@@ -29,14 +32,33 @@ const elements = {
 };
 
 // ==========================================
-// BLOCO 02: Verificacao de Saude (Health Check)
+// BLOCO 02: Alternancia de Tema
+// ==========================================
+function applyAuditTheme(theme) {
+  const normalized = theme === "light" ? "light" : "dark";
+  document.body.dataset.theme = normalized;
+
+  if (elements.auditThemeLink) {
+    elements.auditThemeLink.href = normalized === "light"
+      ? "../styles-light/audit.css"
+      : "../styles-dark/audit.css";
+  }
+
+  localStorage.setItem(THEME_STORAGE_KEY, normalized);
+}
+
+function toggleAuditTheme() {
+  const current = document.body.dataset.theme === "light" ? "light" : "dark";
+  applyAuditTheme(current === "dark" ? "light" : "dark");
+}
+
+// ==========================================
+// BLOCO 03: Verificacao de Saude (Health Check)
 // ==========================================
 async function checkApiHealth() {
   if (!elements.healthStatus) return false;
 
   elements.healthStatus.textContent = "Verificando API...";
-  console.log("[CyberCheck] Consultando health check em:", `${API_BASE_URL}/api/health`);
-
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 15000);
 
@@ -49,15 +71,9 @@ async function checkApiHealth() {
 
     if (response.ok) {
       let data = null;
-      try {
-        data = await response.json();
-      } catch (_) {
-        data = null;
-      }
+      try { data = await response.json(); } catch (_) { data = null; }
 
-      console.log("[CyberCheck] Health check OK:", data);
       elements.healthStatus.textContent = "API Online";
-
       if (elements.apiVersion) {
         elements.apiVersion.textContent = `Aplicacao: ${data?.application || data?.Application || "Cyber Shield API"}`;
       }
@@ -66,10 +82,8 @@ async function checkApiHealth() {
       }
       return true;
     }
-
-    console.warn("[CyberCheck] Health check retornou status:", response.status);
   } catch (error) {
-    console.warn("[CyberCheck] Falha no health check:", error?.message || error);
+    console.warn("[CyberCheck] Health check falhou:", error?.message || error);
   } finally {
     clearTimeout(timeoutId);
   }
@@ -79,65 +93,76 @@ async function checkApiHealth() {
 }
 
 // ==========================================
-// BLOCO 03: Calculo de Score e Normalizacao
+// BLOCO 04: Requisicao de Auditoria ao Backend
 // ==========================================
-function extractScoreFromResponse(data) {
-  const candidates = [
-    data?.score,
-    data?.Score,
-    data?.securityScore,
-    data?.SecurityScore,
-    data?.riskScore,
-    data?.RiskScore,
-    data?.data?.score,
-    data?.data?.Score,
-    data?.data?.securityScore,
-    data?.data?.SecurityScore
-  ];
+async function executeAuditoria(target) {
+  const payload = { url: target };
+  const endpoints = [`${API_BASE_URL}/api/audit`, `${API_BASE_URL}/api/auditoria`];
+  let lastError = null;
 
-  for (const candidate of candidates) {
-    if (typeof candidate === "number" && Number.isFinite(candidate)) {
-      return Math.max(0, Math.min(100, Math.round(candidate)));
+  for (const endpoint of endpoints) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
+
+    try {
+      console.log("[CyberCheck] Enviando POST para:", endpoint);
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+
+      console.log("[CyberCheck] Status HTTP:", response.status, "em", endpoint);
+
+      if (response.status === 404) {
+        lastError = new Error(`Rota nao encontrada (404) em ${endpoint}`);
+        continue;
+      }
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Falha na API (${response.status}): ${errorText || response.statusText}`);
+      }
+
+      const jsonData = await response.json();
+      console.log("[CyberCheck] JSON recebido:", jsonData);
+      return jsonData;
+    } catch (error) {
+      if (error.name === "AbortError") {
+        lastError = new Error("Tempo limite excedido ao aguardar resposta da API no Render.");
+      } else {
+        lastError = error;
+      }
+    } finally {
+      clearTimeout(timeoutId);
     }
   }
 
-  return 0;
+  throw lastError || new Error("Falha ao comunicar com a API.");
 }
 
-function extractGradeFromResponse(data, score) {
-  const rawGrade = data?.grade ?? data?.Grade ?? data?.status ?? data?.Status;
-  if (typeof rawGrade === "string" && rawGrade.trim()) {
-    return rawGrade.trim();
-  }
-
-  if (score >= 90) return "A";
-  if (score >= 80) return "B";
-  if (score >= 65) return "C";
-  if (score >= 50) return "D";
-  return "F";
-}
-
-function extractRiskFromResponse(data, score) {
-  const rawRisk = data?.risk ?? data?.Risk ?? data?.riskLevel ?? data?.RiskLevel;
-  if (typeof rawRisk === "string" && rawRisk.trim()) {
-    return rawRisk.trim().toUpperCase();
-  }
-
-  if (score >= 80) return "LOW";
-  if (score >= 50) return "MEDIUM";
-  return "HIGH";
-}
-
+// ==========================================
+// BLOCO 05: Normalizacao e Historico Local
+// ==========================================
 function normalizeAuditResult(target, rawData, elapsedMs) {
-  const score = extractScoreFromResponse(rawData);
-  const grade = extractGradeFromResponse(rawData, score);
-  const risk = extractRiskFromResponse(rawData, score);
-  const resolvedTarget =
-    rawData?.url ||
-    rawData?.Url ||
-    rawData?.target ||
-    rawData?.Target ||
-    target;
+  const scoreRaw = rawData?.score ?? rawData?.Score ?? 0;
+  const score = Math.max(0, Math.min(100, Math.round(Number(scoreRaw) || 0)));
+
+  const riskRaw = rawData?.risk ?? rawData?.Risk;
+  const risk = typeof riskRaw === "string" && riskRaw.trim()
+    ? riskRaw.trim().toUpperCase()
+    : score >= 85 ? "LOW" : score >= 60 ? "MEDIUM" : "HIGH";
+
+  const gradeRaw = rawData?.grade ?? rawData?.Grade;
+  const grade = typeof gradeRaw === "string" && gradeRaw.trim()
+    ? gradeRaw.trim()
+    : score >= 90 ? "A" : score >= 80 ? "B" : score >= 65 ? "C" : score >= 50 ? "D" : "F";
+
+  const resolvedTarget = rawData?.target ?? rawData?.Target ?? rawData?.url ?? rawData?.Url ?? target;
 
   return {
     id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
@@ -146,59 +171,11 @@ function normalizeAuditResult(target, rawData, elapsedMs) {
     grade,
     risk,
     elapsedMs,
-    timestamp: rawData?.scanDate || rawData?.ScanDate || new Date().toISOString(),
+    timestamp: rawData?.scanDate ?? rawData?.ScanDate ?? new Date().toISOString(),
     details: rawData
   };
 }
 
-// ==========================================
-// BLOCO 04: Requisicao de Auditoria ao Backend
-// ==========================================
-async function executeAuditoria(target) {
-  const endpoint = `${API_BASE_URL}/api/auditoria`;
-  const payload = { url: target };
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 30000);
-
-  console.log("[CyberCheck] Enviando POST para:", endpoint);
-  console.log("[CyberCheck] Payload enviado:", payload);
-
-  try {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(payload),
-      signal: controller.signal
-    });
-
-    console.log("[CyberCheck] Status HTTP recebido:", response.status);
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("[CyberCheck] Corpo de erro da API:", errorText);
-      throw new Error(`Falha na API (${response.status}): ${errorText || response.statusText}`);
-    }
-
-    const jsonData = await response.json();
-    console.log("[CyberCheck] Resposta JSON recebida:", jsonData);
-    return jsonData;
-  } catch (error) {
-    console.error("[CyberCheck] Erro durante executeAuditoria:", error);
-    if (error.name === "AbortError") {
-      throw new Error("Tempo limite excedido ao aguardar resposta da API no Render.");
-    }
-    throw error;
-  } finally {
-    clearTimeout(timeoutId);
-  }
-}
-
-// ==========================================
-// BLOCO 05: Historico em localStorage
-// ==========================================
 function getAuditHistory() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -217,7 +194,7 @@ function saveAuditToHistory(entry) {
 }
 
 // ==========================================
-// BLOCO 06: Renderizacao na Interface
+// BLOCO 06: Renderizacao Detalhada na Interface
 // ==========================================
 function setLoadingState(isLoading) {
   if (elements.runAuditBtn) {
@@ -243,71 +220,98 @@ function setModulesState(message) {
   }
 }
 
-function formatModuleValue(val, fallback) {
-  if (val === null || val === undefined) return fallback;
-  if (typeof val === "boolean") return val ? "Valido / Ativo" : "Invalido / Ausente";
-  if (typeof val === "string" || typeof val === "number") return String(val);
-  return JSON.stringify(val);
-}
-
 function renderAuditResult(entry) {
   const d = entry.details || {};
-  const sslRaw = d.sslValid ?? d.SslValid ?? d.ssl ?? d.Ssl ?? d.sslTls ?? d.SslTls;
 
-  if (elements.scoreValue) {
-    elements.scoreValue.textContent = `${entry.score}`;
-  }
-  if (elements.gradeValue) {
-    elements.gradeValue.textContent = `Nota ${entry.grade} - ${entry.target}`;
-  }
-  if (elements.riskValue) {
-    elements.riskValue.textContent = entry.risk;
-  }
+  if (elements.scoreValue) elements.scoreValue.textContent = `${entry.score}`;
+  if (elements.gradeValue) elements.gradeValue.textContent = `Nota ${entry.grade} - ${entry.target}`;
+  if (elements.riskValue) elements.riskValue.textContent = entry.risk;
   if (elements.analysisTime) {
     elements.analysisTime.textContent = entry.elapsedMs ? `${(entry.elapsedMs / 1000).toFixed(2)}s` : "--";
   }
 
+  const vt = d.virustotal ?? d.VirusTotal;
   if (elements.virusTotalStatus) {
-    elements.virusTotalStatus.textContent = formatModuleValue(
-      d.virusTotal ?? d.VirusTotal ?? d.virustotal,
-      "Nao retornado pela API atual"
-    );
+    if (vt && typeof vt === "object") {
+      const mal = vt.malicious ?? vt.Malicious ?? vt.stats?.malicious ?? 0;
+      const susp = vt.suspicious ?? vt.Suspicious ?? vt.stats?.suspicious ?? 0;
+      const harm = vt.harmless ?? vt.Harmless ?? vt.stats?.harmless ?? 0;
+      const st = vt.status ?? vt.Status ?? "ok";
+      elements.virusTotalStatus.textContent = `Status: ${st} | Maliciosos: ${mal} | Suspeitos: ${susp} | Seguros: ${harm}`;
+    } else {
+      elements.virusTotalStatus.textContent = "Sem detalhes do VirusTotal na resposta.";
+    }
   }
+
+  const ssl = d.ssl ?? d.Ssl;
   if (elements.sslStatus) {
-    elements.sslStatus.textContent = formatModuleValue(
-      sslRaw,
-      "Nao retornado pela API atual"
-    );
+    if (ssl && typeof ssl === "object") {
+      const enabled = Boolean(ssl.enabled ?? ssl.Enabled);
+      const scheme = ssl.scheme ?? ssl.Scheme ?? "";
+      const code = ssl.statusCode ?? ssl.StatusCode;
+      const detail = ssl.detail ?? ssl.Detail ?? "";
+      elements.sslStatus.textContent = `${enabled ? "HTTPS Ativo" : "Sem TLS"} (${scheme})${code ? ` | HTTP ${code}` : ""}${detail ? ` - ${detail}` : ""}`;
+    } else if (typeof (d.sslValid ?? d.SslValid) === "boolean") {
+      elements.sslStatus.textContent = (d.sslValid ?? d.SslValid) ? "Certificado SSL/TLS valido" : "SSL/TLS indisponivel";
+    } else {
+      elements.sslStatus.textContent = "Sem detalhes de SSL/TLS na resposta.";
+    }
   }
+
+  const whois = d.whois ?? d.Whois;
   if (elements.whoisStatus) {
-    elements.whoisStatus.textContent = formatModuleValue(
-      d.whois ?? d.Whois,
-      "Nao retornado pela API atual"
-    );
+    if (whois && typeof whois === "object") {
+      const dom = whois.domain ?? whois.Domain ?? entry.target;
+      const tld = whois.tld ?? whois.Tld ?? "";
+      const src = whois.source ?? whois.Source ?? "";
+      elements.whoisStatus.textContent = `Dominio: ${dom}${tld ? ` | TLD: .${tld}` : ""}${src ? ` | Fonte: ${src}` : ""}`;
+    } else {
+      elements.whoisStatus.textContent = "Sem detalhes de WHOIS na resposta.";
+    }
   }
+
+  const tech = d.technologies ?? d.Technologies;
   if (elements.technologyList) {
-    elements.technologyList.textContent = formatModuleValue(
-      d.technologies ?? d.Technologies ?? d.tech ?? d.Tech,
-      "Nao retornado pela API atual"
-    );
+    if (Array.isArray(tech) && tech.length > 0) {
+      elements.technologyList.textContent = tech.join(" | ");
+    } else {
+      elements.technologyList.textContent = "Nenhuma tecnologia identificada nos cabecalhos.";
+    }
   }
+
+  const recon = d.recon ?? d.Recon;
   if (elements.reconStatus) {
-    elements.reconStatus.textContent = formatModuleValue(
-      d.recon ?? d.Recon,
-      "Nao retornado pela API atual"
-    );
+    if (recon && typeof recon === "object") {
+      const robots = Boolean(recon.robotsReachable ?? recon.RobotsReachable);
+      const sitemap = Boolean(recon.sitemapReachable ?? recon.SitemapReachable);
+      elements.reconStatus.textContent = `robots.txt: ${robots ? "Encontrado" : "Nao encontrado"} | sitemap.xml: ${sitemap ? "Encontrado" : "Nao encontrado"}`;
+    } else {
+      elements.reconStatus.textContent = "Sem detalhes de Recon na resposta.";
+    }
   }
+
+  const dns = d.dns ?? d.Dns;
   if (elements.dnsStatus) {
-    elements.dnsStatus.textContent = formatModuleValue(
-      d.dns ?? d.Dns,
-      "Nao retornado pela API atual"
-    );
+    if (dns && typeof dns === "object") {
+      const ips = Array.isArray(dns.addresses ?? dns.Addresses) ? (dns.addresses ?? dns.Addresses) : [];
+      const hostName = dns.hostName ?? dns.HostName ?? "";
+      elements.dnsStatus.textContent = `IPs: ${ips.length ? ips.join(", ") : "Nenhum"}${hostName ? ` | Host: ${hostName}` : ""}`;
+    } else {
+      elements.dnsStatus.textContent = "Sem detalhes de DNS na resposta.";
+    }
   }
+
+  const headers = d.headers ?? d.Headers;
   if (elements.headersStatus) {
-    elements.headersStatus.textContent = formatModuleValue(
-      d.headers ?? d.Headers ?? d.httpHeaders ?? d.HttpHeaders,
-      "Nao retornado pela API atual"
-    );
+    if (headers && typeof headers === "object") {
+      const hsts = Boolean(headers.hasStrictTransportSecurity ?? headers.HasStrictTransportSecurity);
+      const csp = Boolean(headers.hasContentSecurityPolicy ?? headers.HasContentSecurityPolicy);
+      const xfo = Boolean(headers.hasXFrameOptions ?? headers.HasXFrameOptions);
+      const srv = headers.server ?? headers.Server ?? "N/A";
+      elements.headersStatus.textContent = `HSTS: ${hsts ? "Sim" : "Nao"} | CSP: ${csp ? "Sim" : "Nao"} | X-Frame-Options: ${xfo ? "Sim" : "Nao"} | Server: ${srv}`;
+    } else {
+      elements.headersStatus.textContent = "Sem detalhes de Headers HTTP na resposta.";
+    }
   }
 
   if (elements.jsonResult) {
@@ -349,11 +353,8 @@ function escapeHtml(value) {
 async function handleRunAudit(event) {
   if (event) event.preventDefault();
 
-  console.log("[CyberCheck] Submit do formulario acionado.");
-
   const target = elements.targetInput?.value.trim() || "";
   if (!target) {
-    console.warn("[CyberCheck] Campo urlInput vazio.");
     if (elements.jsonResult) {
       elements.jsonResult.textContent = "Erro: informe uma URL ou dominio valido para auditar.";
     }
@@ -362,12 +363,8 @@ async function handleRunAudit(event) {
 
   setLoadingState(true);
   setModulesState("Analisando...");
-  if (elements.gradeValue) {
-    elements.gradeValue.textContent = "Executando Auditoria...";
-  }
-  if (elements.riskValue) {
-    elements.riskValue.textContent = "RUNNING";
-  }
+  if (elements.gradeValue) elements.gradeValue.textContent = "Executando Auditoria...";
+  if (elements.riskValue) elements.riskValue.textContent = "RUNNING";
 
   const startedAt = performance.now();
 
@@ -379,19 +376,12 @@ async function handleRunAudit(event) {
 
     renderAuditResult(normalized);
     renderHistory(updatedHistory);
-    console.log("[CyberCheck] Auditoria concluida com sucesso em", `${elapsedMs}ms`);
   } catch (error) {
     console.error("[CyberCheck] Falha na auditoria:", error);
     setModulesState("Falha na consulta");
-    if (elements.gradeValue) {
-      elements.gradeValue.textContent = "Erro na Auditoria";
-    }
-    if (elements.riskValue) {
-      elements.riskValue.textContent = "ERROR";
-    }
-    if (elements.jsonResult) {
-      elements.jsonResult.textContent = `Erro: ${error.message}`;
-    }
+    if (elements.gradeValue) elements.gradeValue.textContent = "Erro na Auditoria";
+    if (elements.riskValue) elements.riskValue.textContent = "ERROR";
+    if (elements.jsonResult) elements.jsonResult.textContent = `Erro: ${error.message}`;
   } finally {
     setLoadingState(false);
   }
@@ -402,26 +392,18 @@ function bindQuickTargets() {
 
   elements.quickUrlButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
-      const quickUrl = btn.dataset.url || "";
-      elements.targetInput.value = quickUrl;
-      console.log("[CyberCheck] Alvo rapido selecionado:", quickUrl);
+      elements.targetInput.value = btn.dataset.url || "";
     });
   });
 }
 
 function initAuditModule() {
-  console.log("[CyberCheck] Inicializando modulo de auditoria...");
-  console.log("[CyberCheck] Elementos mapeados:", {
-    auditForm: Boolean(elements.auditForm),
-    targetInput: Boolean(elements.targetInput),
-    runAuditBtn: Boolean(elements.runAuditBtn),
-    healthStatus: Boolean(elements.healthStatus),
-    jsonResult: Boolean(elements.jsonResult)
-  });
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) || document.body.dataset.theme || "dark";
+  applyAuditTheme(savedTheme);
+  elements.themeToggleBtn?.addEventListener("click", toggleAuditTheme);
 
   const initialHistory = getAuditHistory();
   renderHistory(initialHistory);
-
   if (initialHistory.length > 0) {
     renderAuditResult(initialHistory[0]);
   }

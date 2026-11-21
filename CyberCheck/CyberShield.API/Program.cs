@@ -44,8 +44,14 @@ builder.Services.AddDbContext<CyberCheckContext>(options =>
     options.UseSqlite(connectionString));
 
 builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("AuditClient", client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(10);
+    client.DefaultRequestHeaders.UserAgent.ParseAdd("CyberCheckPRO-Auditor/1.0");
+});
 builder.Services.AddScoped<HttpClientHelper>();
 builder.Services.AddHttpClient<ICyberUzCheckService, CyberUzCheckService>();
+builder.Services.AddScoped<RealAuditService>();
 
 builder.Services.AddCors(options =>
 {
