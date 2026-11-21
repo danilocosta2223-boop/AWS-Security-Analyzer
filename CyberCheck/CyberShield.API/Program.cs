@@ -90,6 +90,13 @@ app.UseCors("CyberCheckCors");
 app.UseAuthorization();
 app.MapControllers();
 
+app.MapGet("/", () => Results.Ok(new
+{
+    projeto = "Cyber Shield API",
+    status = "online",
+    ambiente = app.Environment.EnvironmentName
+}));
+
 // ==========================================
 // BLOCO 04: Inicializacao da Aplicacao
 // ==========================================
