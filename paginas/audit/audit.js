@@ -21,7 +21,7 @@ const elements = {
 async function checkApiHealth() {
   if (!elements.healthStatus) return;
 
-  elements.healthStatus.textContent = "A verificar API...";
+  elements.healthStatus.textContent = "Verificando API...";
   elements.healthStatus.dataset.status = "checking";
 
   const controller = new AbortController();
@@ -40,12 +40,12 @@ async function checkApiHealth() {
       return true;
     }
   } catch (_) {
-    // Em plano gratuito no Render, a instancia pode estar a iniciar
+    // Em plano gratuito no Render, a instancia pode estar iniciando
   } finally {
     clearTimeout(timeoutId);
   }
 
-  elements.healthStatus.textContent = "API Offline ou a iniciar";
+  elements.healthStatus.textContent = "API Offline ou iniciando";
   elements.healthStatus.dataset.status = "offline";
   return false;
 }
@@ -53,36 +53,78 @@ async function checkApiHealth() {
 // ==========================================
 // BLOCO 03: Calculo de Score e Normalizacao
 // ==========================================
-function calculateSecurityScore(data) {
-  if (typeof data?.securityScore === "number") {
-    return Math.max(0, Math.min(100, Math.round(data.securityScore)));
+function extractScoreFromResponse(data) {
+  const candidates = [
+    data?.score,
+    data?.Score,
+    data?.securityScore,
+    data?.SecurityScore,
+    data?.riskScore,
+    data?.RiskScore,
+    data?.data?.score,
+    data?.data?.Score,
+    data?.data?.securityScore,
+    data?.data?.SecurityScore
+  ];
+
+  for (const candidate of candidates) {
+    if (typeof candidate === "number" && Number.isFinite(candidate)) {
+      return Math.max(0, Math.min(100, Math.round(candidate)));
+    }
   }
 
   let score = 100;
-  const stats = data?.stats || data?.analysis?.stats || {};
-  const malicious = Number(stats.malicious || 0);
-  const suspicious = Number(stats.suspicious || 0);
+  const stats = data?.stats || data?.Stats || data?.analysis?.stats || {};
+  const malicious = Number(stats.malicious ?? stats.Malicious ?? 0);
+  const suspicious = Number(stats.suspicious ?? stats.Suspicious ?? 0);
 
   score -= malicious * 35;
   score -= suspicious * 15;
 
-  if (Array.isArray(data?.findings)) {
-    score -= data.findings.length * 10;
+  const findings = data?.findings || data?.Findings || data?.issues || data?.Issues;
+  if (Array.isArray(findings)) {
+    score -= findings.length * 10;
+  }
+
+  const vulnerabilities = data?.vulnerabilities || data?.Vulnerabilities;
+  if (Array.isArray(vulnerabilities)) {
+    score -= vulnerabilities.length * 10;
   }
 
   return Math.max(0, Math.min(100, score));
 }
 
+function extractStatusFromResponse(data, score) {
+  const rawStatus =
+    data?.status ??
+    data?.Status ??
+    data?.classification ??
+    data?.Classification ??
+    data?.level ??
+    data?.Level;
+
+  if (typeof rawStatus === "string" && rawStatus.trim()) {
+    return rawStatus.trim();
+  }
+
+  if (score >= 80) return "Seguro";
+  if (score >= 50) return "Atencao";
+  return "Critico";
+}
+
 function normalizeAuditResult(target, scanType, rawData) {
-  const score = calculateSecurityScore(rawData);
-  const status =
-    score >= 80 ? "Seguro" :
-    score >= 50 ? "Atencao" :
-    "Critico";
+  const score = extractScoreFromResponse(rawData);
+  const status = extractStatusFromResponse(rawData, score);
+  const resolvedTarget =
+    rawData?.url ||
+    rawData?.Url ||
+    rawData?.target ||
+    rawData?.Target ||
+    target;
 
   return {
     id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-    target,
+    target: resolvedTarget,
     scanType,
     score,
     status,
@@ -94,21 +136,19 @@ function normalizeAuditResult(target, scanType, rawData) {
 // ==========================================
 // BLOCO 04: Requisicao de Auditoria ao Backend
 // ==========================================
-async function executeVirusTotalAudit(target, scanType) {
+async function executeAuditoria(target) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 30000);
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/virustotal`, {
+    const response = await fetch(`${API_BASE_URL}/api/auditoria`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
       body: JSON.stringify({
-        target,
-        resource: target,
-        type: scanType
+        url: target
       }),
       signal: controller.signal
     });
@@ -171,7 +211,7 @@ function renderAuditResult(entry) {
       <p><strong>Alvo:</strong> ${escapeHtml(entry.target)}</p>
       <p><strong>Tipo:</strong> ${escapeHtml(entry.scanType)}</p>
       <p><strong>Score:</strong> ${entry.score}/100 (${escapeHtml(entry.status)})</p>
-      <p><strong>Data:</strong> ${new Date(entry.timestamp).toLocaleString("pt-PT")}</p>
+      <p><strong>Data:</strong> ${new Date(entry.timestamp).toLocaleString("pt-BR")}</p>
     </div>
     <pre class="audit-raw"><code>${escapeHtml(formattedJson)}</code></pre>
   `;
@@ -181,7 +221,7 @@ function renderHistory(historyItems) {
   if (!elements.historyList) return;
 
   if (!historyItems.length) {
-    elements.historyList.innerHTML = `<li class="history-empty">Nenhuma auditoria registada.</li>`;
+    elements.historyList.innerHTML = `<li class="history-empty">Nenhuma auditoria registrada.</li>`;
     return;
   }
 
@@ -190,7 +230,7 @@ function renderHistory(historyItems) {
       <li class="history-item" data-id="${escapeHtml(item.id)}">
         <span class="history-target">${escapeHtml(item.target)}</span>
         <span class="history-score">${item.score}/100 (${escapeHtml(item.status)})</span>
-        <span class="history-date">${new Date(item.timestamp).toLocaleString("pt-PT")}</span>
+        <span class="history-date">${new Date(item.timestamp).toLocaleString("pt-BR")}</span>
       </li>
     `)
     .join("");
@@ -216,22 +256,22 @@ async function handleRunAudit(event) {
 
   if (!target) {
     if (elements.resultContainer) {
-      elements.resultContainer.innerHTML = `<p class="audit-error">Introduza um dominio, URL, IP ou hash para auditar.</p>`;
+      elements.resultContainer.innerHTML = `<p class="audit-error">Informe uma URL ou dominio para auditar.</p>`;
     }
     return;
   }
 
   if (elements.runAuditBtn) {
     elements.runAuditBtn.disabled = true;
-    elements.runAuditBtn.textContent = "A auditar...";
+    elements.runAuditBtn.textContent = "Auditando...";
   }
 
   if (elements.resultContainer) {
-    elements.resultContainer.innerHTML = `<p class="audit-loading">A consultar a API e servicos externos...</p>`;
+    elements.resultContainer.innerHTML = `<p class="audit-loading">Consultando a API e servicos externos...</p>`;
   }
 
   try {
-    const rawData = await executeVirusTotalAudit(target, scanType);
+    const rawData = await executeAuditoria(target);
     const normalized = normalizeAuditResult(target, scanType, rawData);
     const updatedHistory = saveAuditToHistory(normalized);
 
