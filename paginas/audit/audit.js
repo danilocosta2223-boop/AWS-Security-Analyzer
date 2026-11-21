@@ -116,7 +116,7 @@ async function executeAuditoria(target) {
         signal: controller.signal
       });
 
-      console.log("[CyberCheck] Status HTTP:", response.status, "em", endpoint);
+      console.log("[CyberCheck] Status HTTP recebido:", response.status);
 
       if (response.status === 404) {
         lastError = new Error(`Rota nao encontrada (404) em ${endpoint}`);
@@ -129,7 +129,7 @@ async function executeAuditoria(target) {
       }
 
       const jsonData = await response.json();
-      console.log("[CyberCheck] JSON recebido:", jsonData);
+      console.log("[CyberCheck] Resposta JSON recebida:", jsonData);
       return jsonData;
     } catch (error) {
       if (error.name === "AbortError") {
@@ -194,7 +194,7 @@ function saveAuditToHistory(entry) {
 }
 
 // ==========================================
-// BLOCO 06: Renderizacao Detalhada na Interface
+// BLOCO 06: Renderizacao na Interface
 // ==========================================
 function setLoadingState(isLoading) {
   if (elements.runAuditBtn) {
@@ -222,6 +222,7 @@ function setModulesState(message) {
 
 function renderAuditResult(entry) {
   const d = entry.details || {};
+  const scanDateText = entry.timestamp ? new Date(entry.timestamp).toLocaleString("pt-BR") : "--";
 
   if (elements.scoreValue) elements.scoreValue.textContent = `${entry.score}`;
   if (elements.gradeValue) elements.gradeValue.textContent = `Nota ${entry.grade} - ${entry.target}`;
@@ -239,20 +240,21 @@ function renderAuditResult(entry) {
       const st = vt.status ?? vt.Status ?? "ok";
       elements.virusTotalStatus.textContent = `Status: ${st} | Maliciosos: ${mal} | Suspeitos: ${susp} | Seguros: ${harm}`;
     } else {
-      elements.virusTotalStatus.textContent = "Sem detalhes do VirusTotal na resposta.";
+      elements.virusTotalStatus.textContent = `Risco geral: ${entry.risk} | Score: ${entry.score}/100 | Verificado em: ${scanDateText}`;
     }
   }
 
   const ssl = d.ssl ?? d.Ssl;
+  const sslValid = d.sslValid ?? d.SslValid;
   if (elements.sslStatus) {
     if (ssl && typeof ssl === "object") {
       const enabled = Boolean(ssl.enabled ?? ssl.Enabled);
       const scheme = ssl.scheme ?? ssl.Scheme ?? "";
       const code = ssl.statusCode ?? ssl.StatusCode;
       const detail = ssl.detail ?? ssl.Detail ?? "";
-      elements.sslStatus.textContent = `${enabled ? "HTTPS Ativo" : "Sem TLS"} (${scheme})${code ? ` | HTTP ${code}` : ""}${detail ? ` - ${detail}` : ""}`;
-    } else if (typeof (d.sslValid ?? d.SslValid) === "boolean") {
-      elements.sslStatus.textContent = (d.sslValid ?? d.SslValid) ? "Certificado SSL/TLS valido" : "SSL/TLS indisponivel";
+      elements.sslStatus.textContent = `${enabled ? "HTTPS Ativo" : "Sem TLS"}${scheme ? ` (${scheme})` : ""}${code ? ` | HTTP ${code}` : ""}${detail ? ` - ${detail}` : ""}`;
+    } else if (typeof sslValid === "boolean") {
+      elements.sslStatus.textContent = sslValid ? "Valido / Ativo (TLS verificado)" : "Invalido / Ausente";
     } else {
       elements.sslStatus.textContent = "Sem detalhes de SSL/TLS na resposta.";
     }
@@ -266,7 +268,7 @@ function renderAuditResult(entry) {
       const src = whois.source ?? whois.Source ?? "";
       elements.whoisStatus.textContent = `Dominio: ${dom}${tld ? ` | TLD: .${tld}` : ""}${src ? ` | Fonte: ${src}` : ""}`;
     } else {
-      elements.whoisStatus.textContent = "Sem detalhes de WHOIS na resposta.";
+      elements.whoisStatus.textContent = `Alvo: ${entry.target} | Sem registo WHOIS no payload atual`;
     }
   }
 
@@ -275,7 +277,7 @@ function renderAuditResult(entry) {
     if (Array.isArray(tech) && tech.length > 0) {
       elements.technologyList.textContent = tech.join(" | ");
     } else {
-      elements.technologyList.textContent = "Nenhuma tecnologia identificada nos cabecalhos.";
+      elements.technologyList.textContent = "Stack nao informada na resposta atual";
     }
   }
 
@@ -286,7 +288,7 @@ function renderAuditResult(entry) {
       const sitemap = Boolean(recon.sitemapReachable ?? recon.SitemapReachable);
       elements.reconStatus.textContent = `robots.txt: ${robots ? "Encontrado" : "Nao encontrado"} | sitemap.xml: ${sitemap ? "Encontrado" : "Nao encontrado"}`;
     } else {
-      elements.reconStatus.textContent = "Sem detalhes de Recon na resposta.";
+      elements.reconStatus.textContent = "Recon detalhado nao incluido na resposta atual";
     }
   }
 
@@ -297,7 +299,7 @@ function renderAuditResult(entry) {
       const hostName = dns.hostName ?? dns.HostName ?? "";
       elements.dnsStatus.textContent = `IPs: ${ips.length ? ips.join(", ") : "Nenhum"}${hostName ? ` | Host: ${hostName}` : ""}`;
     } else {
-      elements.dnsStatus.textContent = "Sem detalhes de DNS na resposta.";
+      elements.dnsStatus.textContent = "Registos DNS nao incluidos na resposta atual";
     }
   }
 
@@ -310,7 +312,7 @@ function renderAuditResult(entry) {
       const srv = headers.server ?? headers.Server ?? "N/A";
       elements.headersStatus.textContent = `HSTS: ${hsts ? "Sim" : "Nao"} | CSP: ${csp ? "Sim" : "Nao"} | X-Frame-Options: ${xfo ? "Sim" : "Nao"} | Server: ${srv}`;
     } else {
-      elements.headersStatus.textContent = "Sem detalhes de Headers HTTP na resposta.";
+      elements.headersStatus.textContent = "Cabecalhos HTTP nao incluidos na resposta atual";
     }
   }
 
@@ -353,6 +355,8 @@ function escapeHtml(value) {
 async function handleRunAudit(event) {
   if (event) event.preventDefault();
 
+  console.log("[CyberCheck] Submit do formulario acionado.");
+
   const target = elements.targetInput?.value.trim() || "";
   if (!target) {
     if (elements.jsonResult) {
@@ -376,6 +380,7 @@ async function handleRunAudit(event) {
 
     renderAuditResult(normalized);
     renderHistory(updatedHistory);
+    console.log("[CyberCheck] Auditoria concluida com sucesso em", `${elapsedMs}ms`);
   } catch (error) {
     console.error("[CyberCheck] Falha na auditoria:", error);
     setModulesState("Falha na consulta");
