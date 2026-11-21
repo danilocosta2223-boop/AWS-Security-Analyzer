@@ -1,4 +1,3 @@
-# Build da aplicação
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 
 WORKDIR /src
@@ -10,7 +9,6 @@ WORKDIR /src/CyberCheck/CyberShield.API
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/publish
 
-# Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 
 WORKDIR /app
