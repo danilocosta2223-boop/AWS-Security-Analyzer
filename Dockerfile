@@ -1,5 +1,5 @@
-# BLOCO 01: Build da aplicação .NET
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+# BLOCO 01: Build da aplicação .NET 9
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
 COPY . .
@@ -8,7 +8,7 @@ RUN dotnet restore
 RUN dotnet publish -c Release -o /app/publish
 
 # BLOCO 02: Imagem de execução (Runtime)
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
