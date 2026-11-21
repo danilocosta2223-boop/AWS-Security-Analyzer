@@ -1,8 +1,8 @@
 // ==========================================
 // BLOCO 01: Configuracoes, Endpoints e Seletores
 // ==========================================
-const LOCAL_DEV_ORIGIN = `${["http", "localhost:5287"].join("://")}`;
-const PROD_API_ORIGIN = `${["https", "api.cybercheck.com"].join("://")}`;
+const LOCAL_DEV_ORIGIN = "http://localhost:5287";
+const PROD_API_ORIGIN = "https://aws-security-analyzer-6ayz.onrender.com";
 
 const API_BASE_URL =
   window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
@@ -643,7 +643,7 @@ async function checkApiHealth() {
       apiVersionEl.textContent = "Aplicacao: --";
     }
     if (backendTypeEl) {
-      backendTypeEl.textContent = "Verifique localhost:5287 e CORS";
+      backendTypeEl.textContent = `Verifique ${API_BASE_URL} e CORS`;
     }
   }
 }
@@ -762,7 +762,7 @@ async function runUrlAudit(targetUrl) {
     setStatusBadge("Erro de conexao", "error");
     renderJsonOutput({
       error: message,
-      hint: "Verifique se a API esta rodando em localhost:5287 e se o CORS esta habilitado no Program.cs."
+      hint: `Verifique se a API esta acessivel em ${API_BASE_URL} e se o CORS esta habilitado no Program.cs.`
     });
     console.error("Erro ao executar auditoria:", error);
   } finally {
