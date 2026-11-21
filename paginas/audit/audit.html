@@ -2,175 +2,178 @@
 <html lang="pt-BR">
 <head>
   <!-- ==========================================
-       BLOCO 01: Meta Tags, Titulo e Estilos
+       BLOCO 01: Meta Tags, Titulo e Folhas de Estilo
        ========================================== -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CyberCheck PRO - Plataforma de Auditoria de Seguranca Digital">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CyberCheck PRO - Auditoria de Seguranca</title>
-
-  <link rel="icon" href="../imagens/dark-theme/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-  <link rel="stylesheet" href="../styles-dark/normalize.css">
-  <link rel="stylesheet" href="../styles-dark/global.css">
-  <link rel="stylesheet" href="../styles-dark/cards.css">
-  <link rel="stylesheet" href="../styles-dark/hero.css">
-  <link id="audit-theme-css" rel="stylesheet" href="../styles-dark/audit.css">
-  <link rel="stylesheet" href="../styles-dark/mobile.css">
-  <link rel="stylesheet" href="../styles-dark/desktop.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="../../styles-dark/normalize.css" />
+  <link rel="stylesheet" href="../../styles-dark/global.css" />
+  <link id="audit-theme-css" rel="stylesheet" href="../../styles-dark/audit.css" />
+  <link rel="stylesheet" href="../../styles-dark/desktop.css" />
+  <link rel="stylesheet" href="../../styles-dark/mobile.css" />
 </head>
 <body data-theme="dark">
-  <main class="container">
-    <!-- ==========================================
-         BLOCO 02: Cabecalho, Navegacao e Tema
-         ========================================== -->
-    <header class="header">
-      <h1>
-        <a href="../../index.html" class="brand-link">
-          <i class="fa-solid fa-shield-halved"></i> CyberCheck PRO
-        </a>
-      </h1>
-      <h2>Auditoria de Seguranca</h2>
-      <button type="button" id="themeToggle" aria-label="Alternar tema">
-        <i class="fa-solid fa-circle-half-stroke"></i> Tema
-      </button>
-    </header>
+  <!-- ==========================================
+       BLOCO 02: Cabecalho e Navegacao Principal
+       ========================================== -->
+  <header class="header">
+    <div class="brand">
+      <a href="../../index.html" class="brand-link">
+        <h1><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> CyberCheck PRO</h1>
+      </a>
+    </div>
 
     <nav class="main-nav" aria-label="Navegacao principal">
-      <a href="../../index.html"><i class="fa-solid fa-house"></i> Inicio</a>
-      <a href="../dashboard/dashboard.html"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
-      <a href="./audit.html" class="active"><i class="fa-solid fa-magnifying-glass-chart"></i> Auditoria</a>
-      <a href="../reports/reports.html"><i class="fa-solid fa-file-lines"></i> Relatorios</a>
-      <a href="../history/history.html"><i class="fa-solid fa-clock-rotate-left"></i> Historico</a>
+      <a href="../../index.html">Inicio</a>
+      <a href="../dashboard/dashboard.html">Dashboard</a>
+      <a href="./audit.html" class="active">Auditoria</a>
+      <a href="../history/history.html">Historico</a>
+      <a href="../reports/reports.html">Relatorios</a>
     </nav>
 
-    <hr>
+    <div class="header-actions">
+      <button id="themeToggle" type="button" class="quick-url-btn" aria-label="Alternar tema">
+        <i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i>
+        <span>Tema</span>
+      </button>
+    </div>
+  </header>
 
-    <!-- ==========================================
-         BLOCO 03: Status da API
-         ========================================== -->
-    <section id="api-status" aria-label="Status da API" aria-live="polite">
-      <p id="apiStatus"><i class="fa-solid fa-circle-notch fa-spin"></i> Verificando API...</p>
-      <div id="apiVersion">Aplicacao: --</div>
-      <p id="backendType">Timestamp: --</p>
+  <!-- ==========================================
+       BLOCO 03: Estado da API e Formulario de Auditoria
+       ========================================== -->
+  <main class="container">
+    <section id="api-status" aria-label="Estado da API">
+      <p id="apiStatus">Verificando API...</p>
+      <div id="apiVersion">Aplicacao: Cyber Shield API</div>
+      <div id="backendType">Timestamp: --</div>
     </section>
 
-    <hr>
+    <hr />
 
-    <!-- ==========================================
-         BLOCO 04: Formulario de Auditoria e Atalhos
-         ========================================== -->
-    <form id="auditForm" class="input-group">
-      <label for="urlInput"><i class="fa-solid fa-globe"></i> Dominio ou URL Alvo</label>
-      <div class="input-wrapper">
+    <section class="card" aria-label="Formulario de auditoria">
+      <h2>Auditoria de Seguranca de URL / Dominio</h2>
+      <p>Verifique SSL/TLS, cabecalhos HTTP, DNS, WHOIS, Recon, tecnologias e reputacao.</p>
+
+      <form id="auditForm" class="input-wrapper">
         <input
           id="urlInput"
-          name="urlInput"
-          type="url"
-          spellcheck="false"
-          autocomplete="off"
-          placeholder="https://google.com"
+          type="text"
+          placeholder="Ex.: https://google.com ou dominio.com.br"
+          autocomplete="url"
           required
-        >
-        <button type="submit" id="runAuditBtn">
-          <i class="fa-solid fa-play"></i> Executar Auditoria
+        />
+        <button id="runAuditBtn" type="submit">
+          <i class="fa-solid fa-magnifying-glass-shield" aria-hidden="true"></i>
+          <span>Executar Auditoria</span>
         </button>
-      </div>
+      </form>
 
-      <div class="quick-targets" aria-label="Exemplos rapidos de URLs">
-        <span>Testar rapido:</span>
+      <div class="quick-targets" aria-label="Alvos rapidos">
+        <span>Alvos rapidos:</span>
         <button type="button" class="quick-url-btn" data-url="https://google.com">google.com</button>
         <button type="button" class="quick-url-btn" data-url="https://github.com">github.com</button>
-        <button type="button" class="quick-url-btn" data-url="https://fiap.com.br">fiap.com.br</button>
+        <button type="button" class="quick-url-btn" data-url="https://cloudflare.com">cloudflare.com</button>
       </div>
-    </form>
 
-    <hr>
+      <div id="loading" class="loading-box is-hidden" role="status" aria-live="polite">
+        <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+        <span>Executando analise de seguranca no servidor...</span>
+        <div id="auditProgress">
+          <div id="auditProgressBar"></div>
+        </div>
+      </div>
+    </section>
 
     <!-- ==========================================
-         BLOCO 05: Resumo, Score e Progresso
+         BLOCO 04: Resumo em Destaque e Score
          ========================================== -->
-    <section id="summary" aria-label="Resumo da auditoria" aria-live="polite">
-      <span id="scoreLabel">Security Score</span>
-      <div class="score-circle" id="scoreValue">--</div>
-      <h2 id="gradeValue">Aguardando Auditoria</h2>
-      <span id="riskValue" class="risk-badge">READY</span>
+    <section id="summary" aria-label="Resumo da auditoria">
+      <div id="scoreLabel">Security Score</div>
+      <div id="scoreValue" class="score-circle">--</div>
+      <div id="gradeValue">Aguardando analise</div>
+      <div id="riskValue" class="risk-badge" data-risk="LOW">--</div>
       <div id="analysisInfo">Tempo da analise: <strong id="analysisTime">--</strong></div>
     </section>
 
-    <div id="loading" class="loading-box is-hidden" role="status" aria-live="polite">
-      <i class="fa-solid fa-spinner fa-spin"></i> Analisando alvo...
-      <div id="auditProgress" aria-label="Progresso da auditoria">
-        <div id="auditProgressBar"></div>
-      </div>
-    </div>
-
-    <hr>
-
     <!-- ==========================================
-         BLOCO 06: Resultados Detalhados por Modulo
+         BLOCO 05: Cartoes de Resultados por Modulo
          ========================================== -->
-    <section id="audit-results" aria-label="Resultados da auditoria">
-      <div id="virustotal-result">
-        <h3><i class="fa-solid fa-virus"></i> VirusTotal</h3>
-        <div id="virusTotalStatus">Aguardando analise...</div>
+    <section id="audit-results" aria-label="Modulos de verificacao">
+      <div>
+        <h3><i class="fa-solid fa-virus-shield" aria-hidden="true"></i> VirusTotal</h3>
+        <p id="virusTotalStatus">Aguardando execucao</p>
       </div>
-      <div id="ssl-result">
-        <h3><i class="fa-solid fa-lock"></i> SSL / TLS</h3>
-        <div id="sslStatus">Aguardando analise...</div>
+
+      <div>
+        <h3><i class="fa-solid fa-lock" aria-hidden="true"></i> SSL / TLS</h3>
+        <p id="sslStatus">Aguardando execucao</p>
       </div>
-      <div id="whois-result">
-        <h3><i class="fa-solid fa-id-card"></i> WHOIS</h3>
-        <div id="whoisStatus">Aguardando analise...</div>
+
+      <div>
+        <h3><i class="fa-solid fa-globe" aria-hidden="true"></i> WHOIS</h3>
+        <p id="whoisStatus">Aguardando execucao</p>
       </div>
-      <div id="technology-result">
-        <h3><i class="fa-solid fa-microchip"></i> Tecnologias</h3>
-        <div id="technologyList">Aguardando analise...</div>
+
+      <div>
+        <h3><i class="fa-solid fa-microchip" aria-hidden="true"></i> Tecnologias</h3>
+        <p id="technologyList">Aguardando execucao</p>
       </div>
-      <div id="recon-result">
-        <h3><i class="fa-solid fa-radar"></i> Recon (Robots / Sitemap / Exposure)</h3>
-        <div id="reconStatus">Aguardando analise...</div>
+
+      <div>
+        <h3><i class="fa-solid fa-radar" aria-hidden="true"></i> Recon (Robots / Sitemap / Exposure)</h3>
+        <p id="reconStatus">Aguardando execucao</p>
       </div>
-      <div id="dns-result">
-        <h3><i class="fa-solid fa-network-wired"></i> DNS</h3>
-        <div id="dnsStatus">Aguardando analise...</div>
+
+      <div>
+        <h3><i class="fa-solid fa-network-wired" aria-hidden="true"></i> DNS</h3>
+        <p id="dnsStatus">Aguardando execucao</p>
       </div>
-      <div id="headers-result">
-        <h3><i class="fa-solid fa-shield"></i> Headers HTTP</h3>
-        <div id="headersStatus">Aguardando analise...</div>
+
+      <div>
+        <h3><i class="fa-solid fa-shield" aria-hidden="true"></i> Headers HTTP</h3>
+        <p id="headersStatus">Aguardando execucao</p>
       </div>
     </section>
 
-    <hr>
-
     <!-- ==========================================
-         BLOCO 07: Historico, Relatorios e JSON
+         BLOCO 06: Botoes de Relatorio e Saida JSON
          ========================================== -->
-    <section id="history-preview" aria-label="Ultimas auditorias">
-      <h3><i class="fa-solid fa-history"></i> Ultimas Auditorias</h3>
-      <ul id="historyList"></ul>
+    <section id="report-buttons" aria-label="Exportacao de relatorio">
+      <button id="exportPdfBtn" type="button">
+        <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+        <span>Gerar PDF</span>
+      </button>
     </section>
 
-    <div id="report-buttons" aria-label="Exportar relatorio">
-      <button type="button" id="exportPdf"><i class="fa-solid fa-file-pdf"></i> Gerar PDF</button>
-      <button type="button" id="exportHtml"><i class="fa-solid fa-file-code"></i> Gerar HTML</button>
-      <button type="button" id="exportCsv"><i class="fa-solid fa-file-csv"></i> Gerar CSV</button>
-    </div>
-
-    <hr>
-
-    <section class="json-section" aria-label="Resultado JSON para Debug">
+    <section class="json-section" aria-label="Resultado JSON bruto">
       <div class="audit-container">
-        <h2><i class="fa-solid fa-code"></i> Resultado JSON</h2>
-        <pre id="jsonResult">Aguardando auditoria...</pre>
+        <h3><i class="fa-solid fa-code" aria-hidden="true"></i> Resultado JSON</h3>
+        <pre id="jsonResult">{}</pre>
       </div>
+    </section>
+
+    <!-- ==========================================
+         BLOCO 07: Historico Local de Auditorias
+         ========================================== -->
+    <section id="history-preview" aria-label="Historico recente">
+      <h3><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Historico Recente</h3>
+      <ul id="historyList">
+        <li class="history-empty">Nenhuma auditoria registrada.</li>
+      </ul>
     </section>
   </main>
 
+  <!-- ==========================================
+       BLOCO 08: Scripts e Bibliotecas PDF
+       ========================================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
   <script src="./audit.js"></script>
 </body>
 </html>
