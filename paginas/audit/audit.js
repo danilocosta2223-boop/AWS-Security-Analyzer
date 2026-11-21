@@ -1,4 +1,6 @@
-// BLOCO 01: Configuracao da API e seletores do DOM
+// ==========================================
+// BLOCO 01: Configuracao da API e Seletores
+// ==========================================
 const API_BASE_URL = "https://aws-security-analyzer.onrender.com";
 const STORAGE_KEY = "cybershield_audit_history_v1";
 
@@ -13,38 +15,44 @@ const elements = {
   clearHistoryBtn: document.getElementById("clearHistoryBtn")
 };
 
-// BLOCO 02: Verificacao de saude da API (Health Check)
+// ==========================================
+// BLOCO 02: Verificacao de Saude (Health Check)
+// ==========================================
 async function checkApiHealth() {
   if (!elements.healthStatus) return;
 
-  elements.healthStatus.textContent = "Verificando API...";
+  elements.healthStatus.textContent = "A verificar API...";
   elements.healthStatus.dataset.status = "checking";
 
-  const candidateEndpoints = ["/api/health", "/health"];
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-  for (const endpoint of candidateEndpoints) {
-    try {
-      const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: "GET",
-        headers: { "Accept": "application/json" }
-      });
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/health`, {
+      method: "GET",
+      headers: { "Accept": "application/json" },
+      signal: controller.signal
+    });
 
-      if (response.ok) {
-        elements.healthStatus.textContent = "API Online";
-        elements.healthStatus.dataset.status = "online";
-        return true;
-      }
-    } catch (_) {
-      // Tenta o proximo endpoint candidato
+    if (response.ok) {
+      elements.healthStatus.textContent = "API Online";
+      elements.healthStatus.dataset.status = "online";
+      return true;
     }
+  } catch (_) {
+    // Em plano gratuito no Render, a instancia pode estar a iniciar
+  } finally {
+    clearTimeout(timeoutId);
   }
 
-  elements.healthStatus.textContent = "API Offline ou iniciando";
+  elements.healthStatus.textContent = "API Offline ou a iniciar";
   elements.healthStatus.dataset.status = "offline";
   return false;
 }
 
-// BLOCO 03: Calculo de score de seguranca e normalizacao do resultado
+// ==========================================
+// BLOCO 03: Calculo de Score e Normalizacao
+// ==========================================
 function calculateSecurityScore(data) {
   if (typeof data?.securityScore === "number") {
     return Math.max(0, Math.min(100, Math.round(data.securityScore)));
@@ -83,30 +91,47 @@ function normalizeAuditResult(target, scanType, rawData) {
   };
 }
 
-// BLOCO 04: Requisicao de auditoria para o backend .NET no Render
+// ==========================================
+// BLOCO 04: Requisicao de Auditoria ao Backend
+// ==========================================
 async function executeVirusTotalAudit(target, scanType) {
-  const response = await fetch(`${API_BASE_URL}/api/virustotal`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify({
-      target,
-      resource: target,
-      type: scanType
-    })
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 30000);
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Falha na API (${response.status}): ${errorText || response.statusText}`);
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/virustotal`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        target,
+        resource: target,
+        type: scanType
+      }),
+      signal: controller.signal
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Falha na API (${response.status}): ${errorText || response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    if (error.name === "AbortError") {
+      throw new Error("Tempo limite excedido ao aguardar resposta da API no Render.");
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
   }
-
-  return response.json();
 }
 
-// BLOCO 05: Persistencia em localStorage e gerenciamento do historico
+// ==========================================
+// BLOCO 05: Historico em localStorage
+// ==========================================
 function getAuditHistory() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -129,7 +154,9 @@ function clearAuditHistory() {
   renderHistory([]);
 }
 
-// BLOCO 06: Renderizacao da interface (Score, Detalhes e Historico)
+// ==========================================
+// BLOCO 06: Renderizacao na Interface
+// ==========================================
 function renderAuditResult(entry) {
   if (elements.scoreValue) {
     elements.scoreValue.textContent = `${entry.score}/100 - ${entry.status}`;
@@ -144,7 +171,7 @@ function renderAuditResult(entry) {
       <p><strong>Alvo:</strong> ${escapeHtml(entry.target)}</p>
       <p><strong>Tipo:</strong> ${escapeHtml(entry.scanType)}</p>
       <p><strong>Score:</strong> ${entry.score}/100 (${escapeHtml(entry.status)})</p>
-      <p><strong>Data:</strong> ${new Date(entry.timestamp).toLocaleString("pt-BR")}</p>
+      <p><strong>Data:</strong> ${new Date(entry.timestamp).toLocaleString("pt-PT")}</p>
     </div>
     <pre class="audit-raw"><code>${escapeHtml(formattedJson)}</code></pre>
   `;
@@ -154,7 +181,7 @@ function renderHistory(historyItems) {
   if (!elements.historyList) return;
 
   if (!historyItems.length) {
-    elements.historyList.innerHTML = `<li class="history-empty">Nenhuma auditoria registrada.</li>`;
+    elements.historyList.innerHTML = `<li class="history-empty">Nenhuma auditoria registada.</li>`;
     return;
   }
 
@@ -163,7 +190,7 @@ function renderHistory(historyItems) {
       <li class="history-item" data-id="${escapeHtml(item.id)}">
         <span class="history-target">${escapeHtml(item.target)}</span>
         <span class="history-score">${item.score}/100 (${escapeHtml(item.status)})</span>
-        <span class="history-date">${new Date(item.timestamp).toLocaleString("pt-BR")}</span>
+        <span class="history-date">${new Date(item.timestamp).toLocaleString("pt-PT")}</span>
       </li>
     `)
     .join("");
@@ -178,7 +205,9 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
-// BLOCO 07: Eventos e inicializacao
+// ==========================================
+// BLOCO 07: Eventos e Inicializacao
+// ==========================================
 async function handleRunAudit(event) {
   if (event) event.preventDefault();
 
@@ -187,14 +216,18 @@ async function handleRunAudit(event) {
 
   if (!target) {
     if (elements.resultContainer) {
-      elements.resultContainer.innerHTML = `<p class="audit-error">Informe um dominio, URL, IP ou hash para auditar.</p>`;
+      elements.resultContainer.innerHTML = `<p class="audit-error">Introduza um dominio, URL, IP ou hash para auditar.</p>`;
     }
     return;
   }
 
   if (elements.runAuditBtn) {
     elements.runAuditBtn.disabled = true;
-    elements.runAuditBtn.textContent = "Auditando...";
+    elements.runAuditBtn.textContent = "A auditar...";
+  }
+
+  if (elements.resultContainer) {
+    elements.resultContainer.innerHTML = `<p class="audit-loading">A consultar a API e servicos externos...</p>`;
   }
 
   try {
