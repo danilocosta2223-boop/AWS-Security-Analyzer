@@ -1,5 +1,5 @@
 // ==========================================
-// 1. Configuracoes, Endpoints e Seletores
+// BLOCO 01: Configuracoes, Endpoints e Seletores
 // ==========================================
 const LOCAL_DEV_ORIGIN = `${["http", "localhost:5287"].join("://")}`;
 const PROD_API_ORIGIN = `${["https", "api.cybercheck.com"].join("://")}`;
@@ -55,16 +55,13 @@ let scoreAnimationTimer = null;
 let activeAuditController = null;
 
 // ==========================================
-// 2. Funcoes Utilitarias, Progresso e Validacao
+// BLOCO 02: Funcoes Utilitarias, Progresso e Validacao
 // ==========================================
 function escapeHtml(value) {
-  const ltChar = String.fromCharCode(60);
-  const gtChar = String.fromCharCode(62);
-
   return String(value ?? "")
     .replace(/&/g, "&amp;")
-    .split(ltChar).join("&lt;")
-    .split(gtChar).join("&gt;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
 }
@@ -169,7 +166,7 @@ function computeSecuritySummary(data) {
 }
 
 // ==========================================
-// 3. Score Animado, Risco e Graficos
+// BLOCO 03: Score Animado, Risco e Graficos
 // ==========================================
 function animateScore(target) {
   const el = scoreEl || document.getElementById("scoreValue");
@@ -338,7 +335,7 @@ function renderAuditCharts(data) {
 }
 
 // ==========================================
-// 4. Mapeamento dos Modulos, JSON e Historico
+// BLOCO 04: Mapeamento dos Modulos, JSON e Historico
 // ==========================================
 function formatFriendlyLabel(key) {
   const labels = {
@@ -549,7 +546,7 @@ function appendHistoryItem(urlValue, statusText, maliciousCount, scoreValue, ris
 }
 
 // ==========================================
-// 5. Exportacao de Relatorios (CSV, HTML, PDF)
+// BLOCO 05: Exportacao de Relatorios (CSV, HTML, PDF)
 // ==========================================
 function triggerFileDownload(filename, content, mimeType) {
   const blob = new Blob([content], { type: mimeType });
@@ -616,7 +613,7 @@ function exportAuditHtml() {
 }
 
 // ==========================================
-// 6. Comunicacao com a API (Health & Audit)
+// BLOCO 06: Comunicacao com a API (Health & Audit)
 // ==========================================
 async function checkApiHealth() {
   if (!apiStatusEl) return;
@@ -777,7 +774,7 @@ async function runUrlAudit(targetUrl) {
 }
 
 // ==========================================
-// 7. Inicializacao de Eventos
+// BLOCO 07: Inicializacao de Eventos
 // ==========================================
 function handleAuditSubmit(event) {
   if (event) event.preventDefault();
