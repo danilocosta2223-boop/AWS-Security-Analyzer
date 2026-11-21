@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CyberShield.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb89c10a090744a62f46e3a190fdb2f1396e4a60")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c5889636e1946b1fa926b6a3bfd1e2139cf3f4d7")]
 [assembly: System.Reflection.AssemblyProductAttribute("CyberShield.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CyberShield.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

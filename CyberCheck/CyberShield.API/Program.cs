@@ -9,7 +9,7 @@ using CyberShield.API.Services;
 using Microsoft.EntityFrameworkCore;
 
 // ==========================================
-// BLOCO 02: Builder & Configuracao de Servicos
+// BLOCO 02: Builder e Configuracao de Servicos
 // ==========================================
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +31,11 @@ builder.Services.AddControllers()
     });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.CustomSchemaIds(type => type.FullName);
+});
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "Data Source=cybershield.db";
@@ -83,14 +87,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("CyberCheckCors");
 app.UseAuthorization();
-
-app.MapGet("/api/health", () => Results.Ok(new
-{
-    status = "healthy",
-    application = "Cyber Shield API",
-    timestamp = DateTime.UtcNow
-}));
-
 app.MapControllers();
 
 // ==========================================
