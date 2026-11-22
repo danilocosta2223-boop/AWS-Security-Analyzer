@@ -1,20 +1,32 @@
 /* ==========================================
-   BLOCO 01: Fundo Claro, Reset e Tipografia
+   BLOCO 01: Variaveis e Fundo 100% Visivel
+   Imagem de fundo: ../imagens/light-theme/hero-mobile.webp.png
    ========================================== */
-body[data-theme="light"],
-body {
+:root,
+body[data-theme="light"] {
+  --bg-page: #0f172a;
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --accent-primary: #38bdf8;
+  --accent-secondary: #0284c7;
+  --border-light: rgba(56, 189, 248, 0.35);
+  --border-strong: rgba(56, 189, 248, 0.65);
+  --border-glow: rgba(56, 189, 248, 0.6);
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.45);
+  --shadow-elevated: 0 10px 35px rgba(0, 0, 0, 0.65);
+  --transition-base: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body[data-theme="light"] {
+  box-sizing: border-box;
   min-height: 100vh;
   margin: 0;
-  color: #0f172a;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  background-color: #f1f5f9;
-  background-image:
-    linear-gradient(
-      180deg,
-      rgba(241, 245, 249, 0.86) 0%,
-      rgba(226, 232, 240, 0.94) 100%
-    ),
-    url("../../imagens/light-theme/hero-mobile.webp.png");
+  color: var(--text-primary);
+  font-family: "Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  background-color: var(--bg-page);
+  background-image: url("../imagens/light-theme/hero-mobile.webp.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -22,572 +34,1745 @@ body {
   overflow-x: hidden;
 }
 
-.container,
-.card,
-.json-section .audit-container,
-#history-preview,
-#report-buttons {
+/* ==========================================
+   BLOCO 02: Cabecalho Restaurado, Icones e Alternador de Tema
+   ========================================== */
+body[data-theme="light"] header,
+body[data-theme="light"] .header {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(15, 23, 42, 0.72) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-glow);
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body[data-theme="light"] .brand,
+body[data-theme="light"] .brand-link,
+body[data-theme="light"] .brand-link h1 {
+  display: flex !important;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--text-primary) !important;
+  text-decoration: none;
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] .header i,
+body[data-theme="light"] .main-nav i,
+body[data-theme="light"] .theme-toggle i,
+body[data-theme="light"] .theme-switch i {
+  display: inline-block !important;
+  color: var(--accent-primary);
+}
+
+body[data-theme="light"] .main-nav {
+  display: flex !important;
+  gap: 1.25rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+body[data-theme="light"] .main-nav a {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-primary) !important;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+  transition: var(--transition-base);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] .main-nav a:hover,
+body[data-theme="light"] .main-nav a.active {
+  color: var(--accent-primary) !important;
+  border-bottom-color: var(--accent-primary);
+}
+
+body[data-theme="light"] .theme-toggle,
+body[data-theme="light"] .theme-switch,
+body[data-theme="light"] #themeToggle,
+body[data-theme="light"] [data-theme-toggle],
+body[data-theme="light"] .header button,
+body[data-theme="light"] .main-nav button {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(15, 23, 42, 0.65);
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+body[data-theme="light"] .theme-toggle:hover,
+body[data-theme="light"] .theme-switch:hover,
+body[data-theme="light"] #themeToggle:hover,
+body[data-theme="light"] [data-theme-toggle]:hover,
+body[data-theme="light"] .header button:hover,
+body[data-theme="light"] .main-nav button:hover {
+  background: var(--accent-primary);
+  color: #0f172a !important;
+  border-color: var(--accent-primary);
+}
+
+/* ==========================================
+   BLOCO 03: Conteudo Principal Totalmente Transparente
+   ========================================== */
+body[data-theme="light"] .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.75rem 1rem;
+  color: var(--text-primary);
+}
+
+body[data-theme="light"] section,
+body[data-theme="light"] .card,
+body[data-theme="light"] .audit-container,
+body[data-theme="light"] #audit-results > div,
+body[data-theme="light"] .json-section,
+body[data-theme="light"] #history-preview,
+body[data-theme="light"] .history-item {
   background: transparent !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-main.container {
-  width: 92%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 0 48px;
-  box-sizing: border-box;
-  background: transparent !important;
   border: none !important;
   box-shadow: none !important;
 }
 
-hr {
-  border: none;
-  height: 1px;
-  background: rgba(15, 23, 42, 0.14);
-  margin: 22px 0;
-}
-
-.brand-link {
-  text-decoration: none;
-  color: inherit;
-}
-
-.is-hidden {
-  display: none !important;
-}
-
-/* ==========================================
-   BLOCO 02: Cabecalho e Navegacao Centralizada
-   ========================================== */
-header.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-  padding: 12px 18px;
-  margin-bottom: 18px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(2, 132, 199, 0.25);
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
-}
-
-header.header h1 {
-  margin: 0;
-  font-size: 1.55rem;
-  color: #0f172a;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-
-header.header h2 {
-  margin: 0;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #1e293b;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-
-nav.main-nav {
-  flex: 1 1 360px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 0 auto;
-}
-
-nav.main-nav a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 9px 16px;
-  border-radius: 10px;
-  text-decoration: none;
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: #1e293b;
-  background: #f8fafc;
-  border: 1px solid rgba(2, 132, 199, 0.28);
-  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
-}
-
-nav.main-nav a:hover,
-nav.main-nav a.active {
-  background: #0284c7;
-  border-color: #0369a1;
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
-/* ==========================================
-   BLOCO 03: Estado da API, Formulario e Atalhos
-   ========================================== */
-#api-status {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 14px 18px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(2, 132, 199, 0.28);
-  color: #0f172a;
-  font-size: 0.9rem;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-
-#api-status p,
-#api-status div {
-  margin: 0;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-
-.input-wrapper {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-
-.input-wrapper input {
-  flex: 1;
-  min-width: 240px;
-  background-color: #ffffff !important;
-  border: 1px solid #94a3b8 !important;
-  color: #0f172a !important;
-  border-radius: 10px;
-  padding: 12px 16px;
-  font-size: 0.96rem;
-}
-
-.input-wrapper input:focus {
-  outline: none;
-  border-color: #0284c7 !important;
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2) !important;
-}
-
-.input-wrapper button,
-#report-buttons button {
-  background: linear-gradient(135deg, #0284c7, #2563eb) !important;
-  border: 1px solid #0369a1 !important;
+body[data-theme="light"] h2,
+body[data-theme="light"] h3,
+body[data-theme="light"] p,
+body[data-theme="light"] .history-item span {
   color: #ffffff !important;
-  border-radius: 10px;
-  padding: 11px 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* ==========================================
+   BLOCO 04: Formulario e Botoes de Acao
+   ========================================== */
+body[data-theme="light"] .input-wrapper {
+  display: flex;
+  gap: 10px;
+  margin: 1rem 0;
+}
+
+body[data-theme="light"] #urlInput {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.55);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+body[data-theme="light"] #urlInput::placeholder {
+  color: var(--text-muted);
+}
+
+body[data-theme="light"] #urlInput:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.35);
+}
+
+body[data-theme="light"] #runAuditBtn,
+body[data-theme="light"] #exportPdfBtn {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  color: var(--text-primary);
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s ease, filter 0.2s ease;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-soft);
 }
 
-.input-wrapper button:hover,
-#report-buttons button:hover {
+body[data-theme="light"] #runAuditBtn:hover,
+body[data-theme="light"] #exportPdfBtn:hover {
+  filter: brightness(1.12);
   transform: translateY(-1px);
-  filter: brightness(1.06);
 }
 
-.quick-targets {
+body[data-theme="light"] .quick-targets {
   display: flex;
-  align-items: center;
   gap: 8px;
+  align-items: center;
   flex-wrap: wrap;
-  margin-top: 12px;
-  font-size: 0.85rem;
-  color: #334155;
+  margin-top: 0.65rem;
+  font-size: 0.88rem;
 }
 
-.quick-url-btn {
-  background: #ffffff !important;
-  border: 1px solid #0284c7 !important;
-  color: #0369a1 !important;
+body[data-theme="light"] .quick-url-btn {
+  background: rgba(15, 23, 42, 0.45);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  padding: 0.4rem 0.85rem;
   border-radius: 8px;
-  padding: 6px 14px;
   font-weight: 600;
   cursor: pointer;
+  transition: var(--transition-base);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
-.quick-url-btn:hover {
-  background: #e0f2fe !important;
+body[data-theme="light"] .quick-url-btn:hover {
+  background: var(--accent-primary);
+  color: #0f172a;
+  border-color: var(--accent-primary);
 }
 
 /* ==========================================
-   BLOCO 04: Resumo em Destaque, Score e Progresso
+   BLOCO 05: Destaque da Bolinha de Score Circular
    ========================================== */
-#summary {
+body[data-theme="light"] #summary {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 28px 22px;
-  margin-top: 18px;
-  border-radius: 16px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.92) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(2, 132, 199, 0.35) !important;
-  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08) !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
-#scoreLabel {
-  font-size: 0.92rem;
+body[data-theme="light"] #scoreLabel {
+  font-size: 0.9rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #334155;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
 }
 
-.score-circle {
-  width: 164px;
-  height: 164px;
+body[data-theme="light"] .score-circle {
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
-  background-color: #f8fafc !important;
-  border: 10px solid #0284c7 !important;
-  box-shadow: 0 6px 24px rgba(2, 132, 199, 0.22) !important;
+  background: radial-gradient(circle at 30% 30%, #1e293b 0%, #0f172a 100%);
+  border: 5px solid var(--accent-primary);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  font-size: 2.4rem;
+  align-items: center;
+  box-shadow: 0 0 25px var(--border-glow);
+  margin-bottom: 0.5rem;
+}
+
+body[data-theme="light"] #scoreValue {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] #gradeValue {
+  font-size: 1.1rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--accent-primary);
+  margin-top: 0.25rem;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
-.score-circle[data-score-band="high"],
-.score-circle.score-high {
-  border-color: #15803d !important;
-  color: #15803d !important;
-}
-
-.score-circle[data-score-band="medium"],
-.score-circle.score-medium {
-  border-color: #ca8a04 !important;
-  color: #a16207 !important;
-}
-
-.score-circle[data-score-band="low"],
-.score-circle.score-low {
-  border-color: #dc2626 !important;
-  color: #b91c1c !important;
-}
-
-.risk-badge {
-  display: inline-block;
-  padding: 6px 20px;
+body[data-theme="light"] .risk-badge {
+  padding: 0.3rem 1rem;
   border-radius: 999px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
+  font-weight: 800;
+  font-size: 0.9rem;
   text-transform: uppercase;
 }
 
-[data-risk="LOW"] { background-color: #16a34a !important; color: #ffffff; }
-[data-risk="MEDIUM"] { background-color: #eab308 !important; color: #0f172a; }
-[data-risk="HIGH"] { background-color: #dc2626 !important; color: #ffffff; }
-
-#analysisInfo {
-  font-size: 0.88rem;
-  color: #475569;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  max-width: 100%;
+body[data-theme="light"] .risk-badge[data-risk="LOW"] {
+  background: #10b981;
+  color: #ffffff;
+  border: 1px solid #34d399;
 }
 
-.loading-box {
-  background: #ffffff !important;
-  border: 1px solid #0284c7 !important;
-  color: #0369a1 !important;
-  padding: 14px 18px;
-  border-radius: 10px;
-  text-align: center;
-  font-weight: 600;
-  margin: 20px auto;
-  max-width: 440px;
+body[data-theme="light"] .risk-badge[data-risk="MEDIUM"] {
+  background: #f59e0b;
+  color: #ffffff;
+  border: 1px solid #fbbf24;
 }
 
-#auditProgress {
-  width: 100%;
-  height: 8px;
-  background: #e2e8f0;
-  border-radius: 999px;
-  overflow: hidden;
-  margin-top: 12px;
+body[data-theme="light"] .risk-badge[data-risk="HIGH"] {
+  background: #ef4444;
+  color: #ffffff;
+  border: 1px solid #f87171;
 }
 
-#auditProgressBar {
-  width: 0%;
-  height: 100%;
-  background: linear-gradient(90deg, #0284c7, #2563eb);
-  transition: width 0.4s ease;
+body[data-theme="light"] #analysisInfo {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 0.4rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 /* ==========================================
-   BLOCO 05: Cards de Resultados, Barras e Historico
+   BLOCO 06: Grid de Resultados dos Modulos
    ========================================== */
-#audit-results {
+body[data-theme="light"] #audit-results {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 18px;
-  margin-top: 20px;
+  gap: 0.9rem;
+  padding: 0;
 }
 
-#audit-results > div {
-  min-width: 0;
-  background: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(15, 23, 42, 0.14) !important;
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  transition: transform 0.25s ease, border-color 0.25s ease;
+body[data-theme="light"] #audit-results > div {
+  padding: 0.85rem;
+  margin: 0;
 }
 
-#audit-results > div:hover {
-  transform: translateY(-3px);
-  border-color: #0284c7 !important;
+body[data-theme="light"] #audit-results > div h3 {
+  color: var(--accent-primary) !important;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
 }
 
-#audit-results h3 {
-  margin-top: 0;
-  color: #0369a1;
-  font-size: 1.05rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-}
-
-#audit-results p,
-#audit-results li,
-#audit-results span {
-  color: #1e293b;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  max-width: 100%;
-}
-
-.audit-chart-card {
-  grid-column: 1 / -1;
-}
-
-.audit-chart-grid {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 20px;
-  align-items: center;
-  margin-top: 12px;
-}
-
-.metric-bars {
-  display: grid;
-  gap: 10px;
-  width: 100%;
-}
-
-.metric-row {
-  display: grid;
-  gap: 5px;
-}
-
-.metric-label-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
+body[data-theme="light"] #audit-results > div p {
+  font-weight: 500;
   font-size: 0.88rem;
-  font-weight: 600;
-  color: #1e293b;
   word-break: break-word;
   overflow-wrap: anywhere;
 }
 
-.metric-track {
-  width: 100%;
-  height: 9px;
-  border-radius: 999px;
-  background: #e2e8f0;
-  overflow: hidden;
+/* ==========================================
+   BLOCO 07: Exibicao de JSON Compacta e Historico
+   ========================================== */
+body[data-theme="light"] .json-section {
+  padding: 0.75rem 0;
 }
 
-.metric-fill {
-  height: 100%;
-  border-radius: 999px;
-  transition: width 0.4s ease;
+body[data-theme="light"] .json-section h3 {
+  color: var(--accent-primary) !important;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.metric-fill.harmless { background: #16a34a; }
-.metric-fill.suspicious { background: #eab308; }
-.metric-fill.malicious { background: #dc2626; }
-
-#history-preview {
-  margin-top: 28px;
+body[data-theme="light"] #jsonResult {
+  background: rgba(15, 23, 42, 0.9) !important;
+  color: #38bdf8 !important;
+  border: 1px solid var(--border-glow) !important;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  max-height: 120px;
+  overflow-y: auto;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  margin: 0;
 }
 
-#history-preview h3 {
-  color: #0369a1;
-  font-size: 1.1rem;
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-#historyList {
+body[data-theme="light"] #historyList {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-height: 360px;
-  overflow-y: auto;
-  padding-right: 4px;
+  gap: 0.45rem;
 }
 
-.history-item,
-.history-empty {
-  background: rgba(255, 255, 255, 0.92);
-  padding: 12px 16px;
-  border-radius: 8px;
-  border: 1px solid rgba(15, 23, 42, 0.14);
+body[data-theme="light"] .history-item,
+body[data-theme="light"] .history-empty {
+  padding: 0.55rem 0.75rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.75rem;
   flex-wrap: wrap;
-  gap: 10px;
-  cursor: pointer;
-  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  max-width: 100%;
-}
-
-.history-item:hover {
-  border-color: #0284c7;
-  background: #f8fafc;
-  transform: translateX(3px);
-}
-
-.history-item span:first-child {
-  flex: 1 1 260px;
   font-weight: 600;
-  color: #0f172a;
+  font-size: 0.88rem;
 }
 
-.history-item strong {
-  color: #0369a1;
+body[data-theme="light"] .history-item span {
+  word-break: break-all;
+  max-width: 65%;
 }
 
-.history-item span:last-child {
-  font-size: 0.84rem;
-  color: #64748b;
+body[data-theme="light"] .history-item strong {
+  color: var(--accent-primary) !important;
+  font-size: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 /* ==========================================
-   BLOCO 06: Botoes de Relatorio e Saida JSON
+   BLOCO 08: Carregamento e Responsividade
    ========================================== */
-#report-buttons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 24px;
+body[data-theme="light"] .loading-box {
+  background: rgba(15, 23, 42, 0.75);
+  color: var(--accent-primary);
+  border: 1px solid var(--border-strong);
+  padding: 0.9rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  margin: 1rem 0;
 }
 
-.json-section {
-  margin-top: 24px;
+@media (max-width: 768px) {
+  body[data-theme="light"] {
+    background-attachment: scroll;
+  }
+
+  body[data-theme="light"] header,
+  body[data-theme="light"] .header {
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 0.85rem 1rem;
+  }
+
+  body[data-theme="light"] .main-nav {
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  body[data-theme="light"] .input-wrapper {
+    flex-direction: column;
+  }
+
+  body[data-theme="light"] #runAuditBtn,
+  body[data-theme="light"] #exportPdfBtn {
+    width: 100%;
+  }
+
+  body[data-theme="light"] .history-item span {
+    max-width: 100%;
+  }
 }
 
-#jsonResult {
-  background: #0f172a !important;
-  border: 1px solid #334155 !important;
+/* ==========================================
+   BLOCO 01: Variaveis e Fundo 100% Visivel
+   Imagem de fundo: ../imagens/light-theme/hero-mobile.webp.png
+   ========================================== */
+:root,
+body[data-theme="light"] {
+  --bg-page: #0f172a;
+  --text-primary: #ffffff;
+  --text-secondary: #f1f5f9;
+  --text-muted: #94a3b8;
+  --accent-primary: #38bdf8;
+  --accent-secondary: #0284c7;
+  --border-glow: rgba(56, 189, 248, 0.5);
+}
+
+body[data-theme="light"] {
+  background-color: var(--bg-page);
+  background-image: url("../imagens/light-theme/hero-mobile.webp.png");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* ==========================================
+   BLOCO 02: Cabecalho Restaurado e Visivel
+   ========================================== */
+body[data-theme="light"] header,
+body[data-theme="light"] .header {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.65) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-glow);
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body[data-theme="light"] .brand-link,
+body[data-theme="light"] .brand-link h1,
+body[data-theme="light"] .main-nav a {
+  color: var(--text-primary) !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+}
+
+body[data-theme="light"] .main-nav {
+  display: flex !important;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+/* ==========================================
+   BLOCO 03: Conteudo Principal Altamente Translucido
+   ========================================== */
+body[data-theme="light"] .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+body[data-theme="light"] section,
+body[data-theme="light"] .card,
+body[data-theme="light"] .audit-container {
+  background: rgba(15, 23, 42, 0.3) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
   border-radius: 12px;
-  padding: 18px;
-  color: #e2e8f0;
-  font-family: monospace;
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  max-height: 300px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+/* ==========================================
+   BLOCO 04: Formulario Compacto
+   ========================================== */
+body[data-theme="light"] .input-wrapper {
+  display: flex;
+  gap: 10px;
+  margin: 0.5rem 0;
+}
+
+body[data-theme="light"] #urlInput {
+  flex: 1;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--border-glow);
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.7);
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+body[data-theme="light"] #runAuditBtn {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ==========================================
+   BLOCO 05: Resumo e Bolinha de Score Identica ao Dark
+   ========================================== */
+body[data-theme="light"] #summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.5) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--border-glow) !important;
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="light"] #scoreLabel {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+}
+
+body[data-theme="light"] .score-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #1e293b 0%, #0f172a 100%);
+  border: 5px solid var(--accent-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 30px var(--border-glow);
+  margin-bottom: 1rem;
+}
+
+body[data-theme="light"] #scoreValue {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.9);
+}
+
+body[data-theme="light"] #gradeValue {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  margin-top: 0.25rem;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+}
+
+body[data-theme="light"] .risk-badge {
+  padding: 0.35rem 1.2rem;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+body[data-theme="light"] .risk-badge[data-risk="LOW"] { background: #10b981; color: #ffffff; border: 1px solid #34d399; }
+body[data-theme="light"] .risk-badge[data-risk="MEDIUM"] { background: #f59e0b; color: #ffffff; border: 1px solid #fbbf24; }
+body[data-theme="light"] .risk-badge[data-risk="HIGH"] { background: #ef4444; color: #ffffff; border: 1px solid #f87171; }
+
+/* ==========================================
+   BLOCO 06: Grid de Modulos Compacto
+   ========================================== */
+body[data-theme="light"] #audit-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.75rem;
+  padding: 0;
+}
+
+body[data-theme="light"] #audit-results > div {
+  background: rgba(15, 23, 42, 0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+/* ==========================================
+   BLOCO 07: JSON e Historico Altamente Visiveis
+   ========================================== */
+body[data-theme="light"] .json-section {
+  background: rgba(15, 23, 42, 0.35) !important;
+  backdrop-filter: blur(6px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+body[data-theme="light"] #jsonResult {
+  background: rgba(10, 15, 28, 0.9) !important;
+  color: #38bdf8 !important;
+  border: 1px solid var(--border-glow) !important;
+  border-radius: 6px;
+  padding: 0.5rem;
+  max-height: 110px;
   overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.75rem;
+}
+
+body[data-theme="light"] .history-item {
+  background: rgba(15, 23, 42, 0.4) !important;
+  backdrop-filter: blur(6px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-left: 4px solid var(--accent-primary) !important;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
+}
+
+/* ==========================================
+   BLOCO 08: Ajuste de Texto Geral
+   ========================================== */
+body[data-theme="light"] h2,
+body[data-theme="light"] h3,
+body[data-theme="light"] p,
+body[data-theme="light"] .history-item span {
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9) !important;
+}
+
+body[data-theme="light"] .history-item strong {
+  color: var(--accent-primary) !important;
+}
+
+/* ==========================================
+   BLOCO 01: Variaveis e Fundo 100% Visivel
+   Imagem de fundo: ../imagens/light-theme/hero-mobile.webp.png
+   ========================================== */
+:root,
+body[data-theme="light"] {
+  --bg-page: #0f172a;
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --accent-primary: #38bdf8;
+  --accent-secondary: #0284c7;
+  --border-light: rgba(56, 189, 248, 0.35);
+  --border-strong: rgba(56, 189, 248, 0.65);
+  --border-glow: rgba(56, 189, 248, 0.6);
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.45);
+  --shadow-elevated: 0 10px 35px rgba(0, 0, 0, 0.65);
+  --transition-base: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body[data-theme="light"] {
+  box-sizing: border-box;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text-primary);
+  font-family: "Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  background-color: var(--bg-page);
+  background-image: url("../imagens/light-theme/hero-mobile.webp.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   overflow-x: hidden;
 }
 
 /* ==========================================
-   BLOCO 07: Responsividade e Impressao (PDF)
+   BLOCO 02: Cabecalho Restaurado, Icones e Alternador de Tema
    ========================================== */
+body[data-theme="light"] header,
+body[data-theme="light"] .header {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(15, 23, 42, 0.72) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-glow);
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body[data-theme="light"] .brand,
+body[data-theme="light"] .brand-link,
+body[data-theme="light"] .brand-link h1 {
+  display: flex !important;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--text-primary) !important;
+  text-decoration: none;
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] .header i,
+body[data-theme="light"] .main-nav i,
+body[data-theme="light"] .theme-toggle i,
+body[data-theme="light"] .theme-switch i {
+  display: inline-block !important;
+  color: var(--accent-primary);
+}
+
+body[data-theme="light"] .main-nav {
+  display: flex !important;
+  gap: 1.25rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+body[data-theme="light"] .main-nav a {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-primary) !important;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+  transition: var(--transition-base);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] .main-nav a:hover,
+body[data-theme="light"] .main-nav a.active {
+  color: var(--accent-primary) !important;
+  border-bottom-color: var(--accent-primary);
+}
+
+body[data-theme="light"] .theme-toggle,
+body[data-theme="light"] .theme-switch,
+body[data-theme="light"] #themeToggle,
+body[data-theme="light"] [data-theme-toggle],
+body[data-theme="light"] .header button,
+body[data-theme="light"] .main-nav button {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(15, 23, 42, 0.65);
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+body[data-theme="light"] .theme-toggle:hover,
+body[data-theme="light"] .theme-switch:hover,
+body[data-theme="light"] #themeToggle:hover,
+body[data-theme="light"] [data-theme-toggle]:hover,
+body[data-theme="light"] .header button:hover,
+body[data-theme="light"] .main-nav button:hover {
+  background: var(--accent-primary);
+  color: #0f172a !important;
+  border-color: var(--accent-primary);
+}
+
+/* ==========================================
+   BLOCO 03: Conteudo Principal Totalmente Transparente
+   ========================================== */
+body[data-theme="light"] .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.75rem 1rem;
+  color: var(--text-primary);
+}
+
+body[data-theme="light"] section,
+body[data-theme="light"] .card,
+body[data-theme="light"] .audit-container,
+body[data-theme="light"] #audit-results > div,
+body[data-theme="light"] .json-section,
+body[data-theme="light"] #history-preview {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body[data-theme="light"] h2,
+body[data-theme="light"] h3,
+body[data-theme="light"] p {
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* ==========================================
+   BLOCO 04: Formulario e Botoes de Acao
+   ========================================== */
+body[data-theme="light"] .input-wrapper {
+  display: flex;
+  gap: 10px;
+  margin: 1rem 0;
+}
+
+body[data-theme="light"] #urlInput {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.55);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+body[data-theme="light"] #urlInput::placeholder {
+  color: var(--text-muted);
+}
+
+body[data-theme="light"] #urlInput:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.35);
+}
+
+body[data-theme="light"] #runAuditBtn,
+body[data-theme="light"] #exportPdfBtn {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  color: var(--text-primary);
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-soft);
+}
+
+body[data-theme="light"] #runAuditBtn:hover,
+body[data-theme="light"] #exportPdfBtn:hover {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+
+body[data-theme="light"] .quick-targets {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 0.65rem;
+  font-size: 0.88rem;
+}
+
+body[data-theme="light"] .quick-url-btn {
+  background: rgba(15, 23, 42, 0.45);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-base);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+body[data-theme="light"] .quick-url-btn:hover {
+  background: var(--accent-primary);
+  color: #0f172a;
+  border-color: var(--accent-primary);
+}
+
+/* ==========================================
+   BLOCO 05: Destaque da Bolinha de Score Circular
+   ========================================== */
+body[data-theme="light"] #summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+body[data-theme="light"] #scoreLabel {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] .score-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #1e293b 0%, #0f172a 100%);
+  border: 5px solid var(--accent-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 25px var(--border-glow);
+  margin-bottom: 0.5rem;
+}
+
+body[data-theme="light"] #scoreValue {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] #gradeValue {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  margin-top: 0.25rem;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] .risk-badge {
+  padding: 0.3rem 1rem;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+body[data-theme="light"] .risk-badge[data-risk="LOW"] {
+  background: #10b981;
+  color: #ffffff;
+  border: 1px solid #34d399;
+}
+
+body[data-theme="light"] .risk-badge[data-risk="MEDIUM"] {
+  background: #f59e0b;
+  color: #ffffff;
+  border: 1px solid #fbbf24;
+}
+
+body[data-theme="light"] .risk-badge[data-risk="HIGH"] {
+  background: #ef4444;
+  color: #ffffff;
+  border: 1px solid #f87171;
+}
+
+body[data-theme="light"] #analysisInfo {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 0.4rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* ==========================================
+   BLOCO 06: Grid de Resultados dos Modulos
+   ========================================== */
+body[data-theme="light"] #audit-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.9rem;
+  padding: 0;
+}
+
+body[data-theme="light"] #audit-results > div {
+  padding: 0.85rem;
+  margin: 0;
+}
+
+body[data-theme="light"] #audit-results > div h3 {
+  color: var(--accent-primary) !important;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+body[data-theme="light"] #audit-results > div p {
+  font-weight: 500;
+  font-size: 0.88rem;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   BLOCO 07: Exibicao de JSON Compacta e Historico 100% Transparente
+   ========================================== */
+body[data-theme="light"] .json-section {
+  padding: 0.75rem 0;
+}
+
+body[data-theme="light"] .json-section h3 {
+  color: var(--accent-primary) !important;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+body[data-theme="light"] #jsonResult {
+  background: rgba(15, 23, 42, 0.9) !important;
+  color: #38bdf8 !important;
+  border: 1px solid var(--border-glow) !important;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  max-height: 120px;
+  overflow-y: auto;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+body[data-theme="light"] #historyList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+body[data-theme="light"] .history-item,
+body[data-theme="light"] .history-empty {
+  background: transparent !important;
+  border: none !important;
+  border-left: 4px solid var(--accent-primary) !important;
+  padding: 0.4rem 0.6rem !important;
+  border-radius: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  box-shadow: none !important;
+}
+
+body[data-theme="light"] .history-item span {
+  color: #ffffff !important;
+  word-break: break-all;
+  max-width: 65%;
+  font-size: 0.78rem !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9) !important;
+}
+
+body[data-theme="light"] .history-item strong {
+  color: var(--accent-primary) !important;
+  font-size: 0.88rem !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* ==========================================
+   BLOCO 08: Carregamento e Responsividade
+   ========================================== */
+body[data-theme="light"] .loading-box {
+  background: rgba(15, 23, 42, 0.75);
+  color: var(--accent-primary);
+  border: 1px solid var(--border-strong);
+  padding: 0.9rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
 @media (max-width: 768px) {
-  main.container {
-    width: 95%;
+  body[data-theme="light"] {
+    background-attachment: scroll;
   }
 
-  #audit-results {
-    grid-template-columns: 1fr;
-  }
-
-  .audit-chart-grid {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-
-  .score-circle {
-    width: 140px;
-    height: 140px;
-    font-size: 2rem;
-  }
-
-  .history-item {
+  body[data-theme="light"] header,
+  body[data-theme="light"] .header {
     flex-direction: column;
-    align-items: flex-start;
+    gap: 0.65rem;
+    padding: 0.85rem 1rem;
+  }
+
+  body[data-theme="light"] .main-nav {
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  body[data-theme="light"] .input-wrapper {
+    flex-direction: column;
+  }
+
+  body[data-theme="light"] #runAuditBtn,
+  body[data-theme="light"] #exportPdfBtn {
+    width: 100%;
+  }
+
+  body[data-theme="light"] .history-item span {
+    max-width: 100%;
   }
 }
 
-@media print {
-  body {
-    background-image: none !important;
-    background-color: #ffffff !important;
-    color: #000000 !important;
+/* ==========================================
+   BLOCO 01: Variaveis e Fundo 100% Visivel
+   Imagem de fundo: ../imagens/light-theme/hero-mobile.webp.png
+   ========================================== */
+:root,
+body[data-theme="light"] {
+  --bg-page: #0f172a;
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --accent-primary: #38bdf8;
+  --accent-secondary: #0284c7;
+  --border-light: rgba(56, 189, 248, 0.35);
+  --border-strong: rgba(56, 189, 248, 0.65);
+  --border-glow: rgba(56, 189, 248, 0.6);
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.45);
+  --shadow-elevated: 0 10px 35px rgba(0, 0, 0, 0.65);
+  --transition-base: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body[data-theme="light"] {
+  box-sizing: border-box;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text-primary);
+  font-family: "Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  background-color: var(--bg-page);
+  background-image: url("../imagens/light-theme/hero-mobile.webp.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   BLOCO 02: Cabecalho Restaurado, Icones e Alternador de Tema
+   ========================================== */
+body[data-theme="light"] header,
+body[data-theme="light"] .header {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(15, 23, 42, 0.72) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-glow);
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+body[data-theme="light"] .brand,
+body[data-theme="light"] .brand-link,
+body[data-theme="light"] .brand-link h1 {
+  display: flex !important;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--text-primary) !important;
+  text-decoration: none;
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] .header i,
+body[data-theme="light"] .main-nav i,
+body[data-theme="light"] .theme-toggle i,
+body[data-theme="light"] .theme-switch i {
+  display: inline-block !important;
+  color: var(--accent-primary);
+}
+
+body[data-theme="light"] .main-nav {
+  display: flex !important;
+  gap: 1.25rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+body[data-theme="light"] .main-nav a {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-primary) !important;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+  transition: var(--transition-base);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] .main-nav a:hover,
+body[data-theme="light"] .main-nav a.active {
+  color: var(--accent-primary) !important;
+  border-bottom-color: var(--accent-primary);
+}
+
+body[data-theme="light"] .theme-toggle,
+body[data-theme="light"] .theme-switch,
+body[data-theme="light"] #themeToggle,
+body[data-theme="light"] [data-theme-toggle],
+body[data-theme="light"] .header button,
+body[data-theme="light"] .main-nav button {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(15, 23, 42, 0.65);
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+body[data-theme="light"] .theme-toggle:hover,
+body[data-theme="light"] .theme-switch:hover,
+body[data-theme="light"] #themeToggle:hover,
+body[data-theme="light"] [data-theme-toggle]:hover,
+body[data-theme="light"] .header button:hover,
+body[data-theme="light"] .main-nav button:hover {
+  background: var(--accent-primary);
+  color: #0f172a !important;
+  border-color: var(--accent-primary);
+}
+
+/* ==========================================
+   BLOCO 03: Conteudo Principal Totalmente Transparente
+   ========================================== */
+body[data-theme="light"] .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.75rem 1rem;
+  color: var(--text-primary);
+}
+
+body[data-theme="light"] section,
+body[data-theme="light"] .card,
+body[data-theme="light"] .audit-container,
+body[data-theme="light"] #audit-results > div {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body[data-theme="light"] h2,
+body[data-theme="light"] h3,
+body[data-theme="light"] p {
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* ==========================================
+   BLOCO 04: Formulario e Botoes de Acao
+   ========================================== */
+body[data-theme="light"] .input-wrapper {
+  display: flex;
+  gap: 10px;
+  margin: 1rem 0;
+}
+
+body[data-theme="light"] #urlInput {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid var(--border-strong);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.55);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+body[data-theme="light"] #urlInput::placeholder {
+  color: var(--text-muted);
+}
+
+body[data-theme="light"] #urlInput:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.35);
+}
+
+body[data-theme="light"] #runAuditBtn,
+body[data-theme="light"] #exportPdfBtn {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  color: var(--text-primary);
+  border: none;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-soft);
+}
+
+body[data-theme="light"] #runAuditBtn:hover,
+body[data-theme="light"] #exportPdfBtn:hover {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+
+body[data-theme="light"] .quick-targets {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 0.65rem;
+  font-size: 0.88rem;
+}
+
+body[data-theme="light"] .quick-url-btn {
+  background: rgba(15, 23, 42, 0.45);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-base);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+body[data-theme="light"] .quick-url-btn:hover {
+  background: var(--accent-primary);
+  color: #0f172a;
+  border-color: var(--accent-primary);
+}
+
+/* ==========================================
+   BLOCO 05: Resumo 100% Transparente com Bolinha Intacta
+   ========================================== */
+body[data-theme="light"] #summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+body[data-theme="light"] #scoreLabel {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] .score-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #1e293b 0%, #0f172a 100%);
+  border: 5px solid var(--accent-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 25px var(--border-glow);
+  margin-bottom: 0.5rem;
+}
+
+body[data-theme="light"] #scoreValue {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] #gradeValue {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  margin-top: 0.25rem;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+body[data-theme="light"] .risk-badge {
+  padding: 0.3rem 1rem;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+body[data-theme="light"] .risk-badge[data-risk="LOW"] {
+  background: #10b981;
+  color: #ffffff;
+  border: 1px solid #34d399;
+}
+
+body[data-theme="light"] .risk-badge[data-risk="MEDIUM"] {
+  background: #f59e0b;
+  color: #ffffff;
+  border: 1px solid #fbbf24;
+}
+
+body[data-theme="light"] .risk-badge[data-risk="HIGH"] {
+  background: #ef4444;
+  color: #ffffff;
+  border: 1px solid #f87171;
+}
+
+body[data-theme="light"] #analysisInfo {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-top: 0.4rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* ==========================================
+   BLOCO 06: Grid de Resultados dos Modulos
+   ========================================== */
+body[data-theme="light"] #audit-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.9rem;
+  padding: 0;
+}
+
+body[data-theme="light"] #audit-results > div {
+  padding: 0.85rem;
+  margin: 0;
+}
+
+body[data-theme="light"] #audit-results > div h3 {
+  color: var(--accent-primary) !important;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+body[data-theme="light"] #audit-results > div p {
+  font-weight: 500;
+  font-size: 0.88rem;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================
+   BLOCO 07: JSON e Historico Compacto com Destaque Sutil
+   ========================================== */
+body[data-theme="light"] .json-section {
+  background: rgba(15, 23, 42, 0.4) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+body[data-theme="light"] .json-section h3 {
+  color: var(--accent-primary) !important;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+body[data-theme="light"] #jsonResult {
+  background: rgba(10, 15, 28, 0.9) !important;
+  color: #38bdf8 !important;
+  border: 1px solid var(--border-strong) !important;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  max-height: 120px;
+  overflow-y: auto;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+body[data-theme="light"] #history-preview {
+  background: transparent !important;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+body[data-theme="light"] #historyList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+body[data-theme="light"] .history-item,
+body[data-theme="light"] .history-empty {
+  background: rgba(15, 23, 42, 0.5) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-left: 4px solid var(--accent-primary) !important;
+  padding: 0.45rem 0.75rem !important;
+  border-radius: 6px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: var(--transition-base);
+}
+
+body[data-theme="light"] .history-item:hover {
+  background: rgba(15, 23, 42, 0.75) !important;
+  transform: translateX(4px);
+  border-color: var(--accent-primary);
+}
+
+body[data-theme="light"] .history-item span {
+  color: #ffffff !important;
+  word-break: break-all;
+  max-width: 65%;
+  font-size: 0.75rem !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9) !important;
+}
+
+body[data-theme="light"] .history-item strong {
+  color: var(--accent-primary) !important;
+  font-size: 0.85rem !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* ==========================================
+   BLOCO 08: Carregamento e Responsividade
+   ========================================== */
+body[data-theme="light"] .loading-box {
+  background: rgba(15, 23, 42, 0.75);
+  color: var(--accent-primary);
+  border: 1px solid var(--border-strong);
+  padding: 0.9rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+@media (max-width: 768px) {
+  body[data-theme="light"] {
+    background-attachment: scroll;
   }
 
-  .input-wrapper,
-  .quick-targets,
-  #report-buttons,
-  nav.main-nav {
-    display: none !important;
+  body[data-theme="light"] header,
+  body[data-theme="light"] .header {
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 0.85rem 1rem;
   }
 
-  #summary,
-  #audit-results > div,
-  #jsonResult,
-  .history-item {
-    background: #ffffff !important;
-    color: #000000 !important;
-    border: 1px solid #cccccc !important;
-    box-shadow: none !important;
-    break-inside: avoid;
-    white-space: pre-wrap !important;
-    word-break: break-word !important;
-    overflow-wrap: anywhere !important;
+  body[data-theme="light"] .main-nav {
+    justify-content: center;
+    gap: 0.75rem;
   }
+
+  body[data-theme="light"] .input-wrapper {
+    flex-direction: column;
+  }
+
+  body[data-theme="light"] #runAuditBtn,
+  body[data-theme="light"] #exportPdfBtn {
+    width: 100%;
+  }
+
+  body[data-theme="light"] .history-item span {
+    max-width: 100%;
+  }
+}
+
+body[data-theme="light"] #historyList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+body[data-theme="light"] .history-item {
+  background: rgba(15, 23, 42, 0.4) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-left: 4px solid var(--accent-primary) !important;
+  padding: 0.3rem 0.6rem !important;
+  border-radius: 6px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+body[data-theme="light"] .history-item span {
+  color: #ffffff !important;
+  word-break: break-all;
+  max-width: 65%;
+  font-size: 0.7rem !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9) !important;
+}
+
+body[data-theme="light"] .history-item strong {
+  color: var(--accent-primary) !important;
+  font-size: 0.8rem !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* ==========================================
+   BLOCO AJUSTE FINAL: Leiturabilidade dos Resultados
+   ========================================== */
+body[data-theme="light"] #audit-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 0;
+}
+
+body[data-theme="light"] #audit-results > div {
+  background: rgba(15, 23, 42, 0.7) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(56, 189, 248, 0.4) !important;
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+body[data-theme="light"] #audit-results > div h3 {
+  color: var(--accent-primary) !important;
+  font-size: 0.95rem !important;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+body[data-theme="light"] #audit-results > div p {
+  color: #e2e8f0 !important;
+  font-size: 0.78rem !important;
+  line-height: 1.4;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+body[data-theme="light"] .audit-header {
+  display: none !important;
+}
+
+
+/* ==========================================
+   BLOCO EXTRA: Ocultar Cabecalho Interno da Auditoria no Claro
+   ========================================== */
+body[data-theme="light"] .audit-header,
+body[data-theme="light"] .audit-title-section,
+body[data-theme="light"] .timestamp-bar,
+body[data-theme="light"] .audit-container > div:first-child,
+body[data-theme="light"] .container > div:first-child:has(h1),
+body[data-theme="light"] .container > section:first-child > h1,
+body[data-theme="light"] .container > section:first-child > p {
+  display: none !important;
 }

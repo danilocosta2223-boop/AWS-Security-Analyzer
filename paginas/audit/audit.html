@@ -2,7 +2,8 @@
 <html lang="pt-BR">
 <head>
   <!-- ==========================================
-       BLOCO 01: Meta Tags, Titulo e Folhas de Estilo
+       BLOCO 01: Meta Tags, Titulo, Tema e Folhas de Estilo
+       Tema claro: ../styles-light/ | Tema escuro: ../styles-dark/
        ========================================== -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,13 +12,48 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="../styles-dark/normalize.css" />
-  <link rel="stylesheet" href="../styles-dark/global.css" />
-  <link id="audit-theme-css" rel="stylesheet" href="../styles-dark/audit.css" />
-  <link rel="stylesheet" href="../styles-dark/desktop.css" />
-  <link rel="stylesheet" href="../styles-dark/mobile.css" />
+
+  <script>
+    (function () {
+      var savedTheme = "dark";
+      try {
+        savedTheme = localStorage.getItem("cybershield_theme") || "dark";
+      } catch (e) {
+        savedTheme = "dark";
+      }
+      var isLight = savedTheme === "light";
+      var prefix = isLight ? "../styles-light/" : "../styles-dark/";
+      document.documentElement.setAttribute("data-theme", isLight ? "light" : "dark");
+      document.write('<link id="theme-normalize-css" rel="stylesheet" href="' + prefix + 'normalize.css" />');
+      document.write('<link id="theme-global-css" rel="stylesheet" href="' + prefix + 'global.css" />');
+      document.write('<link id="audit-theme-css" rel="stylesheet" href="' + prefix + 'audit.css" />');
+      document.write('<link id="theme-desktop-css" rel="stylesheet" href="' + prefix + 'desktop.css" />');
+      document.write('<link id="theme-mobile-css" rel="stylesheet" href="' + prefix + 'mobile.css" />');
+    })();
+  </script>
+
+  <noscript>
+    <link rel="stylesheet" href="../styles-dark/normalize.css" />
+    <link rel="stylesheet" href="../styles-dark/global.css" />
+    <link id="audit-theme-css-noscript" rel="stylesheet" href="../styles-dark/audit.css" />
+    <link rel="stylesheet" href="../styles-dark/desktop.css" />
+    <link rel="stylesheet" href="../styles-dark/mobile.css" />
+  </noscript>
 </head>
 <body data-theme="dark">
+  <script>
+    (function () {
+      try {
+        var currentTheme = localStorage.getItem("cybershield_theme") === "light" ? "light" : "dark";
+        document.body.setAttribute("data-theme", currentTheme);
+        document.body.dataset.theme = currentTheme;
+      } catch (e) {
+        document.body.setAttribute("data-theme", "dark");
+        document.body.dataset.theme = "dark";
+      }
+    })();
+  </script>
+
   <!-- ==========================================
        BLOCO 02: Cabecalho e Navegacao Principal
        ========================================== -->
