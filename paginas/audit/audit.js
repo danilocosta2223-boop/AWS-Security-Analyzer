@@ -703,3 +703,12 @@ function buildFallbackRecommendations(d) {
 window.generateAuditPdfReport = generateAuditPdfReport;
 
 document.addEventListener("DOMContentLoaded", initAuditModule);
+
+
+window.dispatchEvent(new CustomEvent("cybercheck:history-updated", { detail: updatedHistory }));
+
+if ("BroadcastChannel" in window) {
+  const syncChannel = new BroadcastChannel("cybercheck_audit_sync_channel");
+  syncChannel.postMessage({ type: "history-updated", entries: updatedHistory });
+  syncChannel.close();
+}

@@ -1,63 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberCheck PRO - Histórico de Auditorias</title>
-    
-    <!-- Meta SEO -->
-    <meta name="description" content="CyberCheck PRO - Histórico Completo de Análises e Auditorias de Segurança">
-
-    <!-- Favicon -->
-    <link rel="icon" href="../imagens/dark-theme/logo.png">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous">
-
-    <!-- Estilos CSS -->
-    <link rel="stylesheet" href="../styles-dark/normalize.css">
-    <link rel="stylesheet" href="../styles-dark/global.css">
-    <link rel="stylesheet" href="../styles-dark/cards.css">
-    <link rel="stylesheet" href="../styles-dark/hero.css">
-    <link rel="stylesheet" href="../styles-dark/dashboard.css">
-    <link rel="stylesheet" href="../styles-dark/mobile.css">
-    <link rel="stylesheet" href="../styles-dark/desktop.css">
+  <!-- ==========================================
+       BLOCO 01: Meta Tags, Titulo e Folhas de Estilo
+       Caminho: paginas/history/history.html
+       Estilos: ../styles-dark/
+       ========================================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberCheck PRO - Historico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../styles-dark/normalize.css">
+  <link id="history-theme-css" rel="stylesheet" href="../styles-dark/dashboard.css">
+  <link rel="stylesheet" href="../styles-dark/history.css">
+  <link rel="stylesheet" href="../styles-dark/desktop.css">
+  <link rel="stylesheet" href="../styles-dark/mobile.css">
 </head>
 <body data-theme="dark">
-    <div class="container">
-        <!-- HEADER -->
-        <header class="header">
-            <h1>
-                <a href="../../index.html">
-                    <i class="fa-solid fa-shield-halved"></i> CyberCheck PRO
-                </a>
-            </h1>
-            <h2>Histórico de Auditorias</h2>
-        </header>
-
-        <!-- Menu de Navegação Global -->
-        <nav class="main-nav">
-            <a href="../../index.html"><i class="fa-solid fa-house"></i> Início</a>
-            <a href="../dashboard/dashboard.html"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
-            <a href="../audit/audit.html"><i class="fa-solid fa-magnifying-glass-chart"></i> Auditoria</a>
-            <a href="../reports/reports.html"><i class="fa-solid fa-file-lines"></i> Relatórios</a>
-            <a href="../history/history.html" class="active"><i class="fa-solid fa-clock-rotate-left"></i> Histórico</a>
-        </nav>
-
-        <hr>
-
-        <!-- Seção de Histórico -->
-        <section id="historySection">
-            <h2>
-                <i class="fa-solid fa-clock-rotate-left"></i> Registros Anteriores
-            </h2>
-            <div id="historyContainer">
-                <p><i class="fa-solid fa-circle-notch fa-spin"></i> Carregando histórico de auditorias...</p>
-            </div>
-        </section>
+  <!-- ==========================================
+       BLOCO 02: Cabecalho Flutuante e Navegacao
+       ========================================== -->
+  <header class="header">
+    <div class="brand">
+      <a href="../../index.html" class="brand-link">
+        <h1><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> CyberCheck PRO</h1>
+      </a>
     </div>
 
-    <!-- Script de Histórico -->
-    <script src="history.js"></script>
+    <nav class="main-nav" aria-label="Navegacao principal">
+      <a href="../../index.html">Inicio</a>
+      <a href="../dashboard/dashboard.html">Dashboard</a>
+      <a href="../audit/audit.html">Auditoria</a>
+      <a href="./history.html" class="active">Historico</a>
+      <a href="../reports/reports.html">Relatorios</a>
+    </nav>
+
+    <div class="header-actions">
+      <button id="themeToggle" type="button" class="quick-url-btn" aria-label="Alternar tema">
+        <i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i>
+        <span>Tema</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       BLOCO 03: Cabecalho da Pagina e Filtros de Busca
+       ========================================== -->
+  <main class="container">
+    <section class="card" aria-label="Filtros do historico de auditorias">
+      <h2>Historico Completo de Auditorias</h2>
+      <p>Pesquise por URL ou dominio, filtre por nivel de risco e abra qualquer analise anterior.</p>
+
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="historySearchInput"
+          placeholder="Filtrar por URL ou dominio (ex: google.com)..."
+          aria-label="Filtrar auditorias por URL ou dominio"
+        >
+        <select id="historyRiskFilter" class="quick-url-btn" aria-label="Filtrar por nivel de risco">
+          <option value="ALL">Todos os Riscos</option>
+          <option value="LOW">Risco Baixo (LOW)</option>
+          <option value="MEDIUM">Risco Medio (MEDIUM)</option>
+          <option value="HIGH">Risco Alto (HIGH)</option>
+        </select>
+        <button id="clearHistoryBtn" type="button">
+          <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+          <span>Limpar Historico</span>
+        </button>
+      </div>
+    </section>
+
+    <hr>
+
+    <!-- ==========================================
+         BLOCO 04: Resumo Rapido do Historico
+         ========================================== -->
+    <section id="summary" aria-label="Resumo do historico">
+      <div class="kpi-grid">
+        <div>
+          <h3><i class="fa-solid fa-list-check" aria-hidden="true"></i> Registos Exibidos</h3>
+          <p id="historyFilteredCount">0</p>
+        </div>
+
+        <div>
+          <h3><i class="fa-solid fa-gauge-high" aria-hidden="true"></i> Media dos Filtrados</h3>
+          <p id="historyAverageScore">--</p>
+        </div>
+
+        <div>
+          <h3><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Risco Alto</h3>
+          <p id="historyHighCount">0</p>
+        </div>
+
+        <div>
+          <h3><i class="fa-solid fa-shield-check" aria-hidden="true"></i> Risco Baixo</h3>
+          <p id="historyLowCount">0</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         BLOCO 05: Lista de Auditorias Guardadas
+         ========================================== -->
+    <section id="history-preview" aria-label="Lista de auditorias">
+      <h3><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Registos de Auditoria</h3>
+      <ul id="historyList">
+        <li class="history-empty">Nenhuma auditoria registada.</li>
+      </ul>
+    </section>
+
+    <!-- ==========================================
+         BLOCO 06: Acoes de Exportacao
+         ========================================== -->
+    <section id="report-buttons" aria-label="Acoes do historico">
+      <button id="exportHistoryJsonBtn" type="button">
+        <i class="fa-solid fa-file-code" aria-hidden="true"></i>
+        <span>Exportar JSON</span>
+      </button>
+      <a href="../audit/audit.html" class="quick-url-btn">
+        <i class="fa-solid fa-magnifying-glass-shield" aria-hidden="true"></i>
+        <span>Nova Auditoria</span>
+      </a>
+    </section>
+  </main>
+
+  <!-- ==========================================
+       BLOCO 07: Scripts da Pagina
+       ========================================== -->
+  <script src="./history.js"></script>
 </body>
 </html>
