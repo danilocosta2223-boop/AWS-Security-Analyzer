@@ -8,11 +8,27 @@
        ========================================== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CyberCheck PRO - Historico completo de auditorias de seguranca com busca por dominio, filtro por risco, KPIs e exportacao JSON.">
   <title>CyberCheck PRO - Historico</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <script>
+    (function () {
+      var savedTheme = "dark";
+      try {
+        savedTheme = localStorage.getItem("cybershield_theme") || "dark";
+      } catch (e) {
+        savedTheme = "dark";
+      }
+      var normalized = savedTheme === "light" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", normalized);
+    })();
+  </script>
+
   <link rel="stylesheet" href="../styles-dark/normalize.css">
   <link id="history-theme-css" rel="stylesheet" href="../styles-dark/dashboard.css">
   <link rel="stylesheet" href="../styles-dark/history.css">
@@ -20,6 +36,19 @@
   <link rel="stylesheet" href="../styles-dark/mobile.css">
 </head>
 <body data-theme="dark">
+  <script>
+    (function () {
+      try {
+        var currentTheme = localStorage.getItem("cybershield_theme") === "light" ? "light" : "dark";
+        document.body.setAttribute("data-theme", currentTheme);
+        document.body.dataset.theme = currentTheme;
+      } catch (e) {
+        document.body.setAttribute("data-theme", "dark");
+        document.body.dataset.theme = "dark";
+      }
+    })();
+  </script>
+
   <!-- ==========================================
        BLOCO 02: Cabecalho Flutuante e Navegacao
        ========================================== -->
@@ -34,7 +63,7 @@
       <a href="../../index.html">Inicio</a>
       <a href="../dashboard/dashboard.html">Dashboard</a>
       <a href="../audit/audit.html">Auditoria</a>
-      <a href="./history.html" class="active">Historico</a>
+      <a href="./history.html" class="active" aria-current="page">Historico</a>
       <a href="../reports/reports.html">Relatorios</a>
     </nav>
 
@@ -55,6 +84,7 @@
       <p>Pesquise por URL ou dominio, filtre por nivel de risco e abra qualquer analise anterior.</p>
 
       <div class="input-wrapper">
+        <label for="historySearchInput" class="sr-only">Filtrar auditorias por URL ou dominio</label>
         <input
           type="text"
           id="historySearchInput"

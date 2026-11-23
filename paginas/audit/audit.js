@@ -4,6 +4,22 @@
 const API_BASE_URL = "https://aws-security-analyzer.onrender.com";
 const STORAGE_KEY = "cybershield_audit_history_v1";
 const THEME_STORAGE_KEY = "cybershield_theme";
+const SYNC_CHANNEL_NAME = "cybercheck_audit_sync_channel";
+
+const AUDIT_ENDPOINTS = {
+  health: `${API_BASE_URL}/api/health`,
+  stream: `${API_BASE_URL}/api/auditoria/stream`,
+  postFallback: [
+    `${API_BASE_URL}/api/audit`,
+    `${API_BASE_URL}/api/auditoria`
+  ]
+};
+
+const REQUEST_TIMEOUTS_MS = {
+  health: 15000,
+  postFallback: 30000,
+  sseStream: 45000
+};
 
 const elements = {
   auditForm: document.getElementById("auditForm"),
@@ -35,8 +51,37 @@ const elements = {
 let currentAuditEntry = null;
 
 // ==========================================
-// BLOCO 02: Alternancia de Tema
+// BLOCO 02: Utilitarios, Progresso e Tema
 // ==========================================
+function pickValue(obj, keys, fallback = undefined) {
+  if (!obj || typeof obj !== "object") return fallback;
+  for (const key of keys) {
+    if (obj[key] !== undefined && obj[key] !== null) {
+      return obj[key];
+    }
+  }
+  return fallback;
+}
+
+function clampScore(value) {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return 0;
+  return Math.max(0, Math.min(100, Math.round(numeric)));
+}
+
+function formatElapsedSeconds(elapsedMs) {
+  return elapsedMs ? `${(elapsedMs / 1000).toFixed(2)}s` : "--";
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 function applyAuditTheme(theme) {
   const normalized = theme === "light" ? "light" : "dark";
   document.body.dataset.theme = normalized;
@@ -47,12 +92,65 @@ function applyAuditTheme(theme) {
       : "../styles-dark/audit.css";
   }
 
-  localStorage.setItem(THEME_STORAGE_KEY, normalized);
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, normalized);
+  } catch (err) {
+    console.warn("[CyberCheck] Nao foi possivel salvar o tema:", err?.message || err);
+  }
 }
 
 function toggleAuditTheme() {
   const current = document.body.dataset.theme === "light" ? "light" : "dark";
   applyAuditTheme(current === "dark" ? "light" : "dark");
+}
+
+function setAuditProgress(percent, statusText, completed = false) {
+  const box = document.getElementById("auditProgressBox") || elements.loadingBox;
+  const fill =
+    document.getElementById("auditProgressFill") ||
+    box?.querySelector("[data-progress-fill], .progress-fill, .audit-progress-fill");
+  const label =
+    document.getElementById("auditProgressText") ||
+    box?.querySelector("[data-progress-text], .progress-text, .audit-progress-text");
+  const pctEl =
+    document.getElementById("auditProgressPercent") ||
+    box?.querySelector("[data-progress-percent], .progress-percent, .audit-progress-percent");
+
+  const isDone = Boolean(completed || percent >= 100);
+  const safePct = isDone ? 100 : Math.max(0, Math.min(100, Math.round(percent)));
+
+  if (box) {
+    box.classList.remove("is-hidden", "hidden");
+    box.style.display = "flex";
+    box.classList.toggle("is-complete", isDone);
+  }
+
+  if (fill) {
+    fill.style.width = `${safePct}%`;
+  }
+
+  if (pctEl) {
+    pctEl.textContent = `${safePct}%`;
+  }
+
+  if (label && statusText) {
+    label.textContent = statusText;
+  }
+}
+
+function resetScoreBeforeAudit() {
+  if (elements.scoreValue) {
+    elements.scoreValue.textContent = "0";
+  }
+  if (elements.gradeValue) {
+    elements.gradeValue.textContent = "Aguardando analise...";
+  }
+  if (elements.riskValue) {
+    elements.riskValue.textContent = "--";
+  }
+  if (elements.analysisTime) {
+    elements.analysisTime.textContent = "--";
+  }
 }
 
 // ==========================================
@@ -63,10 +161,10 @@ async function checkApiHealth() {
 
   elements.healthStatus.textContent = "Verificando API...";
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 15000);
+  const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUTS_MS.health);
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/health`, {
+    const response = await fetch(AUDIT_ENDPOINTS.health, {
       method: "GET",
       headers: { "Accept": "application/json" },
       signal: controller.signal
@@ -74,14 +172,21 @@ async function checkApiHealth() {
 
     if (response.ok) {
       let data = null;
-      try { data = await response.json(); } catch (_) { data = null; }
+      try {
+        data = await response.json();
+      } catch (_) {
+        data = null;
+      }
+
+      const applicationName = pickValue(data, ["application", "Application"], "Cyber Shield API");
+      const timestampValue = pickValue(data, ["timestamp", "Timestamp"], new Date().toISOString());
 
       elements.healthStatus.textContent = "API Online";
       if (elements.apiVersion) {
-        elements.apiVersion.textContent = `Aplicacao: ${data?.application || data?.Application || "Cyber Shield API"}`;
+        elements.apiVersion.textContent = `Aplicacao: ${applicationName}`;
       }
       if (elements.backendType) {
-        elements.backendType.textContent = `Timestamp: ${data?.timestamp || data?.Timestamp || new Date().toISOString()}`;
+        elements.backendType.textContent = `Timestamp: ${timestampValue}`;
       }
       return true;
     }
@@ -110,42 +215,51 @@ function normalizeTargetUrl(rawTarget) {
 function applyStreamStep(payload) {
   if (!payload || typeof payload !== "object") return;
 
-  const stepName = String(payload.step ?? payload.Step ?? "").toUpperCase();
-  const statusText = String(payload.status ?? payload.Status ?? "");
-  const deltaScore = Number(payload.deltaScore ?? payload.DeltaScore ?? 0);
-  const partialScore = Number(payload.score ?? payload.Score);
-  const detail = String(payload.detail ?? payload.Detail ?? "");
+  const stepName = String(pickValue(payload, ["step", "Step"], "")).toUpperCase();
+  const statusText = String(pickValue(payload, ["status", "Status"], ""));
+  const deltaScore = Number(pickValue(payload, ["deltaScore", "DeltaScore"], 0));
+  const partialScore = Number(pickValue(payload, ["score", "Score"], NaN));
+  const detail = String(pickValue(payload, ["detail", "Detail"], ""));
 
   if (Number.isFinite(partialScore) && elements.scoreValue) {
-    elements.scoreValue.textContent = `${Math.max(0, Math.min(100, Math.round(partialScore)))}`;
+    elements.scoreValue.textContent = `${clampScore(partialScore)}`;
   }
 
   const deltaLabel = Number.isFinite(deltaScore) ? ` (+${deltaScore})` : "";
   const formatted = `${statusText}${deltaLabel}${detail ? ` - ${detail}` : ""}`;
 
-  if (stepName === "SSL" && elements.sslStatus) {
-    elements.sslStatus.textContent = formatted;
-  } else if (stepName === "HEADERS" && elements.headersStatus) {
-    elements.headersStatus.textContent = formatted;
-  } else if (stepName === "DNS" && elements.dnsStatus) {
-    elements.dnsStatus.textContent = formatted;
-  } else if (stepName === "WHOIS" && elements.whoisStatus) {
-    elements.whoisStatus.textContent = formatted;
-  } else if (stepName === "RECON" && elements.reconStatus) {
-    elements.reconStatus.textContent = formatted;
-  } else if (stepName === "VIRUSTOTAL" && elements.virusTotalStatus) {
-    elements.virusTotalStatus.textContent = formatted;
+  const stepTargetMap = {
+    SSL: elements.sslStatus,
+    HEADERS: elements.headersStatus,
+    DNS: elements.dnsStatus,
+    WHOIS: elements.whoisStatus,
+    RECON: elements.reconStatus,
+    VIRUSTOTAL: elements.virusTotalStatus
+  };
+
+  const targetEl = stepTargetMap[stepName];
+  if (targetEl) {
+    targetEl.textContent = formatted;
+  }
+
+  if (stepName === "SSL" || stepName === "DNS") {
+    setAuditProgress(45, "Validando SSL/TLS e registros DNS...", false);
+  } else if (stepName === "WHOIS" || stepName === "RECON") {
+    setAuditProgress(60, "Coletando informacoes de dominio e reconhecimento...", false);
+  } else if (stepName === "HEADERS" || stepName === "VIRUSTOTAL") {
+    setAuditProgress(75, "Verificando cabecalhos HTTP e reputacao...", false);
+  } else if (stepName) {
+    setAuditProgress(85, `Processando etapa ${stepName}...`, false);
   }
 }
 
 async function executeAuditoriaPostFallback(normalizedUrl) {
   const payload = { url: normalizedUrl };
-  const endpoints = [`${API_BASE_URL}/api/audit`, `${API_BASE_URL}/api/auditoria`];
   let lastError = null;
 
-  for (const endpoint of endpoints) {
+  for (const endpoint of AUDIT_ENDPOINTS.postFallback) {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000);
+    const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUTS_MS.postFallback);
 
     try {
       console.log("[CyberCheck] Enviando POST para:", endpoint);
@@ -190,7 +304,7 @@ async function executeAuditoriaPostFallback(normalizedUrl) {
 
 function executeAuditoriaStream(target, onProgressStep) {
   const normalizedUrl = normalizeTargetUrl(target);
-  const streamUrl = `${API_BASE_URL}/api/auditoria/stream?url=${encodeURIComponent(normalizedUrl)}`;
+  const streamUrl = `${AUDIT_ENDPOINTS.stream}?url=${encodeURIComponent(normalizedUrl)}`;
 
   console.log("[CyberCheck] Conectando SSE com parametro url:", streamUrl);
 
@@ -198,13 +312,25 @@ function executeAuditoriaStream(target, onProgressStep) {
     let settled = false;
     const eventSource = new EventSource(streamUrl);
 
+    const finishResolve = (value) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeoutId);
+      eventSource.close();
+      resolve(value);
+    };
+
+    const finishReject = (err) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeoutId);
+      eventSource.close();
+      reject(err);
+    };
+
     const timeoutId = setTimeout(() => {
-      if (!settled) {
-        settled = true;
-        eventSource.close();
-        reject(new Error("Tempo limite excedido no stream SSE da auditoria."));
-      }
-    }, 45000);
+      finishReject(new Error("Tempo limite excedido no stream SSE da auditoria."));
+    }, REQUEST_TIMEOUTS_MS.sseStream);
 
     eventSource.addEventListener("progress", (event) => {
       try {
@@ -219,16 +345,12 @@ function executeAuditoriaStream(target, onProgressStep) {
     });
 
     eventSource.addEventListener("completed", (event) => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timeoutId);
-      eventSource.close();
       try {
         const finalPayload = JSON.parse(event.data);
         console.log("[CyberCheck] Evento SSE completed:", finalPayload);
-        resolve(finalPayload);
+        finishResolve(finalPayload);
       } catch (err) {
-        reject(err);
+        finishReject(err);
       }
     });
 
@@ -249,8 +371,10 @@ function executeAuditoriaStream(target, onProgressStep) {
       }
 
       console.warn("[CyberCheck] Stream SSE indisponivel; usando fallback POST.");
+      setAuditProgress(45, "Validando SSL/TLS e registros DNS...", false);
       try {
         const fallbackData = await executeAuditoriaPostFallback(normalizedUrl);
+        setAuditProgress(75, "Verificando cabecalhos HTTP e reputacao...", false);
         settled = true;
         resolve(fallbackData);
       } catch (fallbackErr) {
@@ -266,23 +390,37 @@ async function executeAuditoria(target, onProgressStep) {
 }
 
 // ==========================================
-// BLOCO 05: Normalizacao e Historico Local
+// BLOCO 05: Normalizacao, Historico e Sincronizacao
 // ==========================================
-function normalizeAuditResult(target, rawData, elapsedMs) {
-  const scoreRaw = rawData?.score ?? rawData?.Score ?? 0;
-  const score = Math.max(0, Math.min(100, Math.round(Number(scoreRaw) || 0)));
+function inferRiskLevel(score) {
+  if (score >= 85) return "LOW";
+  if (score >= 60) return "MEDIUM";
+  return "HIGH";
+}
 
-  const riskRaw = rawData?.risk ?? rawData?.Risk;
+function inferGradeLetter(score) {
+  if (score >= 90) return "A";
+  if (score >= 80) return "B";
+  if (score >= 65) return "C";
+  if (score >= 50) return "D";
+  return "F";
+}
+
+function normalizeAuditResult(target, rawData, elapsedMs) {
+  const score = clampScore(pickValue(rawData, ["score", "Score"], 0));
+
+  const riskRaw = pickValue(rawData, ["risk", "Risk"], "");
   const risk = typeof riskRaw === "string" && riskRaw.trim()
     ? riskRaw.trim().toUpperCase()
-    : score >= 85 ? "LOW" : score >= 60 ? "MEDIUM" : "HIGH";
+    : inferRiskLevel(score);
 
-  const gradeRaw = rawData?.grade ?? rawData?.Grade;
+  const gradeRaw = pickValue(rawData, ["grade", "Grade"], "");
   const grade = typeof gradeRaw === "string" && gradeRaw.trim()
     ? gradeRaw.trim()
-    : score >= 90 ? "A" : score >= 80 ? "B" : score >= 65 ? "C" : score >= 50 ? "D" : "F";
+    : inferGradeLetter(score);
 
-  const resolvedTarget = rawData?.target ?? rawData?.Target ?? rawData?.url ?? rawData?.Url ?? target;
+  const resolvedTarget = pickValue(rawData, ["target", "Target", "url", "Url"], target);
+  const resolvedTimestamp = pickValue(rawData, ["scanDate", "ScanDate"], new Date().toISOString());
 
   return {
     id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
@@ -291,7 +429,7 @@ function normalizeAuditResult(target, rawData, elapsedMs) {
     grade,
     risk,
     elapsedMs,
-    timestamp: rawData?.scanDate ?? rawData?.ScanDate ?? new Date().toISOString(),
+    timestamp: resolvedTimestamp,
     details: rawData
   };
 }
@@ -306,10 +444,25 @@ function getAuditHistory() {
   }
 }
 
+function notifyHistoryUpdated(updatedHistory) {
+  window.dispatchEvent(new CustomEvent("cybercheck:history-updated", { detail: updatedHistory }));
+
+  if ("BroadcastChannel" in window) {
+    const syncChannel = new BroadcastChannel(SYNC_CHANNEL_NAME);
+    syncChannel.postMessage({ type: "history-updated", entries: updatedHistory });
+    syncChannel.close();
+  }
+}
+
 function saveAuditToHistory(entry) {
   const current = getAuditHistory();
   const updated = [entry, ...current].slice(0, 25);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+  } catch (err) {
+    console.warn("[CyberCheck] Falha ao gravar historico no localStorage:", err?.message || err);
+  }
+  notifyHistoryUpdated(updated);
   return updated;
 }
 
@@ -321,6 +474,12 @@ function setLoadingState(isLoading) {
     elements.runAuditBtn.disabled = isLoading;
   }
   if (elements.loadingBox) {
+    const progressBox = document.getElementById("auditProgressBox");
+    const isCompletedGreen = progressBox?.classList.contains("is-complete");
+    if (!isLoading && isCompletedGreen) {
+      elements.loadingBox.classList.remove("is-hidden");
+      return;
+    }
     elements.loadingBox.classList.toggle("is-hidden", !isLoading);
   }
 }
@@ -340,6 +499,79 @@ function setModulesState(message) {
   }
 }
 
+function formatVirusTotalSummary(vt, entry, scanDateText) {
+  if (vt && typeof vt === "object") {
+    const stats = vt.stats && typeof vt.stats === "object" ? vt.stats : {};
+    const mal = pickValue(vt, ["malicious", "Malicious"], pickValue(stats, ["malicious"], 0));
+    const susp = pickValue(vt, ["suspicious", "Suspicious"], pickValue(stats, ["suspicious"], 0));
+    const harm = pickValue(vt, ["harmless", "Harmless"], pickValue(stats, ["harmless"], 0));
+    const st = pickValue(vt, ["status", "Status", "summary"], "ok");
+    return `Status: ${st} | Maliciosos: ${mal} | Suspeitos: ${susp} | Seguros: ${harm}`;
+  }
+  return `Risco geral: ${entry.risk} | Score: ${entry.score}/100 | Verificado em: ${scanDateText}`;
+}
+
+function formatSslSummary(ssl, sslValid) {
+  if (ssl && typeof ssl === "object") {
+    const enabled = Boolean(pickValue(ssl, ["enabled", "Enabled"], false));
+    const scheme = pickValue(ssl, ["scheme", "Scheme"], "");
+    const code = pickValue(ssl, ["statusCode", "StatusCode"], "");
+    const detail = pickValue(ssl, ["detail", "Detail"], "");
+    return `${enabled ? "HTTPS Ativo" : "Sem TLS"}${scheme ? ` (${scheme})` : ""}${code ? ` | HTTP ${code}` : ""}${detail ? ` - ${detail}` : ""}`;
+  }
+  if (typeof sslValid === "boolean") {
+    return sslValid ? "Valido / Ativo (TLS verificado)" : "Invalido / Ausente";
+  }
+  return "Sem detalhes de SSL/TLS na resposta.";
+}
+
+function formatWhoisSummary(whois, target) {
+  if (whois && typeof whois === "object") {
+    const dom = pickValue(whois, ["domain", "Domain"], target);
+    const tld = pickValue(whois, ["tld", "Tld"], "");
+    const src = pickValue(whois, ["source", "Source", "registrarHint"], "");
+    return `Dominio: ${dom}${tld ? ` | TLD: .${tld}` : ""}${src ? ` | Fonte: ${src}` : ""}`;
+  }
+  return `Alvo: ${target} | Sem registo WHOIS no payload atual`;
+}
+
+function formatTechnologiesSummary(tech) {
+  if (Array.isArray(tech) && tech.length > 0) {
+    return tech.join(" | ");
+  }
+  return "Stack nao informada na resposta atual";
+}
+
+function formatReconSummary(recon) {
+  if (recon && typeof recon === "object") {
+    const robots = Boolean(pickValue(recon, ["robotsReachable", "RobotsReachable", "robotsTxt"], false));
+    const sitemap = Boolean(pickValue(recon, ["sitemapReachable", "SitemapReachable", "sitemapXml"], false));
+    return `robots.txt: ${robots ? "Encontrado" : "Nao encontrado"} | sitemap.xml: ${sitemap ? "Encontrado" : "Nao encontrado"}`;
+  }
+  return "Recon detalhado nao incluido na resposta atual";
+}
+
+function formatDnsSummary(dns) {
+  if (dns && typeof dns === "object") {
+    const rawIps = pickValue(dns, ["addresses", "Addresses"], []);
+    const ips = Array.isArray(rawIps) ? rawIps : [];
+    const hostName = pickValue(dns, ["hostName", "HostName", "resolvedIp"], "");
+    return `IPs: ${ips.length ? ips.join(", ") : "Nenhum"}${hostName ? ` | Host: ${hostName}` : ""}`;
+  }
+  return "Registos DNS nao incluidos na resposta atual";
+}
+
+function formatHeadersSummary(headers) {
+  if (headers && typeof headers === "object") {
+    const hsts = Boolean(pickValue(headers, ["hasStrictTransportSecurity", "HasStrictTransportSecurity", "hsts"], false));
+    const csp = Boolean(pickValue(headers, ["hasContentSecurityPolicy", "HasContentSecurityPolicy", "csp"], false));
+    const xfo = Boolean(pickValue(headers, ["hasXFrameOptions", "HasXFrameOptions", "xFrameOptions"], false));
+    const srv = pickValue(headers, ["server", "Server"], "N/A");
+    return `HSTS: ${hsts ? "Sim" : "Nao"} | CSP: ${csp ? "Sim" : "Nao"} | X-Frame-Options: ${xfo ? "Sim" : "Nao"} | Server: ${srv}`;
+  }
+  return "Cabecalhos HTTP nao incluidos na resposta atual";
+}
+
 function renderAuditResult(entry) {
   currentAuditEntry = entry;
   const d = entry.details || {};
@@ -348,93 +580,42 @@ function renderAuditResult(entry) {
   if (elements.scoreValue) elements.scoreValue.textContent = `${entry.score}`;
   if (elements.gradeValue) elements.gradeValue.textContent = `Nota ${entry.grade} - ${entry.target}`;
   if (elements.riskValue) elements.riskValue.textContent = entry.risk;
-  if (elements.analysisTime) {
-    elements.analysisTime.textContent = entry.elapsedMs ? `${(entry.elapsedMs / 1000).toFixed(2)}s` : "--";
-  }
+  if (elements.analysisTime) elements.analysisTime.textContent = formatElapsedSeconds(entry.elapsedMs);
 
-  const vt = d.virustotal ?? d.VirusTotal;
+  const vt = pickValue(d, ["virustotal", "VirusTotal"], null);
   if (elements.virusTotalStatus) {
-    if (vt && typeof vt === "object") {
-      const mal = vt.malicious ?? vt.Malicious ?? vt.stats?.malicious ?? 0;
-      const susp = vt.suspicious ?? vt.Suspicious ?? vt.stats?.suspicious ?? 0;
-      const harm = vt.harmless ?? vt.Harmless ?? vt.stats?.harmless ?? 0;
-      const st = vt.status ?? vt.Status ?? vt.summary ?? "ok";
-      elements.virusTotalStatus.textContent = `Status: ${st} | Maliciosos: ${mal} | Suspeitos: ${susp} | Seguros: ${harm}`;
-    } else {
-      elements.virusTotalStatus.textContent = `Risco geral: ${entry.risk} | Score: ${entry.score}/100 | Verificado em: ${scanDateText}`;
-    }
+    elements.virusTotalStatus.textContent = formatVirusTotalSummary(vt, entry, scanDateText);
   }
 
-  const ssl = d.ssl ?? d.Ssl;
-  const sslValid = d.sslValid ?? d.SslValid;
+  const ssl = pickValue(d, ["ssl", "Ssl"], null);
+  const sslValid = pickValue(d, ["sslValid", "SslValid"], undefined);
   if (elements.sslStatus) {
-    if (ssl && typeof ssl === "object") {
-      const enabled = Boolean(ssl.enabled ?? ssl.Enabled);
-      const scheme = ssl.scheme ?? ssl.Scheme ?? "";
-      const code = ssl.statusCode ?? ssl.StatusCode;
-      const detail = ssl.detail ?? ssl.Detail ?? "";
-      elements.sslStatus.textContent = `${enabled ? "HTTPS Ativo" : "Sem TLS"}${scheme ? ` (${scheme})` : ""}${code ? ` | HTTP ${code}` : ""}${detail ? ` - ${detail}` : ""}`;
-    } else if (typeof sslValid === "boolean") {
-      elements.sslStatus.textContent = sslValid ? "Valido / Ativo (TLS verificado)" : "Invalido / Ausente";
-    } else {
-      elements.sslStatus.textContent = "Sem detalhes de SSL/TLS na resposta.";
-    }
+    elements.sslStatus.textContent = formatSslSummary(ssl, sslValid);
   }
 
-  const whois = d.whois ?? d.Whois;
+  const whois = pickValue(d, ["whois", "Whois"], null);
   if (elements.whoisStatus) {
-    if (whois && typeof whois === "object") {
-      const dom = whois.domain ?? whois.Domain ?? entry.target;
-      const tld = whois.tld ?? whois.Tld ?? "";
-      const src = whois.source ?? whois.Source ?? whois.registrarHint ?? "";
-      elements.whoisStatus.textContent = `Dominio: ${dom}${tld ? ` | TLD: .${tld}` : ""}${src ? ` | Fonte: ${src}` : ""}`;
-    } else {
-      elements.whoisStatus.textContent = `Alvo: ${entry.target} | Sem registo WHOIS no payload atual`;
-    }
+    elements.whoisStatus.textContent = formatWhoisSummary(whois, entry.target);
   }
 
-  const tech = d.technologies ?? d.Technologies;
+  const tech = pickValue(d, ["technologies", "Technologies"], null);
   if (elements.technologyList) {
-    if (Array.isArray(tech) && tech.length > 0) {
-      elements.technologyList.textContent = tech.join(" | ");
-    } else {
-      elements.technologyList.textContent = "Stack nao informada na resposta atual";
-    }
+    elements.technologyList.textContent = formatTechnologiesSummary(tech);
   }
 
-  const recon = d.recon ?? d.Recon;
+  const recon = pickValue(d, ["recon", "Recon"], null);
   if (elements.reconStatus) {
-    if (recon && typeof recon === "object") {
-      const robots = Boolean(recon.robotsReachable ?? recon.RobotsReachable ?? recon.robotsTxt);
-      const sitemap = Boolean(recon.sitemapReachable ?? recon.SitemapReachable ?? recon.sitemapXml);
-      elements.reconStatus.textContent = `robots.txt: ${robots ? "Encontrado" : "Nao encontrado"} | sitemap.xml: ${sitemap ? "Encontrado" : "Nao encontrado"}`;
-    } else {
-      elements.reconStatus.textContent = "Recon detalhado nao incluido na resposta atual";
-    }
+    elements.reconStatus.textContent = formatReconSummary(recon);
   }
 
-  const dns = d.dns ?? d.Dns;
+  const dns = pickValue(d, ["dns", "Dns"], null);
   if (elements.dnsStatus) {
-    if (dns && typeof dns === "object") {
-      const ips = Array.isArray(dns.addresses ?? dns.Addresses) ? (dns.addresses ?? dns.Addresses) : [];
-      const hostName = dns.hostName ?? dns.HostName ?? dns.resolvedIp ?? "";
-      elements.dnsStatus.textContent = `IPs: ${ips.length ? ips.join(", ") : "Nenhum"}${hostName ? ` | Host: ${hostName}` : ""}`;
-    } else {
-      elements.dnsStatus.textContent = "Registos DNS nao incluidos na resposta atual";
-    }
+    elements.dnsStatus.textContent = formatDnsSummary(dns);
   }
 
-  const headers = d.headers ?? d.Headers;
+  const headers = pickValue(d, ["headers", "Headers"], null);
   if (elements.headersStatus) {
-    if (headers && typeof headers === "object") {
-      const hsts = Boolean(headers.hasStrictTransportSecurity ?? headers.HasStrictTransportSecurity ?? headers.hsts);
-      const csp = Boolean(headers.hasContentSecurityPolicy ?? headers.HasContentSecurityPolicy ?? headers.csp);
-      const xfo = Boolean(headers.hasXFrameOptions ?? headers.HasXFrameOptions ?? headers.xFrameOptions);
-      const srv = headers.server ?? headers.Server ?? "N/A";
-      elements.headersStatus.textContent = `HSTS: ${hsts ? "Sim" : "Nao"} | CSP: ${csp ? "Sim" : "Nao"} | X-Frame-Options: ${xfo ? "Sim" : "Nao"} | Server: ${srv}`;
-    } else {
-      elements.headersStatus.textContent = "Cabecalhos HTTP nao incluidos na resposta atual";
-    }
+    elements.headersStatus.textContent = formatHeadersSummary(headers);
   }
 
   if (elements.jsonResult) {
@@ -452,22 +633,27 @@ function renderHistory(historyItems) {
 
   elements.historyList.innerHTML = historyItems
     .map((item) => `
-      <li class="history-item" data-id="${escapeHtml(item.id)}">
+      <li class="history-item" data-id="${escapeHtml(item.id)}" role="button" tabindex="0" title="Clique para carregar esta auditoria">
         <span>${escapeHtml(item.target)}</span> -
         <strong>${item.score}/100</strong> (${escapeHtml(item.grade)}) -
         <span>${new Date(item.timestamp).toLocaleString("pt-BR")}</span>
       </li>
     `)
     .join("");
-}
 
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#39;");
+  elements.historyList.querySelectorAll(".history-item[data-id]").forEach((li) => {
+    const selectItem = () => {
+      const found = historyItems.find((h) => h.id === li.dataset.id);
+      if (found) renderAuditResult(found);
+    };
+    li.addEventListener("click", selectItem);
+    li.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        selectItem();
+      }
+    });
+  });
 }
 
 // ==========================================
@@ -486,9 +672,10 @@ async function handleRunAudit(event) {
     return;
   }
 
+  resetScoreBeforeAudit();
   setLoadingState(true);
   setModulesState("Analisando...");
-  if (elements.scoreValue) elements.scoreValue.textContent = "0";
+  setAuditProgress(15, "Executando analise de seguranca no servidor...", false);
   if (elements.gradeValue) elements.gradeValue.textContent = "Executando Auditoria...";
   if (elements.riskValue) elements.riskValue.textContent = "RUNNING";
 
@@ -502,10 +689,12 @@ async function handleRunAudit(event) {
 
     renderAuditResult(normalized);
     renderHistory(updatedHistory);
+    setAuditProgress(100, "Analise concluida com sucesso.", true);
     console.log("[CyberCheck] Auditoria concluida com sucesso em", `${elapsedMs}ms`);
   } catch (error) {
     console.error("[CyberCheck] Falha na auditoria:", error);
     setModulesState("Falha na consulta");
+    setAuditProgress(0, "Falha na execucao da auditoria.", false);
     if (elements.gradeValue) elements.gradeValue.textContent = "Erro na Auditoria";
     if (elements.riskValue) elements.riskValue.textContent = "ERROR";
     if (elements.jsonResult) elements.jsonResult.textContent = `Erro: ${error.message}`;
@@ -514,12 +703,20 @@ async function handleRunAudit(event) {
   }
 }
 
+function bindTargetInputReset() {
+  if (!elements.targetInput) return;
+  elements.targetInput.addEventListener("input", () => {
+    resetScoreBeforeAudit();
+  });
+}
+
 function bindQuickTargets() {
   if (!elements.quickUrlButtons || !elements.targetInput) return;
 
   elements.quickUrlButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       elements.targetInput.value = btn.dataset.url || "";
+      resetScoreBeforeAudit();
     });
   });
 }
@@ -536,6 +733,7 @@ function initAuditModule() {
     renderAuditResult(initialHistory[0]);
   }
 
+  bindTargetInputReset();
   bindQuickTargets();
   checkApiHealth();
 
@@ -549,136 +747,10 @@ function initAuditModule() {
 // ==========================================
 // BLOCO 08: Geracao de Relatorio PDF Executivo
 // ==========================================
-function generateAuditPdfReport() {
-  const entry = currentAuditEntry || getAuditHistory()[0];
-  if (!entry) {
-    if (elements.jsonResult) {
-      elements.jsonResult.textContent = "Execute uma auditoria antes de gerar o relatorio PDF.";
-    }
-    return;
-  }
-
-  const jspdfLib = window.jspdf;
-  if (!jspdfLib || !jspdfLib.jsPDF) {
-    console.error("[CyberCheck] Biblioteca jsPDF nao carregada.");
-    return;
-  }
-
-  const { jsPDF } = jspdfLib;
-  const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-  const d = entry.details || {};
-  const scanDate = new Date(entry.timestamp).toLocaleString("pt-BR");
-
-  // Cabecalho escuro institucional
-  doc.setFillColor(15, 23, 42);
-  doc.rect(0, 0, 210, 36, "F");
-
-  doc.setTextColor(255, 255, 255);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(18);
-  doc.text("CyberCheck PRO - Relatorio de Auditoria", 14, 16);
-
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(10);
-  doc.setTextColor(148, 163, 184);
-  doc.text(`Alvo analisado: ${entry.target}`, 14, 24);
-  doc.text(`Data/Hora: ${scanDate} | Tempo de resposta: ${entry.elapsedMs ? (entry.elapsedMs / 1000).toFixed(2) + "s" : "--"}`, 14, 30);
-
-  // Cartao de Resumo (Score, Nota e Risco)
-  doc.setFillColor(241, 245, 249);
-  doc.roundedRect(14, 42, 182, 24, 3, 3, "F");
-
-  doc.setTextColor(15, 23, 42);
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.text(`Security Score: ${entry.score}/100`, 20, 52);
-  doc.text(`Classificacao: Nota ${entry.grade}`, 86, 52);
-
-  if (entry.risk === "LOW") doc.setTextColor(22, 101, 52);
-  else if (entry.risk === "MEDIUM") doc.setTextColor(161, 98, 7);
-  else doc.setTextColor(185, 28, 28);
-  doc.text(`Nivel de Risco: ${entry.risk}`, 142, 52);
-
-  doc.setTextColor(71, 85, 105);
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9);
-  doc.text("Resumo consolidado das verificacoes tecnicas automatizadas.", 20, 60);
-
-  // Tabela dos Modulos Auditados
-  const sslText = elements.sslStatus?.textContent || "Nao informado";
-  const headersText = elements.headersStatus?.textContent || "Nao informado";
-  const dnsText = elements.dnsStatus?.textContent || "Nao informado";
-  const whoisText = elements.whoisStatus?.textContent || "Nao informado";
-  const reconText = elements.reconStatus?.textContent || "Nao informado";
-  const vtText = elements.virusTotalStatus?.textContent || "Nao informado";
-  const techText = elements.technologyList?.textContent || "Nao informado";
-
-  doc.autoTable({
-    startY: 72,
-    head: [["Modulo", "Resultado / Diagnostico"]],
-    body: [
-      ["SSL / TLS", sslText],
-      ["Headers HTTP", headersText],
-      ["DNS e E-mail", dnsText],
-      ["WHOIS / Dominio", whoisText],
-      ["Recon (Robots/Sitemap)", reconText],
-      ["VirusTotal", vtText],
-      ["Tecnologias Detectadas", techText]
-    ],
-    theme: "grid",
-    headStyles: { fillColor: [30, 41, 59], textColor: [255, 255, 255], fontStyle: "bold" },
-    styles: { fontSize: 9, cellPadding: 3, textColor: [30, 41, 59] },
-    columnStyles: { 0: { cellWidth: 48, fontStyle: "bold" }, 1: { cellWidth: 134 } }
-  });
-
-  // Recomendacoes Tecnicas
-  let nextY = doc.lastAutoTable.finalY + 10;
-  const recommendations = Array.isArray(d.recommendations ?? d.Recommendations)
-    ? (d.recommendations ?? d.Recommendations)
-    : buildFallbackRecommendations(d);
-
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(12);
-  doc.setTextColor(15, 23, 42);
-  doc.text("Recomendacoes de Seguranca", 14, nextY);
-  nextY += 6;
-
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(9.5);
-  doc.setTextColor(51, 65, 85);
-
-  recommendations.forEach((rec) => {
-    const lines = doc.splitTextToSize(`- ${rec}`, 180);
-    if (nextY + lines.length * 5 > 275) {
-      doc.addPage();
-      nextY = 20;
-    }
-    doc.text(lines, 14, nextY);
-    nextY += lines.length * 5 + 2;
-  });
-
-  // Rodape em todas as paginas
-  const totalPages = doc.internal.getNumberOfPages();
-  for (let i = 1; i <= totalPages; i++) {
-    doc.setPage(i);
-    doc.setFontSize(8);
-    doc.setTextColor(148, 163, 184);
-    doc.text(
-      `CyberCheck PRO Security Center | Pagina ${i} de ${totalPages}`,
-      14,
-      290
-    );
-  }
-
-  const safeHost = entry.target.replace(/^https?:\/\//i, "").replace(/[^a-z0-9.-]/gi, "_");
-  const stamp = new Date().toISOString().slice(0, 10);
-  doc.save(`cybercheck-relatorio-${safeHost}-${stamp}.pdf`);
-}
-
 function buildFallbackRecommendations(d) {
   const list = [];
-  const headers = d.headers ?? d.Headers;
-  const ssl = d.ssl ?? d.Ssl;
+  const headers = pickValue(d, ["headers", "Headers"], null);
+  const ssl = pickValue(d, ["ssl", "Ssl"], null);
 
   if (ssl && ssl.enabled === false) {
     list.push("CRITICO: Ativar HTTPS com certificado SSL/TLS valido.");
@@ -700,15 +772,240 @@ function buildFallbackRecommendations(d) {
   return list;
 }
 
+function getRiskPalettePdf(risk) {
+  const normalized = String(risk || "").toUpperCase();
+  if (normalized === "LOW") {
+    return { bg: [220, 252, 231], border: [34, 197, 94], text: [21, 128, 61] };
+  }
+  if (normalized === "MEDIUM") {
+    return { bg: [254, 249, 195], border: [234, 179, 8], text: [133, 77, 14] };
+  }
+  return { bg: [254, 226, 226], border: [239, 68, 68], text: [153, 27, 27] };
+}
+
+function generateAuditPdfReport() {
+  const entry = currentAuditEntry || getAuditHistory()[0];
+  if (!entry) {
+    if (elements.jsonResult) {
+      elements.jsonResult.textContent = "Execute uma auditoria antes de gerar o relatorio PDF.";
+    }
+    return;
+  }
+
+  const jspdfLib = window.jspdf;
+  if (!jspdfLib || !jspdfLib.jsPDF) {
+    console.error("[CyberCheck] Biblioteca jsPDF nao carregada.");
+    return;
+  }
+
+  const { jsPDF } = jspdfLib;
+  const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+  const d = entry.details || {};
+  const scanDate = new Date(entry.timestamp).toLocaleString("pt-BR");
+  const riskStyle = getRiskPalettePdf(entry.risk);
+  const safeScore = clampScore(entry.score);
+
+  doc.setFillColor(248, 250, 252);
+  doc.rect(0, 0, 210, 297, "F");
+
+  doc.setFillColor(15, 23, 42);
+  doc.rect(0, 0, 210, 42, "F");
+  doc.setFillColor(2, 132, 199);
+  doc.rect(0, 42, 210, 2.5, "F");
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(19);
+  doc.text("CyberCheck PRO", 14, 16);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10.5);
+  doc.setTextColor(125, 211, 252);
+  doc.text("Relatorio Executivo de Seguranca e Postura Digital", 76, 16);
+
+  doc.setFontSize(9.5);
+  doc.setTextColor(226, 232, 240);
+  const targetLines = doc.splitTextToSize(`Alvo auditado: ${entry.target}`, 182);
+  doc.text(targetLines, 14, 25);
+
+  doc.setFontSize(8.5);
+  doc.setTextColor(148, 163, 184);
+  doc.text(
+    `Data/Hora: ${scanDate}   |   Duracao: ${formatElapsedSeconds(entry.elapsedMs)}`,
+    14,
+    37
+  );
+
+  const cardY = 51;
+  const cardH = 28;
+
+  doc.setFillColor(255, 255, 255);
+  doc.setDrawColor(203, 213, 225);
+  doc.setLineWidth(0.35);
+  doc.roundedRect(14, cardY, 58, cardH, 3, 3, "FD");
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(100, 116, 139);
+  doc.text("SECURITY SCORE", 19, cardY + 7);
+
+  doc.setFontSize(16);
+  doc.setTextColor(2, 132, 199);
+  doc.text(`${safeScore}/100`, 19, cardY + 16.5);
+
+  doc.setFillColor(226, 232, 240);
+  doc.roundedRect(19, cardY + 20, 48, 3, 1.5, 1.5, "F");
+  const barW = Math.max(2, (safeScore / 100) * 48);
+  if (safeScore >= 85) doc.setFillColor(34, 197, 94);
+  else if (safeScore >= 60) doc.setFillColor(2, 132, 199);
+  else doc.setFillColor(239, 68, 68);
+  doc.roundedRect(19, cardY + 20, barW, 3, 1.5, 1.5, "F");
+
+  doc.setFillColor(255, 255, 255);
+  doc.setDrawColor(203, 213, 225);
+  doc.roundedRect(76, cardY, 58, cardH, 3, 3, "FD");
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(100, 116, 139);
+  doc.text("CLASSIFICACAO", 81, cardY + 7);
+
+  doc.setFontSize(15);
+  doc.setTextColor(15, 23, 42);
+  doc.text(`Nota ${entry.grade}`, 81, cardY + 17);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.setTextColor(71, 85, 105);
+  doc.text("Avaliacao consolidada", 81, cardY + 23);
+
+  doc.setFillColor(riskStyle.bg[0], riskStyle.bg[1], riskStyle.bg[2]);
+  doc.setDrawColor(riskStyle.border[0], riskStyle.border[1], riskStyle.border[2]);
+  doc.roundedRect(138, cardY, 58, cardH, 3, 3, "FD");
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(8);
+  doc.setTextColor(riskStyle.text[0], riskStyle.text[1], riskStyle.text[2]);
+  doc.text("NIVEL DE RISCO", 143, cardY + 7);
+
+  doc.setFontSize(14);
+  doc.text(String(entry.risk || "N/A"), 143, cardY + 17);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8);
+  doc.text("Exposicao identificada", 143, cardY + 23);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text("Diagnostico por Modulo de Seguranca", 14, 89);
+
+  const sslText = elements.sslStatus?.textContent || "Nao informado";
+  const headersText = elements.headersStatus?.textContent || "Nao informado";
+  const dnsText = elements.dnsStatus?.textContent || "Nao informado";
+  const whoisText = elements.whoisStatus?.textContent || "Nao informado";
+  const reconText = elements.reconStatus?.textContent || "Nao informado";
+  const vtText = elements.virusTotalStatus?.textContent || "Nao informado";
+  const techText = elements.technologyList?.textContent || "Nao informado";
+
+  doc.autoTable({
+    startY: 93,
+    head: [["Modulo", "Resultado / Diagnostico Tecnico"]],
+    body: [
+      ["SSL / TLS", sslText],
+      ["Headers HTTP", headersText],
+      ["DNS e Resolucao", dnsText],
+      ["WHOIS / Dominio", whoisText],
+      ["Recon (Robots/Sitemap)", reconText],
+      ["VirusTotal / Reputacao", vtText],
+      ["Tecnologias Detectadas", techText]
+    ],
+    theme: "grid",
+    headStyles: {
+      fillColor: [15, 23, 42],
+      textColor: [255, 255, 255],
+      fontStyle: "bold",
+      fontSize: 9.5
+    },
+    alternateRowStyles: {
+      fillColor: [241, 245, 249]
+    },
+    styles: {
+      fontSize: 8.8,
+      cellPadding: 3.5,
+      textColor: [30, 41, 59],
+      lineColor: [203, 213, 225],
+      lineWidth: 0.25
+    },
+    columnStyles: {
+      0: { cellWidth: 48, fontStyle: "bold", textColor: [15, 23, 42] },
+      1: { cellWidth: 134 }
+    }
+  });
+
+  let nextY = doc.lastAutoTable.finalY + 9;
+  const rawRecs = pickValue(d, ["recommendations", "Recommendations"], null);
+  const recommendations = Array.isArray(rawRecs) && rawRecs.length
+    ? rawRecs
+    : buildFallbackRecommendations(d);
+
+  if (nextY > 250) {
+    doc.addPage();
+    doc.setFillColor(248, 250, 252);
+    doc.rect(0, 0, 210, 297, "F");
+    nextY = 20;
+  }
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11.5);
+  doc.setTextColor(15, 23, 42);
+  doc.text("Plano de Acao e Recomendacoes Tecnicas", 14, nextY);
+  nextY += 5;
+
+  recommendations.forEach((rec, idx) => {
+    const lines = doc.splitTextToSize(`${idx + 1}. ${rec}`, 172);
+    const boxHeight = Math.max(9, lines.length * 4.5 + 4);
+
+    if (nextY + boxHeight > 276) {
+      doc.addPage();
+      doc.setFillColor(248, 250, 252);
+      doc.rect(0, 0, 210, 297, "F");
+      nextY = 20;
+    }
+
+    doc.setFillColor(255, 255, 255);
+    doc.setDrawColor(186, 230, 253);
+    doc.setLineWidth(0.3);
+    doc.roundedRect(14, nextY, 182, boxHeight, 2, 2, "FD");
+
+    doc.setFillColor(2, 132, 199);
+    doc.rect(14, nextY, 2.2, boxHeight, "F");
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8.8);
+    doc.setTextColor(30, 41, 59);
+    doc.text(lines, 19, nextY + 5.2);
+
+    nextY += boxHeight + 2.5;
+  });
+
+  const totalPages = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= totalPages; i++) {
+    doc.setPage(i);
+    doc.setDrawColor(203, 213, 225);
+    doc.line(14, 285, 196, 285);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(100, 116, 139);
+    doc.text("CyberCheck PRO Security Center", 14, 290);
+    doc.text(`Pagina ${i} de ${totalPages}`, 174, 290);
+  }
+
+  const safeHost = entry.target.replace(/^https?:\/\//i, "").replace(/[^a-z0-9.-]/gi, "_");
+  const stamp = new Date().toISOString().slice(0, 10);
+  doc.save(`cybercheck-relatorio-${safeHost}-${stamp}.pdf`);
+}
+
 window.generateAuditPdfReport = generateAuditPdfReport;
 
 document.addEventListener("DOMContentLoaded", initAuditModule);
-
-
-window.dispatchEvent(new CustomEvent("cybercheck:history-updated", { detail: updatedHistory }));
-
-if ("BroadcastChannel" in window) {
-  const syncChannel = new BroadcastChannel("cybercheck_audit_sync_channel");
-  syncChannel.postMessage({ type: "history-updated", entries: updatedHistory });
-  syncChannel.close();
-}

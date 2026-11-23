@@ -5,12 +5,19 @@ const HISTORY_STORAGE_KEY = "cybershield_audit_history_v1";
 const THEME_STORAGE_KEY = "cybershield_theme";
 const HISTORY_UPDATED_EVENT = "cybercheck:history-updated";
 const HISTORY_CHANNEL_NAME = "cybercheck_audit_sync_channel";
+const POLL_INTERVAL_MS = 1500;
+
+const THEME_STYLESHEETS = {
+  light: "../styles-light/dashboard.css",
+  dark: "../styles-dark/dashboard.css"
+};
 
 const state = {
   allEntries: [],
   filteredEntries: [],
   lastRawSnapshot: "",
-  channel: null
+  channel: null,
+  pollTimerId: null
 };
 
 const dom = {
@@ -28,8 +35,28 @@ const dom = {
 };
 
 /* ==========================================
-   BLOCO 02: Gerenciamento de Tema (Dark / Light)
+   BLOCO 02: Utilitarios e Gerenciamento de Tema
    ========================================== */
+function pickField(obj, keys, fallback = undefined) {
+  if (!obj || typeof obj !== "object") return fallback;
+  for (const key of keys) {
+    if (obj[key] !== undefined && obj[key] !== null) {
+      return obj[key];
+    }
+  }
+  return fallback;
+}
+
+function clampScore(value) {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return 0;
+  return Math.max(0, Math.min(100, Math.round(numeric)));
+}
+
+function formatHistoryTimestamp(timestamp) {
+  return new Date(timestamp).toLocaleString("pt-PT");
+}
+
 function getCurrentTheme() {
   return document.body.dataset.theme === "light" ? "light" : "dark";
 }
@@ -40,12 +67,7 @@ function applyTheme(themeName) {
   document.body.setAttribute("data-theme", normalizedTheme);
 
   if (dom.historyThemeCss) {
-    dom.historyThemeCss.setAttribute(
-      "href",
-      normalizedTheme === "light"
-        ? "../styles-light/dashboard.css"
-        : "../styles-dark/dashboard.css"
-    );
+    dom.historyThemeCss.setAttribute("href", THEME_STYLESHEETS[normalizedTheme]);
   }
 
   try {
@@ -69,19 +91,27 @@ function normalizeRisk(riskValue) {
   return "LOW";
 }
 
+function inferGrade(score) {
+  if (score >= 80) return "A";
+  if (score >= 60) return "B";
+  return "C";
+}
+
 function normalizeAuditEntry(entry) {
-  const numericScore = Number(entry?.score ?? entry?.Score);
-  const safeScore = Number.isFinite(numericScore)
-    ? Math.max(0, Math.min(100, Math.round(numericScore)))
-    : 0;
+  const safeScore = clampScore(pickField(entry, ["score", "Score"], NaN));
+  const rawTarget = pickField(entry, ["target", "url", "domain"], "alvo-desconhecido");
+  const rawGrade = pickField(entry, ["grade"], "");
+  const rawRisk = pickField(entry, ["risk"], "");
+  const rawTimestamp = pickField(entry, ["timestamp", "analyzedAt", "scanDate"], new Date().toISOString());
+  const rawId = pickField(entry, ["id"], `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`);
 
   return {
-    id: entry?.id || `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-    target: String(entry?.target || entry?.url || entry?.domain || "alvo-desconhecido"),
+    id: rawId,
+    target: String(rawTarget),
     score: safeScore,
-    grade: entry?.grade || (safeScore >= 80 ? "A" : safeScore >= 60 ? "B" : "C"),
-    risk: normalizeRisk(entry?.risk),
-    timestamp: entry?.timestamp || entry?.analyzedAt || entry?.scanDate || new Date().toISOString()
+    grade: rawGrade || inferGrade(safeScore),
+    risk: normalizeRisk(rawRisk),
+    timestamp: rawTimestamp
   };
 }
 
@@ -134,16 +164,55 @@ function getFilteredEntries() {
 
 function updateSummaryKpis(entries) {
   const total = entries.length;
-  const highCount = entries.filter((item) => item.risk === "HIGH").length;
-  const lowCount = entries.filter((item) => item.risk === "LOW").length;
-  const avg = total > 0
-    ? (entries.reduce((acc, item) => acc + item.score, 0) / total).toFixed(1)
-    : "--";
+  let highCount = 0;
+  let lowCount = 0;
+  let scoreSum = 0;
+
+  for (const item of entries) {
+    scoreSum += item.score;
+    if (item.risk === "HIGH") highCount += 1;
+    else if (item.risk === "LOW") lowCount += 1;
+  }
+
+  const avg = total > 0 ? (scoreSum / total).toFixed(1) : "--";
 
   if (dom.historyFilteredCount) dom.historyFilteredCount.textContent = String(total);
   if (dom.historyAverageScore) dom.historyAverageScore.textContent = total > 0 ? avg : "--";
   if (dom.historyHighCount) dom.historyHighCount.textContent = String(highCount);
   if (dom.historyLowCount) dom.historyLowCount.textContent = String(lowCount);
+}
+
+function buildHistoryListItem(item) {
+  const li = document.createElement("li");
+  li.className = "history-item";
+  li.setAttribute("role", "button");
+  li.setAttribute("tabindex", "0");
+
+  const targetSpan = document.createElement("span");
+  targetSpan.textContent = `${item.target} - Score: `;
+
+  const scoreStrong = document.createElement("strong");
+  scoreStrong.textContent = `${item.score}/100 (${item.risk})`;
+  targetSpan.appendChild(scoreStrong);
+
+  const dateSpan = document.createElement("span");
+  dateSpan.textContent = formatHistoryTimestamp(item.timestamp);
+
+  const openTargetAudit = () => {
+    window.location.href = `../audit/audit.html?target=${encodeURIComponent(item.target)}`;
+  };
+
+  li.addEventListener("click", openTargetAudit);
+  li.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openTargetAudit();
+    }
+  });
+
+  li.appendChild(targetSpan);
+  li.appendChild(dateSpan);
+  return li;
 }
 
 function renderHistoryList(entries) {
@@ -158,28 +227,11 @@ function renderHistoryList(entries) {
     return;
   }
 
+  const fragment = document.createDocumentFragment();
   entries.forEach((item) => {
-    const li = document.createElement("li");
-    li.className = "history-item";
-
-    const targetSpan = document.createElement("span");
-    targetSpan.textContent = `${item.target} - Score: `;
-
-    const scoreStrong = document.createElement("strong");
-    scoreStrong.textContent = `${item.score}/100 (${item.risk})`;
-    targetSpan.appendChild(scoreStrong);
-
-    const dateSpan = document.createElement("span");
-    dateSpan.textContent = new Date(item.timestamp).toLocaleString("pt-PT");
-
-    li.addEventListener("click", () => {
-      window.location.href = `../audit/audit.html?target=${encodeURIComponent(item.target)}`;
-    });
-
-    li.appendChild(targetSpan);
-    li.appendChild(dateSpan);
-    dom.historyList.appendChild(li);
+    fragment.appendChild(buildHistoryListItem(item));
   });
+  dom.historyList.appendChild(fragment);
 }
 
 /* ==========================================
@@ -189,10 +241,11 @@ function exportHistoryJson() {
   const payload = JSON.stringify(state.filteredEntries, null, 2);
   const blob = new Blob([payload], { type: "application/json" });
   const url = URL.createObjectURL(blob);
+  const stamp = new Date().toISOString().slice(0, 10);
 
   const link = document.createElement("a");
   link.href = url;
-  link.download = `cybercheck-historico-${new Date().toISOString().slice(0, 10)}.json`;
+  link.download = `cybercheck-historico-${stamp}.json`;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -266,9 +319,20 @@ function setupRealtimeSync() {
     }
   });
 
-  setInterval(() => {
+  state.pollTimerId = window.setInterval(() => {
     refreshHistoryView(false);
-  }, 1500);
+  }, POLL_INTERVAL_MS);
+
+  window.addEventListener("beforeunload", () => {
+    if (state.pollTimerId !== null) {
+      clearInterval(state.pollTimerId);
+      state.pollTimerId = null;
+    }
+    if (state.channel) {
+      state.channel.close();
+      state.channel = null;
+    }
+  });
 }
 
 function bindEvents() {

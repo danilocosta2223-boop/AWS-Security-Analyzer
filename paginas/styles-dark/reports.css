@@ -1,257 +1,349 @@
 /* ==========================================
-   BLOCO 01: Base e Cartoes da Pagina de Relatorios
+   BLOCO 01: Variaveis do Tema Escuro (Mesma Estrutura, So Cores)
    ========================================== */
-main.container .card {
-  background: rgba(15, 23, 42, 0.86) !important;
+:root,
+body[data-theme="dark"] {
+  --rep-card-bg: rgba(15, 23, 42, 0.86);
+  --rep-input-bg: rgba(9, 15, 28, 0.88);
+  --rep-select-option-bg: #0f172a;
+  --rep-list-bg: rgba(15, 23, 42, 0.9);
+  --rep-item-bg: rgba(30, 41, 59, 0.95);
+  --rep-item-hover-bg: rgba(30, 41, 59, 1);
+  --rep-json-bg: rgba(9, 15, 28, 0.86);
+  --rep-text-primary: #f8fafc;
+  --rep-text-secondary: #e2e8f0;
+  --rep-text-muted: #94a3b8;
+  --rep-accent: #38bdf8;
+  --rep-border: rgba(56, 189, 248, 0.35);
+  --rep-border-select: rgba(56, 189, 248, 0.48);
+  --rep-border-json: rgba(56, 189, 248, 0.34);
+  --rep-shadow-card: 0 8px 24px rgba(2, 6, 23, 0.45);
+  --rep-shadow-kpi: 0 8px 24px rgba(2, 6, 23, 0.42);
+  --rep-btn-bg: linear-gradient(135deg, rgba(2, 132, 199, 0.92), rgba(37, 99, 235, 0.92));
+  --rep-btn-border: rgba(56, 189, 248, 0.75);
+  --rep-btn-text: #ffffff;
+  --rep-scroll-track: rgba(9, 15, 28, 0.6);
+  --rep-scroll-thumb: rgba(56, 189, 248, 0.45);
+  --rep-scroll-thumb-hover: rgba(56, 189, 248, 0.75);
+  --rep-risk-low-bg: rgba(22, 101, 52, 0.35);
+  --rep-risk-low-text: #86efac;
+  --rep-risk-medium-bg: rgba(133, 77, 14, 0.38);
+  --rep-risk-medium-text: #fde047;
+  --rep-risk-high-bg: rgba(153, 27, 27, 0.38);
+  --rep-risk-high-text: #fca5a5;
+}
+
+/* ==========================================
+   BLOCO 02: Base e Cartao de Selecao de Relatorio - Tema Escuro
+   ========================================== */
+body[data-theme="dark"] .reports-page {
+  min-height: 100vh;
+}
+
+body[data-theme="dark"] main.container .card {
+  background: var(--rep-card-bg) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  border: 1px solid var(--rep-border) !important;
   border-radius: 14px;
   padding: 20px;
-  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.45);
+  box-shadow: var(--rep-shadow-card);
   box-sizing: border-box;
 }
 
 /* ==========================================
-   BLOCO 02: Selecao de Auditoria e Botoes de Exportacao
+   BLOCO 03: Seletor de Auditoria e Botoes de Acao - Tema Escuro
    ========================================== */
-.card .input-wrapper {
+body[data-theme="dark"] .card .input-wrapper {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 12px;
   flex-wrap: wrap;
   margin-top: 16px;
 }
 
-select#reportAuditSelect.quick-url-btn {
-  flex: 1 1 320px;
-  min-width: 220px;
-  max-width: 100%;
-  padding: 11px 14px;
-  background-color: rgba(9, 15, 28, 0.9) !important;
-  border: 1px solid rgba(56, 189, 248, 0.48) !important;
-  color: #f8fafc !important;
+body[data-theme="dark"] select#reportAuditSelect.quick-url-btn {
+  flex: 1 1 340px;
+  min-width: 240px;
+  min-height: 42px;
+  padding: 10px 14px;
+  background-color: var(--rep-input-bg) !important;
+  border: 1px solid var(--rep-border-select) !important;
+  color: var(--rep-text-primary) !important;
   border-radius: 10px;
   font-size: 0.92rem;
+  line-height: 1.4;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
-select#reportAuditSelect.quick-url-btn option {
-  background-color: #0f172a;
-  color: #f8fafc;
+body[data-theme="dark"] select#reportAuditSelect.quick-url-btn option {
+  background-color: var(--rep-select-option-bg);
+  color: var(--rep-text-primary);
 }
 
-#exportSingleJsonBtn,
-#exportAllJsonBtn,
-#exportReportPdfBtn {
+body[data-theme="dark"] #exportSingleJsonBtn,
+body[data-theme="dark"] #exportAllJsonBtn,
+body[data-theme="dark"] #exportReportPdfBtn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  min-height: 42px;
+  background: var(--rep-btn-bg) !important;
+  border: 1px solid var(--rep-btn-border) !important;
+  color: var(--rep-btn-text) !important;
   border-radius: 10px;
-  padding: 11px 18px;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  line-height: 1.2;
   font-weight: 700;
-  font-size: 0.92rem;
-  color: #ffffff !important;
   cursor: pointer;
+  box-sizing: border-box;
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 
-#exportSingleJsonBtn,
-#exportAllJsonBtn {
-  background: linear-gradient(135deg, rgba(2, 132, 199, 0.92), rgba(37, 99, 235, 0.92)) !important;
-  border: 1px solid rgba(56, 189, 248, 0.75) !important;
-}
-
-#exportReportPdfBtn {
-  background: linear-gradient(135deg, rgba(15, 118, 110, 0.92), rgba(2, 132, 199, 0.92)) !important;
-  border: 1px solid rgba(56, 189, 248, 0.75) !important;
-}
-
-#exportSingleJsonBtn:hover,
-#exportAllJsonBtn:hover,
-#exportReportPdfBtn:hover {
+body[data-theme="dark"] #exportSingleJsonBtn:hover,
+body[data-theme="dark"] #exportAllJsonBtn:hover,
+body[data-theme="dark"] #exportReportPdfBtn:hover {
   transform: translateY(-1px);
   filter: brightness(1.08);
 }
 
 /* ==========================================
-   BLOCO 03: KPIs do Resumo Executivo
+   BLOCO 04: Resumo Executivo e KPIs do Relatorio - Tema Escuro
    ========================================== */
-#summary .kpi-grid {
+body[data-theme="dark"] #summary .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 16px;
-  margin-top: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
 }
 
-#summary .kpi-grid > div {
-  min-width: 0;
-  background: rgba(15, 23, 42, 0.86) !important;
-  border: 1px solid rgba(56, 189, 248, 0.35) !important;
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.42);
+body[data-theme="dark"] #summary .kpi-grid > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
+  min-height: auto;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--rep-card-bg) !important;
+  border: 1px solid var(--rep-border) !important;
+  box-shadow: var(--rep-shadow-kpi);
+  box-sizing: border-box;
 }
 
-#reportTarget,
-#reportScore,
-#reportGrade,
-#reportRisk {
+body[data-theme="dark"] #summary .kpi-grid > div h3 {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--rep-text-secondary);
+}
+
+body[data-theme="dark"] #summary .kpi-grid > div p {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--rep-accent);
   word-break: break-word;
   overflow-wrap: anywhere;
 }
 
-/* ==========================================
-   BLOCO 04: Modulos Verificados e Recomendacoes
-   ========================================== */
-#audit-results {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 24px;
-  align-items: start;
-}
-
-#audit-results > div {
-  min-width: 0;
-  max-width: 100%;
-  background: rgba(15, 23, 42, 0.86) !important;
-  border: 1px solid rgba(56, 189, 248, 0.35) !important;
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.45);
-  box-sizing: border-box;
-}
-
-#audit-results h3 {
-  margin: 0 0 14px;
+body[data-theme="dark"] #summary #reportTarget {
   font-size: 1.05rem;
-  color: #38bdf8;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  line-height: 1.35;
+  color: var(--rep-text-primary);
 }
 
-#reportModulesList,
-#reportRecommendationsList {
+body[data-theme="dark"] #summary #reportRisk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+body[data-theme="dark"] #summary #reportRisk[data-risk="LOW"] {
+  background-color: var(--rep-risk-low-bg);
+  color: var(--rep-risk-low-text);
+}
+
+body[data-theme="dark"] #summary #reportRisk[data-risk="MEDIUM"] {
+  background-color: var(--rep-risk-medium-bg);
+  color: var(--rep-risk-medium-text);
+}
+
+body[data-theme="dark"] #summary #reportRisk[data-risk="HIGH"] {
+  background-color: var(--rep-risk-high-bg);
+  color: var(--rep-risk-high-text);
+}
+
+/* ==========================================
+   BLOCO 05: Modulos Verificados e Recomendacoes - Tema Escuro
+   ========================================== */
+body[data-theme="dark"] #audit-results {
+  margin-top: 20px;
+}
+
+body[data-theme="dark"] #audit-results ul {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 12px 0 0;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-height: 220px;
   max-height: 360px;
   overflow-y: auto;
   overflow-x: hidden;
+  background: var(--rep-list-bg) !important;
+  border: 1px solid var(--rep-border) !important;
+  border-radius: 12px;
+  box-sizing: border-box;
 }
 
-#reportModulesList .history-item,
-#reportRecommendationsList .history-item,
-#reportModulesList .history-empty,
-#reportRecommendationsList .history-empty {
+body[data-theme="dark"] #audit-results .history-item,
+body[data-theme="dark"] #audit-results .history-empty {
   width: 100%;
   max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  background: rgba(30, 41, 59, 0.95) !important;
-  border: 1px solid rgba(56, 189, 248, 0.32) !important;
+  background: var(--rep-item-bg) !important;
+  border: 1px solid var(--rep-border) !important;
   border-radius: 8px;
-  padding: 12px 14px;
-  color: #f8fafc;
-  font-size: 0.9rem;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  cursor: default;
+  padding: 11px 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
-#reportModulesList .history-item:hover,
-#reportRecommendationsList .history-item:hover {
-  transform: none;
-  border-color: rgba(56, 189, 248, 0.6) !important;
+body[data-theme="dark"] #audit-results .history-item:hover {
+  border-color: var(--rep-accent) !important;
+  background: var(--rep-item-hover-bg) !important;
+  transform: translateX(2px);
+}
+
+body[data-theme="dark"] #audit-results .history-item > span,
+body[data-theme="dark"] #audit-results .history-empty > span {
+  flex: 1 1 100%;
+  min-width: 0;
+  max-width: 100%;
+  color: var(--rep-text-primary);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  font-weight: 500;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  text-align: left;
 }
 
 /* ==========================================
-   BLOCO 05: Pre-visualizacao JSON do Relatorio
+   BLOCO 06: Pre-visualizacao JSON e Scrollbar - Tema Escuro
    ========================================== */
-.json-section {
-  margin-top: 24px;
+body[data-theme="dark"] .json-section {
+  margin-top: 20px;
 }
 
-.json-section h3 {
+body[data-theme="dark"] .json-section h3 {
   margin: 0 0 12px;
-  font-size: 1.05rem;
-  color: #38bdf8;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
-#reportJsonPreview {
+body[data-theme="dark"] #reportJsonPreview {
   margin: 0;
-  background: rgba(15, 23, 42, 0.92) !important;
-  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  background: var(--rep-json-bg) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--rep-border-json) !important;
   border-radius: 12px;
   padding: 18px;
-  color: #e2e8f0;
-  font-family: monospace;
+  color: var(--rep-text-secondary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.88rem;
+  line-height: 1.5;
   white-space: pre-wrap;
   word-break: break-word;
   overflow-wrap: anywhere;
+  min-height: 180px;
   max-height: 340px;
   overflow-y: auto;
   overflow-x: hidden;
   box-sizing: border-box;
 }
 
-/* ==========================================
-   BLOCO 06: Scrollbar Escura Personalizada
-   ========================================== */
-#reportModulesList::-webkit-scrollbar,
-#reportRecommendationsList::-webkit-scrollbar,
-#reportJsonPreview::-webkit-scrollbar {
+body[data-theme="dark"] #audit-results ul::-webkit-scrollbar,
+body[data-theme="dark"] #reportJsonPreview::-webkit-scrollbar {
   width: 8px;
 }
 
-#reportModulesList::-webkit-scrollbar-track,
-#reportRecommendationsList::-webkit-scrollbar-track,
-#reportJsonPreview::-webkit-scrollbar-track {
-  background: rgba(9, 15, 28, 0.6);
+body[data-theme="dark"] #audit-results ul::-webkit-scrollbar-track,
+body[data-theme="dark"] #reportJsonPreview::-webkit-scrollbar-track {
+  background: var(--rep-scroll-track);
   border-radius: 8px;
 }
 
-#reportModulesList::-webkit-scrollbar-thumb,
-#reportRecommendationsList::-webkit-scrollbar-thumb,
-#reportJsonPreview::-webkit-scrollbar-thumb {
-  background: rgba(56, 189, 248, 0.45);
+body[data-theme="dark"] #audit-results ul::-webkit-scrollbar-thumb,
+body[data-theme="dark"] #reportJsonPreview::-webkit-scrollbar-thumb {
+  background: var(--rep-scroll-thumb);
   border-radius: 8px;
 }
 
-#reportModulesList::-webkit-scrollbar-thumb:hover,
-#reportRecommendationsList::-webkit-scrollbar-thumb:hover,
-#reportJsonPreview::-webkit-scrollbar-thumb:hover {
-  background: rgba(56, 189, 248, 0.75);
+body[data-theme="dark"] #audit-results ul::-webkit-scrollbar-thumb:hover,
+body[data-theme="dark"] #reportJsonPreview::-webkit-scrollbar-thumb:hover {
+  background: var(--rep-scroll-thumb-hover);
 }
 
 /* ==========================================
-   BLOCO 07: Responsividade
+   BLOCO 07: Foco Acessivel e Responsividade - Tema Escuro
    ========================================== */
+body[data-theme="dark"] select#reportAuditSelect.quick-url-btn:focus-visible,
+body[data-theme="dark"] #exportSingleJsonBtn:focus-visible,
+body[data-theme="dark"] #exportAllJsonBtn:focus-visible,
+body[data-theme="dark"] #exportReportPdfBtn:focus-visible {
+  outline: 2px solid var(--rep-accent);
+  outline-offset: 2px;
+}
+
+@media (max-width: 960px) {
+  body[data-theme="dark"] #summary .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
-  .card .input-wrapper {
+  body[data-theme="dark"] .card .input-wrapper {
     flex-direction: column;
     align-items: stretch;
   }
 
-  select#reportAuditSelect.quick-url-btn,
-  #exportSingleJsonBtn,
-  #exportAllJsonBtn,
-  #exportReportPdfBtn {
+  body[data-theme="dark"] select#reportAuditSelect.quick-url-btn,
+  body[data-theme="dark"] #exportSingleJsonBtn,
+  body[data-theme="dark"] #exportAllJsonBtn,
+  body[data-theme="dark"] #exportReportPdfBtn {
     width: 100%;
     min-width: 0;
+    justify-content: center;
   }
 
-  #audit-results {
+  body[data-theme="dark"] #audit-results ul {
+    min-height: 180px;
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  body[data-theme="dark"] #summary .kpi-grid {
     grid-template-columns: 1fr;
   }
 }

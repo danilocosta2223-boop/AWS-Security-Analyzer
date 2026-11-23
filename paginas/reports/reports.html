@@ -4,22 +4,59 @@
   <!-- ==========================================
        BLOCO 01: Meta Tags, Titulo e Folhas de Estilo
        Caminho: paginas/reports/reports.html
-       Estilos: ../styles-dark/
+       Estilos: ../styles-dark/ e ../styles-light/
        ========================================== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CyberCheck PRO - Central de relatorios de seguranca com diagnostico por modulo, recomendacoes tecnicas, exportacao JSON e PDF.">
   <title>CyberCheck PRO - Relatorios</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="../styles-dark/normalize.css">
-  <link id="reports-theme-css" rel="stylesheet" href="../styles-dark/dashboard.css">
-  <link rel="stylesheet" href="../styles-dark/reports.css">
-  <link rel="stylesheet" href="../styles-dark/desktop.css">
-  <link rel="stylesheet" href="../styles-dark/mobile.css">
+
+  <script>
+    (function () {
+      var savedTheme = "dark";
+      try {
+        savedTheme = localStorage.getItem("cybershield_theme") || "dark";
+      } catch (e) {
+        savedTheme = "dark";
+      }
+      var isLight = savedTheme === "light";
+      var prefix = isLight ? "../styles-light/" : "../styles-dark/";
+      document.documentElement.setAttribute("data-theme", isLight ? "light" : "dark");
+      document.write('<link rel="stylesheet" href="' + prefix + 'normalize.css">');
+      document.write('<link id="reports-theme-css" rel="stylesheet" href="' + prefix + 'dashboard.css">');
+      document.write('<link id="reports-page-css" rel="stylesheet" href="' + prefix + 'reports.css">');
+      document.write('<link rel="stylesheet" href="' + prefix + 'desktop.css">');
+      document.write('<link rel="stylesheet" href="' + prefix + 'mobile.css">');
+    })();
+  </script>
+
+  <noscript>
+    <link rel="stylesheet" href="../styles-dark/normalize.css">
+    <link id="reports-theme-css-noscript" rel="stylesheet" href="../styles-dark/dashboard.css">
+    <link rel="stylesheet" href="../styles-dark/reports.css">
+    <link rel="stylesheet" href="../styles-dark/desktop.css">
+    <link rel="stylesheet" href="../styles-dark/mobile.css">
+  </noscript>
 </head>
 <body data-theme="dark">
+  <script>
+    (function () {
+      try {
+        var currentTheme = localStorage.getItem("cybershield_theme") === "light" ? "light" : "dark";
+        document.body.setAttribute("data-theme", currentTheme);
+        document.body.dataset.theme = currentTheme;
+      } catch (e) {
+        document.body.setAttribute("data-theme", "dark");
+        document.body.dataset.theme = "dark";
+      }
+    })();
+  </script>
+
   <!-- ==========================================
        BLOCO 02: Cabecalho Flutuante e Navegacao
        ========================================== -->
@@ -35,7 +72,7 @@
       <a href="../dashboard/dashboard.html">Dashboard</a>
       <a href="../audit/audit.html">Auditoria</a>
       <a href="../history/history.html">Historico</a>
-      <a href="./reports.html" class="active">Relatorios</a>
+      <a href="./reports.html" class="active" aria-current="page">Relatorios</a>
     </nav>
 
     <div class="header-actions">
@@ -55,6 +92,7 @@
       <p>Selecione uma auditoria do historico para inspecionar o diagnostico, exportar JSON ou gerar relatorio PDF.</p>
 
       <div class="input-wrapper">
+        <label for="reportAuditSelect" class="sr-only">Selecionar auditoria para relatorio</label>
         <select id="reportAuditSelect" class="quick-url-btn" aria-label="Selecionar auditoria para relatorio">
           <option value="">Selecione uma auditoria...</option>
         </select>

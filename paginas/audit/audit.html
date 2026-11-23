@@ -7,7 +7,9 @@
        ========================================== -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CyberCheck PRO - Auditoria de seguranca de URLs e dominios com analise SSL/TLS, headers HTTP, DNS, WHOIS, Recon, tecnologias e reputacao." />
   <title>CyberCheck PRO - Auditoria de Seguranca</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -67,7 +69,7 @@
     <nav class="main-nav" aria-label="Navegacao principal">
       <a href="../../index.html">Inicio</a>
       <a href="../dashboard/dashboard.html">Dashboard</a>
-      <a href="./audit.html" class="active">Auditoria</a>
+      <a href="./audit.html" class="active" aria-current="page">Auditoria</a>
       <a href="../history/history.html">Historico</a>
       <a href="../reports/reports.html">Relatorios</a>
     </nav>
@@ -97,6 +99,7 @@
       <p>Verifique SSL/TLS, cabecalhos HTTP, DNS, WHOIS, Recon, tecnologias e reputacao.</p>
 
       <form id="auditForm" class="input-wrapper">
+        <label for="urlInput" class="sr-only">URL ou dominio para auditoria</label>
         <input
           id="urlInput"
           type="text"
@@ -123,6 +126,15 @@
         <div id="auditProgress">
           <div id="auditProgressBar"></div>
         </div>
+        <div id="auditProgressBox" class="audit-progress-box">
+          <div class="audit-progress-header">
+            <span id="auditProgressText">Executando analise de seguranca no servidor...</span>
+            <span id="auditProgressPercent">0%</span>
+          </div>
+          <div class="audit-progress-track">
+            <div id="auditProgressFill" class="audit-progress-fill"></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -141,40 +153,40 @@
          BLOCO 05: Cartoes de Resultados por Modulo
          ========================================== -->
     <section id="audit-results" aria-label="Modulos de verificacao">
-      <div>
+      <article class="module-card">
         <h3><i class="fa-solid fa-virus-shield" aria-hidden="true"></i> VirusTotal</h3>
         <p id="virusTotalStatus">Aguardando execucao</p>
-      </div>
+      </article>
 
-      <div>
+      <article class="module-card">
         <h3><i class="fa-solid fa-lock" aria-hidden="true"></i> SSL / TLS</h3>
         <p id="sslStatus">Aguardando execucao</p>
-      </div>
+      </article>
 
-      <div>
+      <article class="module-card">
         <h3><i class="fa-solid fa-globe" aria-hidden="true"></i> WHOIS</h3>
         <p id="whoisStatus">Aguardando execucao</p>
-      </div>
+      </article>
 
-      <div>
+      <article class="module-card">
         <h3><i class="fa-solid fa-microchip" aria-hidden="true"></i> Tecnologias</h3>
         <p id="technologyList">Aguardando execucao</p>
-      </div>
+      </article>
 
-      <div>
+      <article class="module-card">
         <h3><i class="fa-solid fa-radar" aria-hidden="true"></i> Recon (Robots / Sitemap / Exposure)</h3>
         <p id="reconStatus">Aguardando execucao</p>
-      </div>
+      </article>
 
-      <div>
+      <article class="module-card">
         <h3><i class="fa-solid fa-network-wired" aria-hidden="true"></i> DNS</h3>
         <p id="dnsStatus">Aguardando execucao</p>
-      </div>
+      </article>
 
-      <div>
+      <article class="module-card">
         <h3><i class="fa-solid fa-shield" aria-hidden="true"></i> Headers HTTP</h3>
         <p id="headersStatus">Aguardando execucao</p>
-      </div>
+      </article>
     </section>
 
     <!-- ==========================================

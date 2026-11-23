@@ -1,0 +1,436 @@
+/* ==========================================
+   BLOCO 01: Variaveis e Fundo do Tema Claro
+   ========================================== */
+:root,
+body[data-theme="light"] {
+  --bg-page: #f1f5f9;
+  --text-primary: #ffffff;
+  --text-secondary: #f8fafc;
+  --text-muted: #cbd5e1;
+  --accent-primary: #38bdf8;
+  --accent-secondary: #0284c7;
+  --rep-card-bg: rgba(15, 23, 42, 0.78);
+  --rep-input-bg: rgba(15, 23, 42, 0.88);
+  --rep-select-option-bg: #0f172a;
+  --rep-list-bg: rgba(15, 23, 42, 0.72);
+  --rep-item-bg: rgba(15, 23, 42, 0.86);
+  --rep-item-hover-bg: rgba(30, 41, 59, 0.96);
+  --rep-json-bg: rgba(10, 15, 28, 0.9);
+  --border-light: rgba(56, 189, 248, 0.38);
+  --border-strong: rgba(56, 189, 248, 0.65);
+  --border-json: rgba(56, 189, 248, 0.42);
+  --shadow-soft: 0 8px 24px rgba(2, 6, 23, 0.35);
+  --shadow-kpi: 0 8px 24px rgba(2, 6, 23, 0.32);
+  --rep-btn-bg: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+  --rep-btn-border: rgba(125, 211, 252, 0.8);
+  --rep-btn-text: #ffffff;
+  --rep-scroll-track: rgba(15, 23, 42, 0.55);
+  --rep-scroll-thumb: rgba(56, 189, 248, 0.5);
+  --rep-scroll-thumb-hover: #38bdf8;
+  --rep-risk-low-bg: #dcfce7;
+  --rep-risk-low-text: #166534;
+  --rep-risk-medium-bg: #fef9c3;
+  --rep-risk-medium-text: #854d0e;
+  --rep-risk-high-bg: #fee2e2;
+  --rep-risk-high-text: #991b1b;
+  --transition-base: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body[data-theme="light"] {
+  box-sizing: border-box;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text-primary);
+  font-family: "Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  background-color: var(--bg-page);
+  background-image: url("../imagens/light-theme/hero-mobile.webp.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   BLOCO 02: Base, Cartao Principal e Tipografia
+   ========================================== */
+body[data-theme="light"] .reports-page {
+  min-height: 100vh;
+}
+
+body[data-theme="light"] .container,
+body[data-theme="light"] .reports-container {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 1.75rem 1rem;
+  color: var(--text-primary);
+  box-sizing: border-box;
+}
+
+body[data-theme="light"] main.container .card {
+  background: var(--rep-card-bg) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-light) !important;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+  box-sizing: border-box;
+}
+
+body[data-theme="light"] main.container h2,
+body[data-theme="light"] main.container h3,
+body[data-theme="light"] main.container label {
+  color: var(--text-primary) !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85) !important;
+}
+
+body[data-theme="light"] main.container .card p {
+  color: var(--text-muted) !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85) !important;
+}
+
+/* ==========================================
+   BLOCO 03: Seletor de Auditoria e Botoes de Acao
+   ========================================== */
+body[data-theme="light"] .card .input-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+body[data-theme="light"] select#reportAuditSelect.quick-url-btn {
+  flex: 1 1 340px;
+  min-width: 240px;
+  min-height: 42px;
+  padding: 10px 14px;
+  background-color: var(--rep-input-bg) !important;
+  border: 1px solid var(--border-strong) !important;
+  color: var(--text-primary) !important;
+  border-radius: 10px;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+body[data-theme="light"] select#reportAuditSelect.quick-url-btn option {
+  background-color: var(--rep-select-option-bg);
+  color: var(--text-primary);
+}
+
+body[data-theme="light"] #exportSingleJsonBtn,
+body[data-theme="light"] #exportAllJsonBtn,
+body[data-theme="light"] #exportReportPdfBtn,
+body[data-theme="light"] main.container button {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  background: var(--rep-btn-bg) !important;
+  border: 1px solid var(--rep-btn-border) !important;
+  color: var(--rep-btn-text) !important;
+  text-shadow: none !important;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  font-weight: 700;
+  cursor: pointer;
+  box-sizing: border-box;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+body[data-theme="light"] #exportSingleJsonBtn span,
+body[data-theme="light"] #exportAllJsonBtn span,
+body[data-theme="light"] #exportReportPdfBtn span,
+body[data-theme="light"] #exportSingleJsonBtn i,
+body[data-theme="light"] #exportAllJsonBtn i,
+body[data-theme="light"] #exportReportPdfBtn i {
+  color: var(--rep-btn-text) !important;
+}
+
+body[data-theme="light"] #exportSingleJsonBtn:hover,
+body[data-theme="light"] #exportAllJsonBtn:hover,
+body[data-theme="light"] #exportReportPdfBtn:hover,
+body[data-theme="light"] main.container button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+/* ==========================================
+   BLOCO 04: Resumo Executivo e KPIs do Relatorio
+   ========================================== */
+body[data-theme="light"] #summary .kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+body[data-theme="light"] #summary .kpi-grid > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+  min-height: auto;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--rep-card-bg) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid var(--border-light) !important;
+  box-shadow: var(--shadow-kpi);
+  box-sizing: border-box;
+}
+
+body[data-theme="light"] #summary .kpi-grid > div h3 {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-secondary) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85) !important;
+}
+
+body[data-theme="light"] #summary .kpi-grid > div p {
+  margin: 0;
+  max-width: 100%;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--accent-primary) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85) !important;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+body[data-theme="light"] #summary #reportTarget {
+  font-size: 0.98rem;
+  line-height: 1.35;
+  color: var(--text-primary) !important;
+}
+
+body[data-theme="light"] #summary #reportRisk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: none !important;
+}
+
+body[data-theme="light"] #summary #reportRisk[data-risk="LOW"] {
+  background-color: var(--rep-risk-low-bg) !important;
+  color: var(--rep-risk-low-text) !important;
+}
+
+body[data-theme="light"] #summary #reportRisk[data-risk="MEDIUM"] {
+  background-color: var(--rep-risk-medium-bg) !important;
+  color: var(--rep-risk-medium-text) !important;
+}
+
+body[data-theme="light"] #summary #reportRisk[data-risk="HIGH"] {
+  background-color: var(--rep-risk-high-bg) !important;
+  color: var(--rep-risk-high-text) !important;
+}
+
+/* ==========================================
+   BLOCO 05: Modulos Verificados e Recomendacoes
+   ========================================== */
+body[data-theme="light"] #audit-results {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+body[data-theme="light"] #audit-results > div {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+body[data-theme="light"] #audit-results ul {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 220px;
+  max-height: 360px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--rep-list-bg) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-light) !important;
+  border-radius: 12px;
+  box-shadow: var(--shadow-soft);
+  box-sizing: border-box;
+}
+
+body[data-theme="light"] #audit-results .history-item,
+body[data-theme="light"] #audit-results .history-empty {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  background: var(--rep-item-bg) !important;
+  border: 1px solid var(--border-light) !important;
+  border-radius: 8px;
+  padding: 11px 14px;
+  display: block;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+body[data-theme="light"] #audit-results .history-item:hover {
+  border-color: var(--accent-primary) !important;
+  background: var(--rep-item-hover-bg) !important;
+  transform: translateX(2px);
+}
+
+body[data-theme="light"] #audit-results .history-item > span,
+body[data-theme="light"] #audit-results .history-empty > span,
+body[data-theme="light"] #audit-results .history-empty {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  color: var(--text-primary) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.85) !important;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  font-weight: 500;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   BLOCO 06: Pre-visualizacao JSON e Scrollbar
+   ========================================== */
+body[data-theme="light"] .json-section {
+  margin-top: 20px;
+}
+
+body[data-theme="light"] .json-section h3 {
+  margin: 0 0 12px;
+}
+
+body[data-theme="light"] #reportJsonPreview {
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
+  background: var(--rep-json-bg) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-json) !important;
+  border-radius: 12px;
+  padding: 18px;
+  color: var(--accent-primary) !important;
+  text-shadow: none !important;
+  box-shadow: var(--shadow-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  min-height: 180px;
+  max-height: 340px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+body[data-theme="light"] #audit-results ul::-webkit-scrollbar,
+body[data-theme="light"] #reportJsonPreview::-webkit-scrollbar {
+  width: 8px;
+}
+
+body[data-theme="light"] #audit-results ul::-webkit-scrollbar-track,
+body[data-theme="light"] #reportJsonPreview::-webkit-scrollbar-track {
+  background: var(--rep-scroll-track);
+  border-radius: 8px;
+}
+
+body[data-theme="light"] #audit-results ul::-webkit-scrollbar-thumb,
+body[data-theme="light"] #reportJsonPreview::-webkit-scrollbar-thumb {
+  background: var(--rep-scroll-thumb);
+  border-radius: 8px;
+}
+
+body[data-theme="light"] #audit-results ul::-webkit-scrollbar-thumb:hover,
+body[data-theme="light"] #reportJsonPreview::-webkit-scrollbar-thumb:hover {
+  background: var(--rep-scroll-thumb-hover);
+}
+
+/* ==========================================
+   BLOCO 07: Foco Acessivel e Responsividade
+   ========================================== */
+body[data-theme="light"] select#reportAuditSelect.quick-url-btn:focus-visible,
+body[data-theme="light"] #exportSingleJsonBtn:focus-visible,
+body[data-theme="light"] #exportAllJsonBtn:focus-visible,
+body[data-theme="light"] #exportReportPdfBtn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 960px) {
+  body[data-theme="light"] #summary .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body[data-theme="light"] #audit-results {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  body[data-theme="light"] {
+    background-attachment: scroll;
+  }
+
+  body[data-theme="light"] .card .input-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  body[data-theme="light"] select#reportAuditSelect.quick-url-btn,
+  body[data-theme="light"] #exportSingleJsonBtn,
+  body[data-theme="light"] #exportAllJsonBtn,
+  body[data-theme="light"] #exportReportPdfBtn {
+    width: 100%;
+    min-width: 0;
+    justify-content: center;
+  }
+
+  body[data-theme="light"] #audit-results ul {
+    min-height: 180px;
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 600px) {
+  body[data-theme="light"] #summary .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}

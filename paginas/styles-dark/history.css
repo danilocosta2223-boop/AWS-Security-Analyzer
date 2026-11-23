@@ -1,19 +1,53 @@
 /* ==========================================
-   BLOCO 01: Fundo e Base da Pagina de Historico
+   BLOCO 01: Variaveis, Fundo e Base da Pagina de Historico
    ========================================== */
+:root,
+body[data-theme="dark"] {
+  --hist-card-bg: rgba(15, 23, 42, 0.86);
+  --hist-input-bg: rgba(9, 15, 28, 0.88);
+  --hist-list-bg: rgba(15, 23, 42, 0.9);
+  --hist-item-bg: rgba(30, 41, 59, 0.95);
+  --hist-item-hover: rgba(30, 41, 59, 1);
+  --hist-text-primary: #f8fafc;
+  --hist-text-muted: #94a3b8;
+  --hist-accent: #38bdf8;
+  --hist-border: rgba(56, 189, 248, 0.35);
+  --hist-border-input: rgba(56, 189, 248, 0.45);
+  --hist-border-select: rgba(56, 189, 248, 0.48);
+  --hist-shadow-card: 0 8px 24px rgba(2, 6, 23, 0.45);
+  --hist-shadow-kpi: 0 8px 24px rgba(2, 6, 23, 0.42);
+}
+
+body[data-theme="light"] {
+  --hist-card-bg: rgba(15, 23, 42, 0.9);
+  --hist-input-bg: rgba(10, 15, 28, 0.88);
+  --hist-list-bg: rgba(15, 23, 42, 0.92);
+  --hist-item-bg: rgba(30, 41, 59, 0.95);
+  --hist-item-hover: rgba(30, 41, 59, 1);
+  --hist-text-primary: #f8fafc;
+  --hist-text-muted: #cbd5e1;
+  --hist-accent: #38bdf8;
+  --hist-border: rgba(56, 189, 248, 0.45);
+  --hist-border-input: rgba(56, 189, 248, 0.55);
+  --hist-border-select: rgba(56, 189, 248, 0.55);
+  --hist-shadow-card: 0 10px 28px rgba(0, 0, 0, 0.55);
+  --hist-shadow-kpi: 0 10px 28px rgba(0, 0, 0, 0.52);
+}
+
 body[data-theme="dark"] .history-page,
+body[data-theme="light"] .history-page,
 body .history-page {
   min-height: 100vh;
 }
 
 main.container .card {
-  background: rgba(15, 23, 42, 0.86) !important;
+  background: var(--hist-card-bg) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  border: 1px solid var(--hist-border) !important;
   border-radius: 14px;
   padding: 20px;
-  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.45);
+  box-shadow: var(--hist-shadow-card);
   box-sizing: border-box;
 }
 
@@ -31,30 +65,31 @@ main.container .card {
 #historySearchInput {
   flex: 1 1 260px;
   min-width: 220px;
-  background-color: rgba(9, 15, 28, 0.88) !important;
-  border: 1px solid rgba(56, 189, 248, 0.45) !important;
-  color: #f8fafc !important;
+  background-color: var(--hist-input-bg) !important;
+  border: 1px solid var(--hist-border-input) !important;
+  color: var(--hist-text-primary) !important;
   border-radius: 10px;
   padding: 11px 16px;
   font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 #historySearchInput::placeholder {
-  color: #94a3b8;
+  color: var(--hist-text-muted);
 }
 
 #historySearchInput:focus {
   outline: none;
-  border-color: #38bdf8 !important;
+  border-color: var(--hist-accent) !important;
   box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.22) !important;
 }
 
 select#historyRiskFilter.quick-url-btn {
   min-width: 175px;
   padding: 11px 14px;
-  background-color: rgba(9, 15, 28, 0.88) !important;
-  border: 1px solid rgba(56, 189, 248, 0.48) !important;
-  color: #f8fafc !important;
+  background-color: var(--hist-input-bg) !important;
+  border: 1px solid var(--hist-border-select) !important;
+  color: var(--hist-text-primary) !important;
   border-radius: 10px;
   font-size: 0.92rem;
   cursor: pointer;
@@ -95,11 +130,11 @@ select#historyRiskFilter.quick-url-btn option {
 }
 
 #summary .kpi-grid > div {
-  background: rgba(15, 23, 42, 0.86) !important;
-  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  background: var(--hist-card-bg) !important;
+  border: 1px solid var(--hist-border) !important;
   border-radius: 14px;
   padding: 18px;
-  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.42);
+  box-shadow: var(--hist-shadow-kpi);
 }
 
 /* ==========================================
@@ -119,8 +154,8 @@ select#historyRiskFilter.quick-url-btn option {
   max-height: 460px;
   overflow-y: auto;
   overflow-x: hidden;
-  background: rgba(15, 23, 42, 0.9) !important;
-  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  background: var(--hist-list-bg) !important;
+  border: 1px solid var(--hist-border) !important;
   border-radius: 12px;
   box-sizing: border-box;
 }
@@ -131,8 +166,8 @@ select#historyRiskFilter.quick-url-btn option {
   max-width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  background: rgba(30, 41, 59, 0.95) !important;
-  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  background: var(--hist-item-bg) !important;
+  border: 1px solid var(--hist-border) !important;
   border-radius: 8px;
   padding: 12px 16px;
   display: flex;
@@ -145,9 +180,17 @@ select#historyRiskFilter.quick-url-btn option {
 }
 
 #historyList .history-item:hover {
-  border-color: #38bdf8 !important;
-  background: rgba(30, 41, 59, 1) !important;
+  border-color: var(--hist-accent) !important;
+  background: var(--hist-item-hover) !important;
   transform: translateX(3px);
+}
+
+#historyList .history-item:focus-visible,
+#clearHistoryBtn:focus-visible,
+#exportHistoryJsonBtn:focus-visible,
+select#historyRiskFilter.quick-url-btn:focus-visible {
+  outline: 2px solid var(--hist-accent);
+  outline-offset: 2px;
 }
 
 #historyList .history-item span:first-child {
@@ -155,18 +198,18 @@ select#historyRiskFilter.quick-url-btn option {
   min-width: 0;
   max-width: 75%;
   font-weight: 600;
-  color: #f8fafc;
+  color: var(--hist-text-primary);
   word-break: break-word;
   overflow-wrap: anywhere;
 }
 
 #historyList .history-item strong {
-  color: #38bdf8;
+  color: var(--hist-accent);
 }
 
 #historyList .history-item span:last-child {
   font-size: 0.84rem;
-  color: #94a3b8;
+  color: var(--hist-text-muted);
   margin-left: auto;
   white-space: nowrap;
 }

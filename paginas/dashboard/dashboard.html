@@ -6,15 +6,15 @@
        ========================================== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CyberCheck PRO - Dashboard</title>
+  <title>CyberCheck PRO - Dashboard Executivo e Relatorio Vivo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="../../styles-dark/normalize.css">
-  <link id="dashboard-theme-css" rel="stylesheet" href="../../styles-dark/dashboard.css">
-  <link rel="stylesheet" href="../../styles-dark/desktop.css">
-  <link rel="stylesheet" href="../../styles-dark/mobile.css">
+  <link rel="stylesheet" href="../styles-dark/normalize.css">
+  <link id="dashboard-theme-css" rel="stylesheet" href="../styles-dark/dashboard.css">
+  <link rel="stylesheet" href="../styles-dark/desktop.css">
+  <link rel="stylesheet" href="../styles-dark/mobile.css">
 </head>
 <body data-theme="dark">
   <!-- ==========================================
@@ -47,24 +47,34 @@
        BLOCO 03: Estado da API e Controles do Painel
        ========================================== -->
   <main class="container">
-    <section id="api-status" aria-label="Estado da API">
+    <section class="api-status-bar" aria-label="Estado da API">
       <p id="apiStatus">Verificando API...</p>
-      <div id="apiVersion">Aplicacao: Cyber Shield API</div>
-      <div id="backendType">Timestamp: --</div>
+      <div class="api-meta">
+        <span id="apiVersion">Aplicacao: Cyber Shield API</span>
+        <span id="backendType">Timestamp: --</span>
+      </div>
     </section>
 
     <section class="card" aria-label="Resumo geral de seguranca">
-      <h2>Painel Executivo de Seguranca</h2>
-      <p>Visao consolidada das auditorias realizadas, pontuacao media e nivel de risco.</p>
-      <div class="quick-targets">
-        <button id="refreshDashboardBtn" type="button" class="quick-url-btn">
-          <i class="fa-solid fa-rotate" aria-hidden="true"></i>
-          <span>Atualizar Painel</span>
-        </button>
-        <a href="../audit/audit.html" class="quick-url-btn">
-          <i class="fa-solid fa-magnifying-glass-shield" aria-hidden="true"></i>
-          <span>Nova Auditoria</span>
-        </a>
+      <div class="card-header-row">
+        <div>
+          <h2>Painel Executivo de Seguranca</h2>
+          <p>Visao consolidada das auditorias realizadas, pontuacao media, telemetria ao vivo e nivel de risco.</p>
+        </div>
+        <div class="quick-targets">
+          <button id="refreshDashboardBtn" type="button" class="quick-url-btn">
+            <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+            <span>Atualizar Painel</span>
+          </button>
+          <button id="regenerateLivePdfBtn" type="button" class="quick-url-btn">
+            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+            <span>Gerar PDF Executivo</span>
+          </button>
+          <a href="../audit/audit.html" class="quick-url-btn">
+            <i class="fa-solid fa-magnifying-glass-shield" aria-hidden="true"></i>
+            <span>Nova Auditoria</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -73,55 +83,87 @@
          ========================================== -->
     <section id="summary" aria-label="Indicadores principais">
       <div class="kpi-grid">
-        <div>
+        <div class="kpi-card">
           <h3><i class="fa-solid fa-clipboard-check" aria-hidden="true"></i> Total de Auditorias</h3>
-          <p id="totalAudits">0</p>
+          <p id="totalAudits" class="kpi-value">0</p>
         </div>
 
-        <div>
+        <div class="kpi-card">
           <h3><i class="fa-solid fa-gauge-high" aria-hidden="true"></i> Score Medio</h3>
-          <p id="averageScore">--</p>
+          <p id="averageScore" class="kpi-value">--</p>
         </div>
 
-        <div>
+        <div class="kpi-card">
           <h3><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Risco Alto</h3>
-          <p id="highRiskCount">0</p>
+          <p id="highRiskCount" class="kpi-value">0</p>
         </div>
 
-        <div>
+        <div class="kpi-card">
           <h3><i class="fa-solid fa-shield-check" aria-hidden="true"></i> Risco Baixo</h3>
-          <p id="lowRiskCount">0</p>
+          <p id="lowRiskCount" class="kpi-value">0</p>
         </div>
       </div>
     </section>
 
     <!-- ==========================================
-         BLOCO 05: Graficos e Metricas Consolidados
+         BLOCO 05: Graficos e Ultimas Auditorias
          ========================================== -->
-    <div id="audit-results">
-      <div>
-        <h3>Distribuicao de Riscos</h3>
-        <div class="chart-container">
-          <canvas id="riskChart"></canvas>
+    <div id="audit-results" class="main-grid">
+      <div class="left-column">
+        <div class="card risk-distribution-card">
+          <h3><i class="fa-solid fa-chart-pie" aria-hidden="true"></i> Distribuicao de Riscos</h3>
+          <div class="chart-container">
+            <canvas id="riskChart"></canvas>
+          </div>
         </div>
+
+        <section id="history-preview" class="card" aria-label="Auditorias recentes">
+          <h3><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Ultimas Auditorias</h3>
+          <ul id="dashboardHistoryList">
+            <li class="history-empty">Nenhuma auditoria registrada.</li>
+          </ul>
+        </section>
       </div>
 
-      <div>
-        <h3>Evolucao das Auditorias</h3>
-        <div class="chart-container">
-          <canvas id="trendChart"></canvas>
+      <div class="right-column">
+        <div class="card audit-evolution-card">
+          <h3><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Evolucao das Auditorias</h3>
+          <div class="chart-container">
+            <canvas id="trendChart"></canvas>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- ==========================================
-         BLOCO 06: Ultimas Auditorias no Painel
+         BLOCO 06: Relatorio Vivo, Explicacao e Linha do Tempo
          ========================================== -->
-    <section id="history-preview" aria-label="Auditorias recentes">
-      <h3><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Ultimas Auditorias</h3>
-      <ul id="dashboardHistoryList">
-        <li class="history-empty">Nenhuma auditoria registrada.</li>
-      </ul>
+    <section id="liveReportContainer" class="card live-report-card" aria-label="Relatorio Vivo em tempo real">
+      <div class="live-header-grid">
+        <div>
+          <h3><i class="fa-solid fa-tower-broadcast" aria-hidden="true"></i> Relatorio Vivo (Live Report)</h3>
+          <p id="liveScoreValue" class="kpi-value">Score Atual: --/100</p>
+        </div>
+        <div class="live-meta-group">
+          <p id="liveScoreDelta">Ultima variacao: --</p>
+          <p id="liveLastUpdate">Ultima atualizacao: --</p>
+        </div>
+      </div>
+
+      <div class="live-summary-box">
+        <h4><i class="fa-solid fa-robot" aria-hidden="true"></i> Resumo Executivo</h4>
+        <p id="liveExecutiveSummary">Aguardando dados de auditoria para gerar o resumo executivo.</p>
+      </div>
+
+      <div class="live-section-block">
+        <h4><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Diagnostico Explicado</h4>
+        <div id="liveLaymanCards" class="live-layman-grid"></div>
+      </div>
+
+      <div class="live-section-block">
+        <h4><i class="fa-solid fa-list-check" aria-hidden="true"></i> Linha do Tempo da Auditoria</h4>
+        <ul id="liveTimelineList" class="live-timeline-list"></ul>
+      </div>
     </section>
   </main>
 
@@ -129,6 +171,8 @@
        BLOCO 07: Scripts e Bibliotecas
        ========================================== -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script>
   <script src="./dashboard.js"></script>
 </body>
 </html>
