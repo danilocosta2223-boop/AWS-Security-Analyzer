@@ -9,9 +9,13 @@
 
 .solutions {
 
+    position: relative;
+
     width: 100%;
 
     padding: 80px 50px;
+
+    overflow: hidden;
 
     background:
         linear-gradient(
@@ -22,11 +26,41 @@
 
 }
 
+.solutions::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+
+    height: 600px;
+
+    top: -300px;
+
+    right: -250px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            rgba(34,199,255,.12),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+}
+
 /* =====================================================
    SECTION TITLE
 ===================================================== */
 
 .section-title {
+
+    position: relative;
+
+    z-index: 1;
 
     text-align: center;
 
@@ -36,13 +70,24 @@
 
 .section-title h2 {
 
-    color: #ffffff;
-
     font-size: 56px;
 
     font-weight: 800;
 
     margin-bottom: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #22c7ff
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
 
 }
 
@@ -65,6 +110,10 @@
 ===================================================== */
 
 .cards-grid {
+
+    position: relative;
+
+    z-index: 1;
 
     max-width: 1600px;
 
@@ -102,24 +151,34 @@
 
     justify-content: flex-start;
 
+    text-decoration: none;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+
     background:
         linear-gradient(
             180deg,
-            rgba(7,18,38,.95),
-            rgba(2,10,25,.98)
+            rgba(10,18,35,.86),
+            rgba(2,10,25,.90)
         );
 
     border:
-        1px solid rgba(56,189,248,.18);
+        1px solid rgba(56,189,248,.22);
 
     overflow: hidden;
+
+    animation: fadeUp .7s ease forwards;
 
     transition: all .3s ease;
 
 }
 
 /* =====================================================
-   CYBER GLOW
+   CYBER GLOW & TOP BAR
 ===================================================== */
 
 .card::before {
@@ -139,36 +198,62 @@
     border-radius: 50%;
 
     background:
-
         radial-gradient(
-
-            rgba(56,189,248,.12),
-
+            rgba(56,189,248,.16),
             transparent 70%
-
         );
 
     pointer-events: none;
 
 }
 
+.card::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0284c7,
+            #22c7ff
+        );
+
+}
+
 /* =====================================================
-   HOVER
+   HOVER & KEYBOARD FOCUS
 ===================================================== */
 
-.card:hover {
+.card:hover,
+.card:focus-visible {
 
     transform:
-        translateY(-8px);
+        translateY(-10px)
+        scale(1.03);
 
-    border-color:
-        rgba(56,189,248,.60);
+    border-color: #22c7ff;
 
     box-shadow:
+        0 0 40px rgba(34,199,255,.25),
+        0 20px 50px rgba(0,0,0,.55);
 
-        0 0 30px rgba(56,189,248,.20),
+}
 
-        0 20px 50px rgba(0,0,0,.50);
+.card:focus-visible {
+
+    outline: 3px solid #22c7ff;
+
+    outline-offset: 3px;
 
 }
 
@@ -178,11 +263,32 @@
 
 .card i {
 
-    font-size: 34px;
+    width: 70px;
 
-    color: #38bdf8;
+    height: 70px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0284c7,
+            #22c7ff
+        );
+
+    color: #ffffff;
+
+    font-size: 30px;
 
     margin-bottom: 25px;
+
+    flex-shrink: 0;
 
 }
 
@@ -213,6 +319,430 @@
     font-size: 16px;
 
     line-height: 1.7;
+
+}
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(30px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+/* =====================================================
+   RESPONSIVE TABLET
+===================================================== */
+
+@media (max-width: 1200px) {
+
+    .cards-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                1fr
+            );
+
+    }
+
+}
+
+/* =====================================================
+   RESPONSIVE MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .solutions {
+
+        padding: 60px 20px;
+
+    }
+
+    .section-title h2 {
+
+        font-size: 40px;
+
+    }
+
+    .cards-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .card {
+
+        min-height: 180px;
+
+        padding: 25px;
+
+    }
+
+}
+
+/* =====================================================
+   CYBERCHECK PRO
+   CARDS SECTION - DARK THEME
+===================================================== */
+
+/* =====================================================
+   SOLUTIONS
+===================================================== */
+
+.solutions {
+
+    position: relative;
+
+    width: 100%;
+
+    padding: 80px 50px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            #020817,
+            #041126
+        );
+
+}
+
+.solutions::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 600px;
+
+    height: 600px;
+
+    top: -300px;
+
+    right: -250px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            rgba(34,199,255,.12),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+}
+
+/* =====================================================
+   SECTION TITLE
+===================================================== */
+
+.section-title {
+
+    position: relative;
+
+    z-index: 1;
+
+    text-align: center;
+
+    margin-bottom: 70px;
+
+}
+
+.section-title h2 {
+
+    font-size: 56px;
+
+    font-weight: 800;
+
+    margin-bottom: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ffffff,
+            #22c7ff
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+
+}
+
+.section-title p {
+
+    color: rgba(255,255,255,.80);
+
+    font-size: 18px;
+
+    line-height: 1.8;
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+}
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.cards-grid {
+
+    position: relative;
+
+    z-index: 1;
+
+    max-width: 1600px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(300px,1fr)
+        );
+
+    gap: 30px;
+
+}
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card {
+
+    position: relative;
+
+    min-height: 220px;
+
+    padding: 35px;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-start;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(10,18,35,.86),
+            rgba(2,10,25,.90)
+        );
+
+    border:
+        1px solid rgba(56,189,248,.22);
+
+    overflow: hidden;
+
+    animation: fadeUp .7s ease forwards;
+
+    transition: all .3s ease;
+
+}
+
+/* =====================================================
+   CYBER GLOW & TOP BAR
+===================================================== */
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+
+    height: 220px;
+
+    top: -120px;
+
+    right: -120px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            rgba(56,189,248,.16),
+            transparent 70%
+        );
+
+    pointer-events: none;
+
+}
+
+.card::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0284c7,
+            #22c7ff
+        );
+
+}
+
+/* =====================================================
+   HOVER & KEYBOARD FOCUS
+===================================================== */
+
+.card:hover,
+.card:focus-visible {
+
+    transform:
+        translateY(-10px)
+        scale(1.03);
+
+    border-color: #22c7ff;
+
+    box-shadow:
+        0 0 40px rgba(34,199,255,.25),
+        0 20px 50px rgba(0,0,0,.55);
+
+}
+
+.card:focus-visible {
+
+    outline: 3px solid #22c7ff;
+
+    outline-offset: 3px;
+
+}
+
+/* =====================================================
+   ICON
+===================================================== */
+
+.card i {
+
+    width: 70px;
+
+    height: 70px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0284c7,
+            #22c7ff
+        );
+
+    color: #ffffff;
+
+    font-size: 30px;
+
+    margin-bottom: 25px;
+
+    flex-shrink: 0;
+
+}
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.card h3 {
+
+    color: #ffffff;
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    margin-bottom: 15px;
+
+}
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.card p {
+
+    color: rgba(255,255,255,.85);
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+}
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes fadeUp {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(30px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
 
 }
 

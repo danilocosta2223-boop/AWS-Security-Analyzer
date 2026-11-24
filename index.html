@@ -2,7 +2,6 @@
 <html lang="pt-BR" data-theme="dark">
 
 <head>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,280 +11,195 @@
     <!-- =====================================================
          THEME SYSTEM (Inicializado em Dark Mode)
     ===================================================== -->
-
-    <link id="normalize-theme"
-          rel="stylesheet"
-          href="styles-dark/normalize.css">
-
-    <link id="global-theme"
-          rel="stylesheet"
-          href="styles-dark/global.css">
-
-    <link id="hero-theme"
-          rel="stylesheet"
-          href="styles-dark/hero.css">
-
-    <link id="cards-theme"
-          rel="stylesheet"
-          href="styles-dark/cards.css">
-
-    <link id="dashboard-theme"
-          rel="stylesheet"
-          href="styles-dark/dashboard.css">
-
-    <link id="desktop-theme"
-          rel="stylesheet"
-          href="styles-dark/desktop.css">
-
-    <link id="mobile-theme"
-          rel="stylesheet"
-          href="styles-dark/mobile.css">
-
-    <link id="theme-style"
-          rel="stylesheet"
-          href="styles-dark/style.css">
+    <link id="normalize-theme" rel="stylesheet" href="styles-dark/normalize.css">
+    <link id="theme-style" rel="stylesheet" href="styles-dark/style.css">
+    <link id="hero-theme" rel="stylesheet" href="styles-dark/hero.css">
+    <link id="cards-theme" rel="stylesheet" href="styles-dark/cards.css">
+    <link id="desktop-theme" rel="stylesheet" href="styles-dark/desktop.css">
+    <link id="mobile-theme" rel="stylesheet" href="styles-dark/mobile.css">
 
     <!-- FONT AWESOME -->
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
 </head>
 
 <body>
 
-    <!-- HEADER -->
-
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
     <header class="header">
-
         <div class="logo">
-
             <i class="fa-solid fa-shield-halved"></i>
-
             <div>
-
                 <h2>
                     CyberCheck
                     <span>PRO</span>
                 </h2>
-
                 <small>
                     Segurança Digital Inteligente
                 </small>
-
             </div>
-
         </div>
 
         <nav class="menu">
-
-            <a href="#" class="active">
+            <a href="index.html" class="active">
                 Início
             </a>
-
             <a href="paginas/dashboard/dashboard.html">
                 Dashboard
             </a>
-
             <a href="paginas/audit/audit.html">
                 Auditoria
             </a>
-
             <a href="paginas/reports/reports.html">
                 Relatórios
             </a>
-
             <a href="paginas/history/history.html">
                 Histórico
             </a>
-
+            <a href="paginas/about/about.html">
+                Desenvolvedor
+            </a>
         </nav>
 
         <div class="header-actions">
-
             <button id="themeToggle" class="theme-toggle">
-
                 <i id="themeIcon" class="fa-solid fa-moon"></i>
-
             </button>
 
-            <a href="#" class="btn-login">
-
+            <a href="paginas/dashboard/dashboard.html" class="btn-login">
                 <i class="fa-solid fa-user"></i>
-
                 Entrar
-
             </a>
-
         </div>
-
     </header>
 
-    <!-- HERO -->
+    <!-- =====================================================
+         MAIN CONTENT
+    ===================================================== -->
+    <main>
 
-    <section class="hero">
-
-        <div class="hero-container">
-
-            <div class="hero-content">
-
-                <span class="subtitle">
-                    CIBERSEGURANÇA PARA UM MUNDO MAIS SEGURO
-                </span>
-
-                <h1>
-
-                    Proteja sua infraestrutura digital
-                    com
-
-                    <span class="blue">
-                        inteligência.
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <span class="subtitle">
+                        CIBERSEGURANÇA PARA UM MUNDO MAIS SEGURO
                     </span>
 
-                </h1>
+                    <h1>
+                        Proteja sua infraestrutura digital
+                        com
+                        <span class="blue">
+                            inteligência.
+                        </span>
+                    </h1>
 
+                    <p>
+                        Analise URLs, senhas, vazamentos e ameaças com
+                        ferramentas profissionais de segurança cibernética.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <a href="paginas/audit/audit.html" class="btn-primary">
+                            Testar Link Suspeito
+                        </a>
+                        <a href="paginas/dashboard/dashboard.html" class="btn-secondary">
+                            Começar Treinamento
+                        </a>
+                    </div>
+
+                    <div class="hero-features">
+                        <span>🛡 Gratuito</span>
+                        <span>⚡ Rápido e Seguro</span>
+                        <span>👥 Sem Cadastro Obrigatório</span>
+                    </div>
+
+                    <div class="creator-box">
+                        <h3>👨‍💻 Desenvolvido por Danilo Rafael da Silva Costa</h3>
+                        <p>
+                            Estudante de Defesa Cibernética na FIAP,
+                            com formação em Administração e MBA em Gestão de Projetos.
+                            Atualmente também está se aprofundando no desenvolvimento
+                            de software por meio dos cursos da BYU Pathway Worldwide,
+                            ampliando conhecimentos em programação, arquitetura de sistemas
+                            e soluções tecnológicas.
+                        </p>
+                        <a href="paginas/about/about.html" class="btn-creator">
+                            Conheça o Criador
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOLUÇÕES -->
+        <section class="solutions">
+            <div class="section-title">
+                <h2>
+                    Ferramentas de Segurança
+                </h2>
                 <p>
-
-                    Analise URLs, senhas, vazamentos e ameaças com
-                    ferramentas profissionais de segurança cibernética.
-
+                    Recursos para análise,
+                    proteção e conscientização digital.
                 </p>
-
-                <div class="hero-buttons">
-
-                    <a href="paginas/audit/audit.html" class="btn-primary">
-
-                        Testar Link Suspeito
-
-                    </a>
-
-                    <a href="#" class="btn-secondary">
-
-                        Começar Treinamento
-
-                    </a>
-
-                </div>
-
-                <div class="hero-features">
-
-                    <span>🛡 Gratuito</span>
-
-                    <span>⚡ Rápido e Seguro</span>
-
-                    <span>👥 Sem Cadastro Obrigatório</span>
-
-                </div>
-
             </div>
 
-        </div>
+            <div class="cards-grid">
+                <a href="paginas/dashboard/dashboard.html" class="card">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <h3>Dashboard</h3>
+                    <p>
+                        Painel executivo de segurança.
+                    </p>
+                </a>
 
-    </section>
+                <a href="paginas/audit/audit.html" class="card">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>Auditoria</h3>
+                    <p>
+                        Auditoria completa de segurança.
+                    </p>
+                </a>
 
-    <!-- SOLUÇÕES -->
+                <a href="paginas/reports/reports.html" class="card">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <h3>Relatórios</h3>
+                    <p>
+                        Relatórios técnicos exportados.
+                    </p>
+                </a>
 
-    <section class="solutions">
+                <a href="paginas/history/history.html" class="card">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <h3>Histórico</h3>
+                    <p>
+                        Histórico de auditorias realizadas.
+                    </p>
+                </a>
+            </div>
+        </section>
 
-        <div class="section-title">
+    </main>
 
-            <h2>
-                Ferramentas de Segurança
-            </h2>
-
-            <p>
-                Recursos para análise,
-                proteção e conscientização digital.
-            </p>
-
-        </div>
-
-        <div class="cards-grid">
-
-            <a href="paginas/dashboard/dashboard.html"
-               class="card">
-
-                <i class="fa-solid fa-chart-line"></i>
-
-                <h3>Dashboard</h3>
-
-                <p>
-                    Painel executivo de segurança.
-                </p>
-
-            </a>
-
-            <a href="paginas/audit/audit.html"
-               class="card">
-
-                <i class="fa-solid fa-shield-halved"></i>
-
-                <h3>Auditoria</h3>
-
-                <p>
-                    Auditoria completa de segurança.
-                </p>
-
-            </a>
-
-            <a href="paginas/reports/reports.html"
-               class="card">
-
-                <i class="fa-solid fa-file-lines"></i>
-
-                <h3>Relatórios</h3>
-
-                <p>
-                    Relatórios técnicos exportados.
-                </p>
-
-            </a>
-
-            <a href="paginas/history/history.html"
-               class="card">
-
-                <i class="fa-solid fa-clock-rotate-left"></i>
-
-                <h3>Histórico</h3>
-
-                <p>
-                    Histórico de auditorias realizadas.
-                </p>
-
-            </a>
-
-        </div>
-
-    </section>
-
-    <!-- FOOTER -->
-
+    <!-- =====================================================
+         FOOTER
+    ===================================================== -->
     <footer class="footer">
-
         <div class="footer-logo">
-
             <h3>CyberCheck</h3>
-
             <p>
-
                 Tecnologia a favor de um
                 ambiente digital mais seguro.
-
             </p>
-
         </div>
 
         <div class="footer-links">
-
-            <a href="#">Sobre</a>
-
+            <a href="paginas/about/about.html">Sobre</a>
             <a href="#">Privacidade</a>
-
             <a href="#">Termos</a>
-
             <a href="#">Contato</a>
-
         </div>
-
     </footer>
 
     <script src="script/app.js"></script>

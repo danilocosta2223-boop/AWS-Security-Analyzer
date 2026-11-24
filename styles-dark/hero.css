@@ -342,3 +342,154 @@
     pointer-events: none;
 
 }
+
+.creator-box {
+
+    margin-top: 35px;
+
+    padding: 20px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border:
+        1px solid rgba(56,189,248,.20);
+
+    backdrop-filter: blur(10px);
+
+}
+
+.creator-box h3 {
+
+    color: #22c7ff;
+
+    font-size: 20px;
+
+    margin-bottom: 10px;
+}
+
+.creator-box p {
+
+    color: rgba(255,255,255,.80);
+
+    font-size: 15px;
+
+    line-height: 1.7;
+}
+
+.btn-creator {
+
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 12px 20px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0284c7,
+            #22c7ff
+        );
+
+    color: #fff;
+
+    font-weight: 700;
+}
+
+/* =====================================================
+   CREATOR BOX - DARK THEME (dentro de .hero-content)
+===================================================== */
+
+.creator-box {
+    position: relative;
+    margin-top: 26px;
+    padding: 24px 26px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    overflow: hidden;
+    background: linear-gradient(
+        135deg,
+        rgba(10, 18, 35, 0.85),
+        rgba(4, 17, 38, 0.92)
+    );
+    border: 1px solid rgba(56, 189, 248, 0.22);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.creator-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #0284c7, #22c7ff);
+}
+
+.creator-box:hover {
+    transform: translateY(-2px);
+    border-color: #22c7ff;
+    box-shadow: 0 0 24px rgba(34, 199, 255, 0.18);
+}
+
+.creator-box h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+
+.creator-box .creator-box p,
+.creator-box p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.82);
+    margin: 0;
+}
+
+.btn-creator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #ffffff;
+    background: linear-gradient(135deg, #0284c7, #22c7ff);
+    box-shadow: 0 8px 20px rgba(2, 132, 199, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-creator:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 22px rgba(34, 199, 255, 0.38);
+}
+
+.btn-creator:focus-visible {
+    outline: 2px solid #22c7ff;
+    outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+    .creator-box {
+        padding: 20px 18px;
+    }
+
+    .creator-box h3 {
+        font-size: 16px;
+    }
+}
