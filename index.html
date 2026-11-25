@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 
+<!-- =====================================================
+     BLOCO 01: HEAD, SEO, OPENGRAPH, TEMAS E FONTES
+     ===================================================== -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>CyberCheck PRO | Segurança Digital Inteligente</title>
+    <meta name="description" content="Análise de links, auditoria de segurança, treinamento e ferramentas de cibersegurança.">
+    <meta name="author" content="Danilo Rafael da Silva Costa">
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content="CyberCheck PRO | Segurança Digital Inteligente">
+    <meta property="og:description" content="Verifique links, avalie senhas e descubra ameaças em um só lugar com ferramentas inteligentes de proteção digital.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="imagens/dark-theme/hero-bg.webp.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="imagens/favicon.png">
 
     <!-- =====================================================
          THEME SYSTEM (Inicializado em Dark Mode)
@@ -25,8 +39,8 @@
 <body>
 
     <!-- =====================================================
-         HEADER
-    ===================================================== -->
+         BLOCO 02: HEADER, NAVEGACAO E ACOES
+         ===================================================== -->
     <header class="header">
         <div class="logo">
             <i class="fa-solid fa-shield-halved"></i>
@@ -63,7 +77,7 @@
         </nav>
 
         <div class="header-actions">
-            <button id="themeToggle" class="theme-toggle">
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Alternar tema claro ou escuro" title="Alternar tema">
                 <i id="themeIcon" class="fa-solid fa-moon"></i>
             </button>
 
@@ -75,65 +89,150 @@
     </header>
 
     <!-- =====================================================
-         MAIN CONTENT
-    ===================================================== -->
+         BLOCO 03: HERO PRINCIPAL, CARDS DE SEGURANCA E CRIADOR
+         ===================================================== -->
     <main>
 
         <!-- HERO -->
         <section class="hero">
-            <div class="hero-container">
-                <div class="hero-content">
-                    <span class="subtitle">
-                        CIBERSEGURANÇA PARA UM MUNDO MAIS SEGURO
+
+            <div class="hero-container-modern">
+
+                <div class="hero-left">
+
+                    <span class="hero-badge">
+                        🛡️ CIBERSEGURANÇA DESCOMPLICADA
                     </span>
 
                     <h1>
-                        Proteja sua infraestrutura digital
-                        com
-                        <span class="blue">
-                            inteligência.
-                        </span>
+                        Sua <span class="blue">segurança digital</span>
+                        começa aqui.
                     </h1>
 
                     <p>
-                        Analise URLs, senhas, vazamentos e ameaças com
-                        ferramentas profissionais de segurança cibernética.
+                        Verifique links, avalie senhas e descubra ameaças
+                        em um só lugar com ferramentas inteligentes
+                        de proteção digital.
                     </p>
 
                     <div class="hero-buttons">
+
                         <a href="paginas/audit/audit.html" class="btn-primary">
-                            Testar Link Suspeito
+                            <i class="fa-solid fa-link"></i>
+                            Analisar um Link
                         </a>
+
                         <a href="paginas/dashboard/dashboard.html" class="btn-secondary">
-                            Começar Treinamento
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            Iniciar Treinamento
                         </a>
+
                     </div>
 
                     <div class="hero-features">
-                        <span>🛡 Gratuito</span>
-                        <span>⚡ Rápido e Seguro</span>
-                        <span>👥 Sem Cadastro Obrigatório</span>
+
+                        <div class="feature-item">
+                            <i class="fa-solid fa-circle-check"></i>
+                            Gratuito
+                        </div>
+
+                        <div class="feature-item">
+                            <i class="fa-solid fa-bolt"></i>
+                            Análise Rápida
+                        </div>
+
+                        <div class="feature-item">
+                            <i class="fa-solid fa-users"></i>
+                            Sem Cadastro
+                        </div>
+
                     </div>
 
-                    <div class="creator-box">
-                        <h3>👨‍💻 Desenvolvido por Danilo Rafael da Silva Costa</h3>
+                </div>
+
+                <div class="hero-right">
+
+                    <div class="shield-container">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="security-cards">
+
+                <div class="security-card">
+                    <i class="fa-solid fa-link"></i>
+
+                    <div>
+                        <h3>Links Seguros</h3>
                         <p>
-                            Estudante de Defesa Cibernética na FIAP,
-                            com formação em Administração e MBA em Gestão de Projetos.
-                            Atualmente também está se aprofundando no desenvolvimento
-                            de software por meio dos cursos da BYU Pathway Worldwide,
-                            ampliando conhecimentos em programação, arquitetura de sistemas
-                            e soluções tecnológicas.
+                            Identifique URLs suspeitas antes de acessar.
                         </p>
-                        <a href="paginas/about/about.html" class="btn-creator">
-                            Conheça o Criador
-                        </a>
                     </div>
                 </div>
+
+                <div class="security-card">
+                    <i class="fa-solid fa-lock"></i>
+
+                    <div>
+                        <h3>Senhas Fortes</h3>
+                        <p>
+                            Analise a qualidade das suas credenciais.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="security-card">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    <div>
+                        <h3>Vazamentos</h3>
+                        <p>
+                            Descubra exposições conhecidas de dados.
+                        </p>
+                    </div>
+                </div>
+
             </div>
+
+            <div class="creator-modern">
+
+                <div class="creator-avatar">
+                    <img
+                        src="imagens/Danilo.jpg"
+                        alt="Danilo Rafael da Silva Costa"
+                        onerror="this.style.display='none'; this.parentElement.classList.add('avatar-fallback'); this.parentElement.textContent='DC';"
+                    >
+                </div>
+
+                <div class="creator-content">
+
+                    <h3>
+                        Criado por Danilo Rafael da Silva Costa
+                    </h3>
+
+                    <p>
+                        Estudante de Defesa Cibernética na FIAP,
+                        com formação em Administração e MBA em Gestão de Projetos.
+                        Desenvolvendo conhecimentos em software, programação
+                        e arquitetura de sistemas pela BYU Pathway Worldwide.
+                    </p>
+
+                </div>
+
+                <a href="paginas/about/about.html" class="btn-creator">
+                    Conheça o Criador
+                </a>
+
+            </div>
+
         </section>
 
-        <!-- SOLUÇÕES -->
+        <!-- =====================================================
+             BLOCO 04: SECAO DE FERRAMENTAS / SOLUCOES
+             ===================================================== -->
         <section class="solutions">
             <div class="section-title">
                 <h2>
@@ -183,8 +282,8 @@
     </main>
 
     <!-- =====================================================
-         FOOTER
-    ===================================================== -->
+         BLOCO 05: FOOTER E SCRIPT PRINCIPAL
+         ===================================================== -->
     <footer class="footer">
         <div class="footer-logo">
             <h3>CyberCheck</h3>

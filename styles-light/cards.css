@@ -1,214 +1,63 @@
 /* =====================================================
-   BLOCO 01: SECAO SOLUTIONS - LIGHT THEME
-   ===================================================== */
-
-.solutions {
-    width: 100%;
-    padding: 100px 50px;
-    background:
-        linear-gradient(
-            180deg,
-            #0f172a 0%,
-            #1e3a8a 50%,
-            #0f172a 100%
-        );
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 80px;
-}
-
-.section-title h2 {
-    color: #ffffff;
-    font-size: 56px;
-    font-weight: 800;
-    margin-bottom: 20px;
-}
-
-.section-title p {
-    color: rgba(255, 255, 255, .85);
-    font-size: 18px;
-    line-height: 1.8;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* =====================================================
-   BLOCO 02: GRID E CARDS - LIGHT THEME
-   ===================================================== */
-
-.cards-grid {
-    max-width: 1600px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(320px, 1fr)
-        );
-    gap: 30px;
-}
-
-.card {
-    position: relative;
-    min-height: 240px;
-    padding: 35px;
-    border-radius: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    text-decoration: none;
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff 0%,
-            #f8fbff 100%
-        );
-    border:
-        1px solid rgba(255, 255, 255, .80);
-    box-shadow:
-        0 20px 45px rgba(0, 0, 0, .15);
-    overflow: hidden;
-    transition: all .35s ease;
-}
-
-.card::before {
-    content: "";
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    top: -130px;
-    right: -130px;
-    border-radius: 50%;
-    background:
-        radial-gradient(
-            rgba(37, 99, 235, .12),
-            transparent 70%
-        );
-    pointer-events: none;
-}
-
-.card:hover,
-.card:focus-visible {
-    transform:
-        translateY(-10px);
-    border-color:
-        rgba(37, 99, 235, .35);
-    box-shadow:
-        0 30px 60px rgba(37, 99, 235, .18),
-        0 15px 40px rgba(0, 0, 0, .18);
-}
-
-.card:focus-visible {
-    outline: 2px solid #2563eb;
-    outline-offset: 3px;
-}
-
-/* =====================================================
-   BLOCO 03: CONTEUDO DO CARD (ICONE, TITULO E TEXTO)
-   ===================================================== */
-
-.card i {
-    font-size: 42px;
-    color: #2563eb;
-    margin-bottom: 25px;
-}
-
-.card h3 {
-    color: #0f172a;
-    font-size: 26px;
-    font-weight: 800;
-    margin-bottom: 15px;
-}
-
-.card p {
-    color: #475569;
-    font-size: 16px;
-    line-height: 1.8;
-}
-
-/* =====================================================
-   BLOCO 04: RESPONSIVIDADE MOBILE
-   ===================================================== */
-
-@media (max-width: 768px) {
-    .solutions {
-        padding: 60px 20px;
-    }
-
-    .section-title h2 {
-        font-size: 40px;
-    }
-
-    .cards-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .card {
-        min-height: 200px;
-        padding: 25px;
-    }
-}
-
-/* =====================================================
-   BLOCO 01: SECAO SOLUTIONS E FUNDO DE DESTAQUE - LIGHT THEME
+   BLOCO 01: SECAO SOLUTIONS - CONTRASTE COM TOQUE DOURADO SUAVE
    ===================================================== */
 
 .solutions {
     position: relative;
     width: 100%;
-    padding: 88px 50px;
+    padding: 92px 50px;
     overflow: hidden;
-
-    /* Fundo com textura técnica sutil + gradiente azul-gelo para destacar os cards brancos */
-    background-color: #dbeafe;
+    color: #f8fafc;
+    background-color: #090e1a;
     background-image:
-        radial-gradient(rgba(37, 99, 235, 0.14) 1px, transparent 1px),
-        linear-gradient(180deg, #e0f2fe 0%, #dbeafe 55%, #bfdbfe 100%);
-    background-size: 24px 24px, 100% 100%;
-    border-top: 1px solid #93c5fd;
-    border-bottom: 1px solid #93c5fd;
+        radial-gradient(rgba(251, 191, 36, 0.06) 1px, transparent 1px),
+        linear-gradient(180deg, #090e1a 0%, #0f172a 52%, #0c2340 100%);
+    background-size: 28px 28px, 100% 100%;
+    border-top: 1px solid rgba(34, 199, 255, 0.24);
+    border-bottom: 1px solid rgba(251, 191, 36, 0.16);
 }
 
 .solutions::before {
     content: "";
     position: absolute;
-    width: 520px;
-    height: 520px;
-    top: -180px;
+    width: 560px;
+    height: 560px;
+    top: -190px;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.65), transparent 70%);
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.22), transparent 70%);
+    filter: blur(55px);
     pointer-events: none;
+    z-index: 0;
 }
 
 .section-title {
     position: relative;
     z-index: 1;
     text-align: center;
-    margin-bottom: 56px;
+    margin-bottom: 58px;
 }
 
 .section-title h2 {
-    color: #0f172a;
-    font-size: clamp(32px, 4vw, 46px);
+    color: #ffffff;
+    font-size: clamp(32px, 4vw, 48px);
     font-weight: 800;
     letter-spacing: -1px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+    text-shadow: 0 4px 24px rgba(2, 6, 23, 0.55);
 }
 
 .section-title p {
-    color: #1e293b;
+    color: #cbd5e1;
     font-size: 17px;
-    line-height: 1.7;
-    max-width: 680px;
+    line-height: 1.75;
+    max-width: 720px;
     margin: 0 auto;
 }
 
 /* =====================================================
-   BLOCO 02: GRID E CARDS (BRANCOS COM ALTO CONTRASTE)
+   BLOCO 02: GRID E CARDS - BASE ESCURA E DETALHE DOURADO
    ===================================================== */
 
 .cards-grid {
@@ -223,21 +72,23 @@
 
 .card {
     position: relative;
+    min-height: 230px;
     padding: 30px 28px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: flex-start;
     text-decoration: none;
     overflow: hidden;
 
-    background: #ffffff;
-    border: 1.5px solid rgba(37, 99, 235, 0.22);
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.92) 0%, rgba(15, 76, 129, 0.30) 100%);
+    border: 1.5px solid rgba(34, 199, 255, 0.24);
     box-shadow:
-        0 6px 14px rgba(15, 23, 42, 0.08),
-        0 18px 36px rgba(30, 58, 138, 0.12);
+        0 10px 24px rgba(2, 6, 23, 0.45),
+        0 20px 44px rgba(15, 23, 42, 0.35);
 
-    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
 }
 
 .card::after {
@@ -246,69 +97,77 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, #2563eb, #0284c7);
+    height: 3px;
+    background: linear-gradient(90deg, #2563eb, #22c7ff 70%, rgba(251, 191, 36, 0.75) 100%);
 }
 
 .card::before {
     content: "";
     position: absolute;
-    width: 180px;
-    height: 180px;
-    top: -90px;
-    right: -90px;
+    width: 210px;
+    height: 210px;
+    top: -100px;
+    right: -100px;
     border-radius: 50%;
-    background: radial-gradient(rgba(37, 99, 235, 0.12), transparent 70%);
+    background: radial-gradient(rgba(251, 191, 36, 0.08), transparent 70%);
     pointer-events: none;
 }
 
 .card:hover,
 .card:focus-visible {
-    transform: translateY(-6px);
-    border-color: #2563eb;
+    transform: translateY(-8px);
+    border-color: rgba(251, 191, 36, 0.65);
     box-shadow:
-        0 10px 22px rgba(37, 99, 235, 0.18),
-        0 24px 46px rgba(15, 23, 42, 0.16);
+        0 14px 28px rgba(34, 199, 255, 0.20),
+        0 26px 52px rgba(2, 6, 23, 0.55);
 }
 
 .card:focus-visible {
-    outline: 3px solid #2563eb;
+    outline: 3px solid rgba(251, 191, 36, 0.75);
     outline-offset: 3px;
 }
 
 /* =====================================================
-   BLOCO 03: ICONE, TITULO E DESCRICAO
+   BLOCO 03: ICONE, TITULO E DESCRICAO DO CARD
    ===================================================== */
 
 .card i {
-    width: 54px;
-    height: 54px;
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 14px;
     font-size: 22px;
-    color: #2563eb;
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
-    margin-bottom: 20px;
+    color: #22c7ff;
+    background: rgba(15, 76, 129, 0.38);
+    border: 1px solid rgba(251, 191, 36, 0.28);
+    box-shadow: 0 6px 16px rgba(2, 132, 199, 0.22);
+    margin-bottom: 22px;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover i {
+    color: #fbbf24;
+    border-color: rgba(251, 191, 36, 0.55);
 }
 
 .card h3 {
-    color: #0f172a;
-    font-size: 21px;
+    color: #f8fafc;
+    font-size: 22px;
     font-weight: 800;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .card p {
-    color: #475569;
+    color: #cbd5e1;
     font-size: 15px;
-    line-height: 1.6;
+    line-height: 1.65;
+    margin: 0;
 }
 
 /* =====================================================
-   BLOCO 04: RESPONSIVIDADE
+   BLOCO 04: RESPONSIVIDADE DO GRID E CARDS
    ===================================================== */
 
 @media (max-width: 1200px) {
@@ -319,25 +178,33 @@
 
 @media (max-width: 768px) {
     .solutions {
-        padding: 60px 20px;
+        padding: 64px 20px;
+    }
+
+    .section-title h2 {
+        font-size: 36px;
     }
 
     .cards-grid {
         grid-template-columns: 1fr;
+        gap: 18px;
     }
 
     .card {
+        min-height: 200px;
         padding: 24px;
     }
 }
 
 /* =====================================================
-   BLOCO 05: TECNOLOGIAS (.techs) - LIGHT THEME
+   BLOCO 05: TECNOLOGIAS (.techs) - TOQUE DOURADO DISCRETO
    ===================================================== */
 
 .techs {
+    position: relative;
+    z-index: 1;
     max-width: 1100px;
-    margin: 36px auto 0;
+    margin: 40px auto 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -354,12 +221,12 @@
     border-radius: 999px;
     font-size: 13.5px;
     font-weight: 600;
-    color: #0f172a;
-    background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
-    border: 1px solid #bfdbfe;
+    color: #f8fafc;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(15, 76, 129, 0.36) 100%);
+    border: 1px solid rgba(34, 199, 255, 0.30);
     box-shadow:
-        0 4px 10px rgba(37, 99, 235, 0.08),
-        0 10px 20px rgba(15, 23, 42, 0.05);
+        0 6px 14px rgba(2, 6, 23, 0.38),
+        0 10px 22px rgba(37, 99, 235, 0.14);
     transition:
         transform 0.22s ease,
         border-color 0.22s ease,
@@ -371,24 +238,28 @@
 
 .techs span:hover {
     transform: translateY(-2px);
-    color: #1d4ed8;
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-    border-color: #2563eb;
+    color: #fbbf24;
+    background: linear-gradient(135deg, rgba(15, 76, 129, 0.48) 0%, rgba(37, 99, 235, 0.32) 100%);
+    border-color: rgba(251, 191, 36, 0.65);
     box-shadow:
-        0 8px 18px rgba(37, 99, 235, 0.16),
-        0 14px 28px rgba(15, 23, 42, 0.08);
+        0 8px 18px rgba(251, 191, 36, 0.14),
+        0 14px 28px rgba(2, 6, 23, 0.48);
 }
 
 .techs span:focus-visible {
-    outline: 3px solid #2563eb;
+    outline: 3px solid rgba(251, 191, 36, 0.75);
     outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .card,
+    .card i,
     .techs span {
         transition: none;
     }
 
+    .card:hover,
+    .card:focus-visible,
     .techs span:hover {
         transform: none;
     }
