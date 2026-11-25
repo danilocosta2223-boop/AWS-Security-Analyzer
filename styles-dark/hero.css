@@ -3024,3 +3024,282 @@ html[data-theme="light"] .btn-creator:hover {
         width: 100%;
     }
 }
+
+/* =====================================================
+   BLOCO 01: SECAO SOLUTIONS - FUNDO ESCURO DE CONTRASTE
+   ===================================================== */
+
+.solutions {
+    position: relative;
+    width: 100%;
+    padding: 92px 50px;
+    overflow: hidden;
+    color: #f8fafc;
+    background-color: #090e1a;
+    background-image:
+        radial-gradient(rgba(251, 191, 36, 0.06) 1px, transparent 1px),
+        linear-gradient(180deg, #090e1a 0%, #0f172a 52%, #0c2340 100%);
+    background-size: 28px 28px, 100% 100%;
+    border-top: 1px solid rgba(34, 199, 255, 0.24);
+    border-bottom: 1px solid rgba(251, 191, 36, 0.16);
+}
+
+.solutions::before {
+    content: "";
+    position: absolute;
+    width: 560px;
+    height: 560px;
+    top: -190px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.22), transparent 70%);
+    filter: blur(55px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.section-title {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin-bottom: 58px;
+}
+
+.section-title h2 {
+    color: #ffffff;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+    text-shadow: 0 4px 24px rgba(2, 6, 23, 0.55);
+}
+
+.section-title p {
+    color: #cbd5e1;
+    font-size: 17px;
+    line-height: 1.75;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* =====================================================
+   BLOCO 02: GRID E CARDS ESCUROS - TOQUE DOURADO SUAVE
+   ===================================================== */
+
+.cards-grid {
+    position: relative;
+    z-index: 1;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(240px, 1fr));
+    gap: 26px;
+}
+
+.card {
+    position: relative;
+    min-height: 230px;
+    padding: 30px 28px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-decoration: none;
+    overflow: hidden;
+
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.92) 0%, rgba(15, 76, 129, 0.30) 100%);
+    border: 1.5px solid rgba(34, 199, 255, 0.24);
+    box-shadow:
+        0 10px 24px rgba(2, 6, 23, 0.45),
+        0 20px 44px rgba(15, 23, 42, 0.35);
+
+    transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #2563eb, #22c7ff 70%, rgba(251, 191, 36, 0.75) 100%);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    top: -100px;
+    right: -100px;
+    border-radius: 50%;
+    background: radial-gradient(rgba(251, 191, 36, 0.08), transparent 70%);
+    pointer-events: none;
+}
+
+.card:hover,
+.card:focus-visible {
+    transform: translateY(-8px);
+    border-color: rgba(251, 191, 36, 0.65);
+    box-shadow:
+        0 14px 28px rgba(34, 199, 255, 0.20),
+        0 26px 52px rgba(2, 6, 23, 0.55);
+}
+
+.card:focus-visible {
+    outline: 3px solid rgba(251, 191, 36, 0.75);
+    outline-offset: 3px;
+}
+
+/* =====================================================
+   BLOCO 03: ICONE, TITULO E DESCRICAO DO CARD
+   ===================================================== */
+
+.card i {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    font-size: 22px;
+    color: #22c7ff;
+    background: rgba(15, 76, 129, 0.38);
+    border: 1px solid rgba(251, 191, 36, 0.28);
+    box-shadow: 0 6px 16px rgba(2, 132, 199, 0.22);
+    margin-bottom: 22px;
+    transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover i {
+    color: #fbbf24;
+    border-color: rgba(251, 191, 36, 0.55);
+}
+
+.card h3 {
+    color: #f8fafc;
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #cbd5e1;
+    font-size: 15px;
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* =====================================================
+   BLOCO 04: RESPONSIVIDADE DO GRID E CARDS
+   ===================================================== */
+
+@media (max-width: 1200px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .solutions {
+        padding: 64px 20px;
+    }
+
+    .section-title h2 {
+        font-size: 36px;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .card {
+        min-height: 200px;
+        padding: 24px;
+    }
+}
+
+/* =====================================================
+   BLOCO 05: TECNOLOGIAS (.techs) - CONTRASTE ESCURO
+   ===================================================== */
+
+.techs {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.techs span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #f8fafc;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(15, 76, 129, 0.36) 100%);
+    border: 1px solid rgba(34, 199, 255, 0.30);
+    box-shadow:
+        0 6px 14px rgba(2, 6, 23, 0.38),
+        0 10px 22px rgba(37, 99, 235, 0.14);
+    transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        background 0.22s ease,
+        color 0.22s ease,
+        box-shadow 0.22s ease;
+    cursor: default;
+}
+
+.techs span:hover {
+    transform: translateY(-2px);
+    color: #fbbf24;
+    background: linear-gradient(135deg, rgba(15, 76, 129, 0.48) 0%, rgba(37, 99, 235, 0.32) 100%);
+    border-color: rgba(251, 191, 36, 0.65);
+    box-shadow:
+        0 8px 18px rgba(251, 191, 36, 0.14),
+        0 14px 28px rgba(2, 6, 23, 0.48);
+}
+
+.techs span:focus-visible {
+    outline: 3px solid rgba(251, 191, 36, 0.75);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .card i,
+    .techs span {
+        transition: none;
+    }
+
+    .card:hover,
+    .card:focus-visible,
+    .techs span:hover {
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .techs {
+        margin-top: 28px;
+        gap: 10px;
+    }
+
+    .techs span {
+        padding: 10px 14px;
+        font-size: 12.5px;
+    }
+}

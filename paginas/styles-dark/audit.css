@@ -825,3 +825,774 @@ body[data-theme="light"] .audit-progress-box.is-complete .audit-progress-percent
   width: 100% !important;
   background: linear-gradient(90deg, #16a34a, #22c55e);
 }
+
+/* ==========================================
+   BLOCO 01: Variaveis, Fundo em Tela Cheia e Tipografia
+   ========================================== */
+:root,
+body[data-theme="dark"] {
+  --bg-void: #070b14;
+  --bg-glass-dark: rgba(9, 15, 28, 0.72);
+  --bg-glass-card: rgba(15, 23, 42, 0.76);
+  --bg-glass-history: rgba(15, 23, 42, 0.85);
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --accent-cyan: #38bdf8;
+  --accent-blue: #0284c7;
+  --border-subtle: rgba(56, 189, 248, 0.25);
+  --border-medium: rgba(56, 189, 248, 0.35);
+  --border-strong: rgba(56, 189, 248, 0.5);
+  --border-bright: rgba(56, 189, 248, 0.65);
+  --score-high: #22c55e;
+  --score-high-text: #4ade80;
+  --score-medium: #eab308;
+  --score-medium-text: #facc15;
+  --score-low: #ef4444;
+  --score-low-text: #f87171;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 14px;
+}
+
+body[data-theme="dark"],
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text-primary);
+  font-family: "Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-void);
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(7, 11, 20, 0.32) 0%,
+      rgba(7, 11, 20, 0.58) 100%
+    ),
+    url("../imagens/dark-theme/hero-mobile.webp.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.container,
+.card,
+.json-section .audit-container,
+#history-preview,
+#report-buttons {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+main.container {
+  width: 92%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 0 48px;
+  box-sizing: border-box;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: rgba(56, 189, 248, 0.2);
+  margin: 22px 0;
+}
+
+.brand-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+/* ==========================================
+   BLOCO 02: Cabecalho Flutuante, Logo e Navegacao
+   ========================================== */
+header.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+header.header h1 {
+  margin: 0;
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85), 0 0 22px rgba(56, 189, 248, 0.35);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+header.header h1 i {
+  color: var(--accent-cyan);
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.75));
+  margin-right: 6px;
+}
+
+header.header h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+nav.main-nav {
+  flex: 1 1 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 auto;
+}
+
+nav.main-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: rgba(9, 15, 28, 0.52);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border-medium);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+nav.main-nav a:hover,
+nav.main-nav a.active {
+  background: rgba(2, 132, 199, 0.65);
+  border-color: var(--accent-cyan);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ==========================================
+   BLOCO 03: Estado da API, Formulario e Atalhos
+   ========================================== */
+#api-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-glass-dark);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-medium);
+  font-size: 0.9rem;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+#api-status p,
+#api-status div {
+  margin: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.input-wrapper {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.input-wrapper input {
+  flex: 1;
+  min-width: 240px;
+  background-color: rgba(9, 15, 28, 0.78) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-strong) !important;
+  color: var(--text-primary) !important;
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 0.96rem;
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  border-color: var(--accent-cyan) !important;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.24) !important;
+}
+
+.input-wrapper button,
+#report-buttons button {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.92), rgba(37, 99, 235, 0.92)) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(56, 189, 248, 0.75) !important;
+  color: #ffffff !important;
+  border-radius: var(--radius-md);
+  padding: 11px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.input-wrapper button:hover,
+#report-buttons button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+.quick-targets {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.quick-url-btn {
+  background: var(--bg-glass-dark) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(56, 189, 248, 0.48) !important;
+  color: var(--accent-cyan) !important;
+  border-radius: var(--radius-sm);
+  padding: 6px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.quick-url-btn:hover {
+  background: rgba(56, 189, 248, 0.24) !important;
+}
+
+/* ==========================================
+   BLOCO 04: Resumo Flutuante, Score e Progresso Legado
+   ========================================== */
+#summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 28px 22px;
+  margin-top: 18px;
+  text-align: center;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#scoreLabel {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.65);
+}
+
+.score-circle {
+  width: 176px;
+  height: 176px;
+  border-radius: 50%;
+  background: rgba(9, 15, 28, 0.6) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 12px solid var(--accent-cyan) !important;
+  box-shadow: 0 0 40px rgba(56, 189, 248, 0.6), inset 0 0 20px rgba(56, 189, 248, 0.3) !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.score-circle:hover {
+  transform: scale(1.03);
+}
+
+.score-circle[data-score-band="high"],
+.score-circle.score-high {
+  border-color: var(--score-high) !important;
+  color: var(--score-high-text) !important;
+  box-shadow: 0 0 40px rgba(34, 197, 94, 0.6), inset 0 0 20px rgba(34, 197, 94, 0.3) !important;
+}
+
+.score-circle[data-score-band="medium"],
+.score-circle.score-medium {
+  border-color: var(--score-medium) !important;
+  color: var(--score-medium-text) !important;
+  box-shadow: 0 0 40px rgba(234, 179, 8, 0.6), inset 0 0 20px rgba(234, 179, 8, 0.3) !important;
+}
+
+.score-circle[data-score-band="low"],
+.score-circle.score-low {
+  border-color: var(--score-low) !important;
+  color: var(--score-low-text) !important;
+  box-shadow: 0 0 40px rgba(239, 68, 68, 0.6), inset 0 0 20px rgba(239, 68, 68, 0.3) !important;
+}
+
+.risk-badge {
+  display: inline-block;
+  padding: 6px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+[data-risk="LOW"] { background-color: rgba(22, 163, 74, 0.92) !important; color: #ffffff; }
+[data-risk="MEDIUM"] { background-color: rgba(234, 179, 8, 0.94) !important; color: #111827; }
+[data-risk="HIGH"] { background-color: rgba(220, 38, 38, 0.92) !important; color: #ffffff; }
+
+#analysisInfo {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.65);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+
+.loading-box {
+  background: rgba(7, 11, 20, 0.86) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--accent-cyan) !important;
+  color: var(--accent-cyan) !important;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-weight: 600;
+  margin: 20px auto;
+  max-width: 440px;
+}
+
+#auditProgress {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+#auditProgressBar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #0ea5e9, #2563eb);
+  transition: width 0.4s ease;
+}
+
+/* ==========================================
+   BLOCO 05: Barra de Progresso e Estado Concluido
+   ========================================== */
+#auditProgressBox,
+.audit-progress-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.audit-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #f8fafc;
+}
+
+#auditProgressPercent,
+.audit-progress-percent {
+  color: #38bdf8;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+#auditProgressTrack,
+.audit-progress-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(51, 65, 85, 0.7);
+}
+
+#auditProgressFill,
+.audit-progress-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
+  transition: width 0.3s ease, background 0.3s ease;
+}
+
+#auditProgressBox.is-complete,
+.audit-progress-box.is-complete {
+  border-color: #22c55e;
+  background: rgba(20, 83, 45, 0.35);
+}
+
+#auditProgressBox.is-complete .audit-progress-header,
+#auditProgressBox.is-complete #auditProgressPercent,
+.audit-progress-box.is-complete .audit-progress-header,
+.audit-progress-box.is-complete .audit-progress-percent {
+  color: #4ade80;
+}
+
+#auditProgressBox.is-complete #auditProgressFill,
+.audit-progress-box.is-complete .audit-progress-fill {
+  width: 100% !important;
+  background: linear-gradient(90deg, #16a34a, #22c55e);
+}
+
+body[data-theme="light"] .audit-progress-box {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(2, 132, 199, 0.32);
+}
+
+body[data-theme="light"] .audit-progress-header {
+  color: #0f172a;
+}
+
+body[data-theme="light"] .audit-progress-track {
+  background: #e2e8f0;
+}
+
+body[data-theme="light"] .audit-progress-box.is-complete {
+  border-color: #16a34a;
+  background: rgba(240, 253, 244, 0.96);
+}
+
+body[data-theme="light"] .audit-progress-box.is-complete .audit-progress-header,
+body[data-theme="light"] .audit-progress-box.is-complete .audit-progress-percent {
+  color: #15803d;
+}
+
+/* ==========================================
+   BLOCO 06: Cards de Resultados, Barras e Historico
+   ========================================== */
+#audit-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+#audit-results > div,
+#audit-results > article {
+  min-width: 0;
+  background: var(--bg-glass-card) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(56, 189, 248, 0.34) !important;
+  border-radius: var(--radius-xl);
+  padding: 18px;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.35);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+#audit-results > div:hover,
+#audit-results > article:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-bright) !important;
+}
+
+#audit-results h3 {
+  margin-top: 0;
+  color: var(--accent-cyan);
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+#audit-results p,
+#audit-results li,
+#audit-results span {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+
+.audit-chart-card {
+  grid-column: 1 / -1;
+}
+
+.audit-chart-grid {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 20px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.metric-bars {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+}
+
+.metric-row {
+  display: grid;
+  gap: 5px;
+}
+
+.metric-label-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.metric-track {
+  width: 100%;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+.metric-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.metric-fill.harmless { background: #16a34a; }
+.metric-fill.suspicious { background: var(--score-medium); }
+.metric-fill.malicious { background: #dc2626; }
+
+#history-preview {
+  margin-top: 28px;
+}
+
+#history-preview h3 {
+  color: var(--accent-cyan);
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#historyList {
+  list-style: none;
+  margin: 0;
+  padding: 0 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 360px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.5) rgba(15, 23, 42, 0.4);
+}
+
+#historyList::-webkit-scrollbar,
+#jsonResult::-webkit-scrollbar {
+  width: 6px;
+}
+
+#historyList::-webkit-scrollbar-thumb,
+#jsonResult::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.5);
+  border-radius: 999px;
+}
+
+.history-item,
+.history-empty {
+  background: var(--bg-glass-history);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+
+.history-item:hover {
+  border-color: var(--accent-cyan);
+  background: rgba(30, 41, 59, 0.92);
+  transform: translateX(3px);
+}
+
+.history-item span:first-child {
+  flex: 1 1 260px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.history-item strong {
+  color: var(--accent-cyan);
+}
+
+.history-item span:last-child {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================
+   BLOCO 07: Botoes de Relatorio e Saida JSON
+   ========================================== */
+#report-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.json-section {
+  margin-top: 24px;
+}
+
+#jsonResult {
+  background: rgba(9, 15, 28, 0.82) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(56, 189, 248, 0.34) !important;
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  color: var(--text-secondary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.5) rgba(9, 15, 28, 0.6);
+}
+
+/* ==========================================
+   BLOCO 08: Responsividade e Impressao (PDF)
+   ========================================== */
+@media (max-width: 768px) {
+  body[data-theme="dark"],
+  body {
+    background-attachment: scroll;
+  }
+
+  main.container {
+    width: 95%;
+  }
+
+  #audit-results {
+    grid-template-columns: 1fr;
+  }
+
+  .audit-chart-grid {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .score-circle {
+    width: 140px;
+    height: 140px;
+    font-size: 2rem;
+  }
+
+  .history-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media print {
+  body {
+    background-image: none !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .input-wrapper,
+  .quick-targets,
+  #report-buttons,
+  nav.main-nav {
+    display: none !important;
+  }
+
+  #summary,
+  #audit-results > div,
+  #audit-results > article,
+  #jsonResult,
+  .history-item {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #cccccc !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+}
