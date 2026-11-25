@@ -1,21 +1,14 @@
 /* =====================================================
-   HERO SECTION - DARK THEME
+   BLOCO 01: HERO SECTION - DARK THEME
 ===================================================== */
 
 .hero {
-
     min-height: 1200px;
-
     padding-bottom: 380px;
-
     display: flex;
-
     align-items: center;
-
     position: relative;
-
     overflow: hidden;
-
     background-image:
         linear-gradient(
             90deg,
@@ -23,388 +16,147 @@
             rgba(1, 10, 30, .08)
         ),
         url("../imagens/dark-theme/hero-bg.webp.png");
-
     background-size: cover;
-
     background-position: center center;
-
     background-repeat: no-repeat;
+}
 
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    top: -250px;
+    right: -250px;
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            rgba(13, 139, 255, .08),
+            transparent 70%
+        );
+    pointer-events: none;
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    bottom: -200px;
+    left: -150px;
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            rgba(56, 189, 248, .05),
+            transparent 70%
+        );
+    pointer-events: none;
 }
 
 /* =====================================================
-   HERO CONTAINER
+   BLOCO 02: HERO CONTAINER E CONTEUDO
 ===================================================== */
 
 .hero-container {
-
     width: 100%;
-
     max-width: 100%;
-
     margin: 0;
-
     padding: 120px 40px 0 40px;
-
     position: relative;
-
     z-index: 2;
-
 }
-
-/* =====================================================
-   HERO CONTENT
-===================================================== */
 
 .hero-content {
-
     width: 750px;
-
     max-width: 750px;
-
     margin-left: 0;
-
     padding: 40px;
-
     border-radius: 24px;
-
     position: relative;
-
     z-index: 10;
-
     text-align: left;
-
     background: rgba(1, 10, 30, .18);
-
     backdrop-filter: blur(12px);
-
-    border: 1px solid rgba(255,255,255,.08);
-
+    border: 1px solid rgba(255, 255, 255, .08);
 }
 
 /* =====================================================
-   SUBTITLE
+   BLOCO 03: TIPOGRAFIA E DESTAQUES
 ===================================================== */
 
 .subtitle {
-
     display: inline-block;
-
     color: #38bdf8;
-
     font-size: 16px;
-
     font-weight: 700;
-
     letter-spacing: 2px;
-
     text-transform: uppercase;
-
     margin-bottom: 20px;
-
 }
-
-/* =====================================================
-   HERO TITLE
-===================================================== */
 
 .hero h1 {
-
     font-size: 72px;
-
     line-height: 76px;
-
     font-weight: 800;
-
     color: #ffffff;
-
     max-width: 700px;
-
     margin-bottom: 25px;
-
     letter-spacing: -2px;
-
     text-align: left;
-
 }
-
-/* =====================================================
-   BLUE HIGHLIGHT
-===================================================== */
 
 .blue {
-
     color: #1da1ff;
-
 }
-
-/* =====================================================
-   HERO DESCRIPTION
-===================================================== */
 
 .hero p {
-
     max-width: 650px;
-
     font-size: 20px;
-
     line-height: 1.8;
-
     color: #ffffff;
-
     margin-bottom: 35px;
-
     text-align: left;
-
 }
 
 /* =====================================================
-   HERO BUTTONS
+   BLOCO 04: BOTOES E FEATURES
 ===================================================== */
 
 .hero-buttons {
-
     display: flex;
-
     gap: 15px;
-
     margin-bottom: 30px;
-
     justify-content: flex-start;
-
 }
 
 .btn-primary,
 .btn-secondary {
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     min-height: 56px;
-
     padding: 18px 34px;
-
     border-radius: 12px;
-
     text-decoration: none;
-
     font-weight: 700;
-
     transition: .3s;
-
 }
 
-/* =====================================================
-   FEATURES
-===================================================== */
-
 .hero-features {
-
     display: flex;
-
     gap: 25px;
-
     flex-wrap: wrap;
-
     justify-content: flex-start;
-
 }
 
 .hero-features span {
-
     color: #ffffff;
-
     font-size: 15px;
-
     font-weight: 500;
-
 }
 
 /* =====================================================
-   STATS
-===================================================== */
-
-.stats {
-
-    position: absolute;
-
-    left: 50%;
-
-    bottom: 40px;
-
-    transform: translateX(-50%);
-
-    width: 90%;
-
-    max-width: 1450px;
-
-    display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
-    gap: 20px;
-
-    padding: 35px;
-
-    border-radius: 25px;
-
-    background: rgba(3,11,30,.95);
-
-    backdrop-filter: blur(15px);
-
-    border: 1px solid rgba(255,255,255,.08);
-
-    z-index: 50;
-
-}
-
-.stat-box {
-
-    text-align: center;
-
-}
-
-.stat-box h3 {
-
-    font-size: 42px;
-
-    font-weight: 800;
-
-    color: #38bdf8;
-
-    margin-bottom: 10px;
-
-}
-
-.stat-box p {
-
-    font-size: 15px;
-
-    color: #ffffff;
-
-}
-
-/* =====================================================
-   CYBER GLOW
-===================================================== */
-
-.hero::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 700px;
-
-    height: 700px;
-
-    top: -250px;
-
-    right: -250px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            rgba(13,139,255,.08),
-            transparent 70%
-        );
-
-    pointer-events: none;
-
-}
-
-.hero::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 500px;
-
-    height: 500px;
-
-    bottom: -200px;
-
-    left: -150px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            rgba(56,189,248,.05),
-            transparent 70%
-        );
-
-    pointer-events: none;
-
-}
-
-.creator-box {
-
-    margin-top: 35px;
-
-    padding: 20px;
-
-    border-radius: 16px;
-
-    background:
-        rgba(255,255,255,.05);
-
-    border:
-        1px solid rgba(56,189,248,.20);
-
-    backdrop-filter: blur(10px);
-
-}
-
-.creator-box h3 {
-
-    color: #22c7ff;
-
-    font-size: 20px;
-
-    margin-bottom: 10px;
-}
-
-.creator-box p {
-
-    color: rgba(255,255,255,.80);
-
-    font-size: 15px;
-
-    line-height: 1.7;
-}
-
-.btn-creator {
-
-    display: inline-block;
-
-    margin-top: 15px;
-
-    padding: 12px 20px;
-
-    border-radius: 12px;
-
-    text-decoration: none;
-
-    background:
-        linear-gradient(
-            135deg,
-            #0284c7,
-            #22c7ff
-        );
-
-    color: #fff;
-
-    font-weight: 700;
-}
-
-/* =====================================================
-   CREATOR BOX - DARK THEME (dentro de .hero-content)
+   BLOCO 05: CAIXA DO CRIADOR
 ===================================================== */
 
 .creator-box {
@@ -450,7 +202,6 @@
     margin: 0;
 }
 
-.creator-box .creator-box p,
 .creator-box p {
     font-size: 14px;
     line-height: 1.65;
@@ -483,6 +234,48 @@
     outline: 2px solid #22c7ff;
     outline-offset: 2px;
 }
+
+/* =====================================================
+   BLOCO 06: STATS
+===================================================== */
+
+.stats {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1450px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 35px;
+    border-radius: 25px;
+    background: rgba(3, 11, 30, .95);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, .08);
+    z-index: 50;
+}
+
+.stat-box {
+    text-align: center;
+}
+
+.stat-box h3 {
+    font-size: 42px;
+    font-weight: 800;
+    color: #38bdf8;
+    margin-bottom: 10px;
+}
+
+.stat-box p {
+    font-size: 15px;
+    color: #ffffff;
+}
+
+/* =====================================================
+   BLOCO 07: RESPONSIVIDADE
+===================================================== */
 
 @media (max-width: 768px) {
     .creator-box {

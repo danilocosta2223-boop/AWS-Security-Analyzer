@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Desenvolvedor | CyberCheck PRO</title>
+
+    <!-- =====================================================
+         BLOCO 01: ESTILOS BASE E PAGINA (a partir de paginas/about/)
+    ===================================================== -->
+    <link rel="stylesheet" href="../styles-dark/normalize.css">
+    <link rel="stylesheet" href="../styles-dark/desktop.css">
+    <link rel="stylesheet" href="../styles-dark/mobile.css">
+    <link rel="stylesheet" href="../styles-dark/about.css">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         BLOCO 02: HEADER
+    ===================================================== -->
+    <header class="header">
+        <div class="logo">
+            <i class="fa-solid fa-shield-halved"></i>
+            <div>
+                <h2>
+                    CyberCheck
+                    <span>PRO</span>
+                </h2>
+                <small>Segurança Digital Inteligente</small>
+            </div>
+        </div>
+
+        <nav class="menu">
+            <a href="../../index.html">Início</a>
+            <a href="../dashboard/dashboard.html">Dashboard</a>
+            <a href="../audit/audit.html">Auditoria</a>
+            <a href="../reports/reports.html">Relatórios</a>
+            <a href="../history/history.html">Histórico</a>
+            <a href="about.html" class="active">Desenvolvedor</a>
+        </nav>
+
+        <div class="header-actions">
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Alternar tema">
+                <i id="themeIcon" class="fa-solid fa-moon"></i>
+            </button>
+
+            <a href="../dashboard/dashboard.html" class="btn-login">
+                <i class="fa-solid fa-user"></i>
+                Entrar
+            </a>
+        </div>
+    </header>
+
+    <!-- =====================================================
+         BLOCO 03: MAIN CONTENT - SOBRE O DESENVOLVEDOR
+    ===================================================== -->
+    <main class="about-page">
+
+        <!-- SECAO 01: PERFIL PRINCIPAL DO CRIADOR -->
+        <section class="about-hero">
+            <div class="about-container">
+                <div class="about-profile-card">
+                    <div class="about-profile-header">
+                        <div class="about-avatar">
+                            <img src="../imagens/Danilo.jpg" alt="Danilo Rafael da Silva Costa">
+                        </div>
+
+                        <div class="about-identity">
+                            <span class="about-badge">
+                                <i class="fa-solid fa-code"></i>
+                                Criador &amp; Arquiteto da Plataforma
+                            </span>
+                            <h1>Danilo Rafael da Silva Costa</h1>
+                            <p class="about-headline">
+                                Desenvolvedor do CyberCheck PRO, estudante de Defesa Cibernética na FIAP e aluno do bacharelado em Computer Networking pela BYU-Pathway Worldwide. Atua no desenvolvimento de soluções voltadas para cibersegurança, análise de vulnerabilidades, infraestrutura de redes, arquitetura de sistemas e proteção de ambientes digitais.
+                            </p>
+
+                            <div class="about-quick-tags">
+                                <span><i class="fa-solid fa-location-dot"></i> São Paulo, SP</span>
+                                <span><i class="fa-solid fa-graduation-cap"></i> Defesa Cibernética — FIAP</span>
+                                <span><i class="fa-solid fa-network-wired"></i> Computer Networking — BYU-Pathway</span>
+                                <span><i class="fa-solid fa-certificate"></i> FIAP Certified Cybersecurity Professional</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-actions">
+                        <a href="../audit/audit.html" class="btn-primary">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            Testar o CyberCheck PRO
+                        </a>
+                        <a href="../dashboard/dashboard.html" class="btn-secondary">
+                            <i class="fa-solid fa-chart-line"></i>
+                            Abrir Dashboard
+                        </a>
+                        <a href="https://www.linkedin.com/in/danilocosta2223/" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+                            <i class="fa-brands fa-linkedin"></i>
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECAO 02: FORMACAO ACADEMICA -->
+        <section class="about-section" id="formacao">
+            <div class="about-container">
+                <div class="about-section-head">
+                    <span class="about-kicker">TRAJETÓRIA</span>
+                    <h2>Formação Acadêmica</h2>
+                    <p>Base técnica em segurança da informação, redes de computadores, gestão e engenharia de software.</p>
+                </div>
+
+                <div class="about-grid-3">
+                    <article class="about-info-card">
+                        <div class="about-card-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3>Defesa Cibernética</h3>
+                        <span class="about-org">FIAP • Graduação Tecnológica</span>
+                        <p>
+                            Formação tecnológica voltada para Ethical Hacking, Análise de Vulnerabilidades, Cloud Computing, Segurança em Redes, Hardening, Criptografia, Resposta a Incidentes e Perícia Forense Digital, com experiências práticas utilizando Nmap, Wireshark, Metasploit e Kali Linux.
+                        </p>
+                    </article>
+
+                    <article class="about-info-card">
+                        <div class="about-card-icon">
+                            <i class="fa-solid fa-network-wired"></i>
+                        </div>
+                        <h3>Computer Networking</h3>
+                        <span class="about-org">BYU-Pathway Worldwide • Bacharelado</span>
+                        <p>
+                            Aprofundamento em arquitetura de redes, protocolos, administração de sistemas, desenvolvimento web responsivo e engenharia de software aplicada a ambientes distribuídos.
+                        </p>
+                    </article>
+
+                    <article class="about-info-card">
+                        <div class="about-card-icon">
+                            <i class="fa-solid fa-diagram-project"></i>
+                        </div>
+                        <h3>Administração &amp; MBA</h3>
+                        <span class="about-org">Gestão de Projetos</span>
+                        <p>
+                            Graduação em Administração de Empresas com MBA em Gestão de Projetos, aliando governança, análise de riscos, planejamento e entrega estruturada de soluções.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECAO 03: EXPERIENCIA PROFISSIONAL -->
+        <section class="about-section" id="experiencia">
+            <div class="about-container">
+                <div class="about-section-head">
+                    <span class="about-kicker">EXPERIÊNCIA</span>
+                    <h2>Experiência Profissional</h2>
+                    <p>Atuação prática em ambientes operacionais críticos, projetos de infraestrutura e segurança digital.</p>
+                </div>
+
+                <div class="about-grid-3">
+                    <article class="about-info-card">
+                        <div class="about-card-icon">
+                            <i class="fa-solid fa-hospital"></i>
+                        </div>
+                        <h3>Grupo Fleury</h3>
+                        <span class="about-org">Engenharia Clínica &amp; Operações</span>
+                        <p>
+                            Participação em projetos de infraestrutura, coordenação operacional, controle de ativos, manutenção preventiva/preditiva e gestão de fornecedores.
+                        </p>
+                    </article>
+
+                    <article class="about-info-card">
+                        <div class="about-card-icon">
+                            <i class="fa-solid fa-arrows-rotate"></i>
+                        </div>
+                        <h3>Projeto Polaris</h3>
+                        <span class="about-org">Infraestrutura &amp; Continuidade Operacional</span>
+                        <p>
+                            Atuação na transferência de equipamentos e execução de rotinas sem interrupção dos exames e da continuidade assistencial.
+                        </p>
+                    </article>
+
+                    <article class="about-info-card">
+                        <div class="about-card-icon">
+                            <i class="fa-solid fa-user-secret"></i>
+                        </div>
+                        <h3>Cibersegurança</h3>
+                        <span class="about-org">Segurança Ofensiva, Defensiva &amp; Desenvolvimento</span>
+                        <p>
+                            Estudos e desenvolvimento de ferramentas voltadas à segurança ofensiva e defensiva, análise de vulnerabilidades, hardening e aplicações web seguras.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECAO 04: CERTIFICACOES E ESPECIALIZACOES -->
+        <section class="about-section" id="certificacoes">
+            <div class="about-container">
+                <div class="about-section-head">
+                    <span class="about-kicker">CERTIFICAÇÕES</span>
+                    <h2>Certificações e Especializações</h2>
+                    <p>Formação contínua em tecnologia, desenvolvimento, infraestrutura e segurança cibernética.</p>
+                </div>
+
+                <div class="about-grid-3">
+                    <article class="about-info-card">
+                        <div class="about-card-icon">
+                            <i class="fa-solid fa-terminal"></i>
+                        </div>
+                        <h3>Cybersecurity Hacker Skills</h3>
+                        <span class="about-org">FIAP</span>
+                        <p>
+                            Práticas de reconhecimento, análise de superfícies de ataque, testes de segurança e defesa de aplicações e redes.
+                        </p>
+                    </article>
+
+                    <article class="about-info-card">
+                        <div class="about-card-icon">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <h3>Perícia Forense em Defesa Cibernética</h3>
+                        <span class="about-org">FIAP • 80h</span>
+                        <p>
+                            Coleta, preservação, análise de evidências digitais e investigação de incidentes em ambientes computacionais.
+                        </p>
+                    </article>
+
+                    <article class="about-info-card">
+                        <div class="about-card-icon">
+                            <i class="fa-solid fa-cloud"></i>
+                        </div>
+                        <h3>Cloud Fundamentals</h3>
+                        <span class="about-org">FIAP</span>
+                        <p>
+                            Fundamentos de computação em nuvem, arquitetura de serviços, segurança na cloud e boas práticas operacionais.
+                        </p>
+                    </article>
+
+                    <article class="about-info-card">
+                        <div class="about-card-icon">
+                            <i class="fa-brands fa-linux"></i>
+                        </div>
+                        <h3>Linux</h3>
+                        <span class="about-org">Alura</span>
+                        <p>
+                            Administração de linha de comando, permissões, serviços, rede e segurança em ambientes Linux.
+                        </p>
+                    </article>
+
+                    <article class="about-info-card">
+                        <div class="about-card-icon">
+                            <i class="fa-solid fa-database"></i>
+                        </div>
+                        <h3>Microsoft SQL Server 2022</h3>
+                        <span class="about-org">Alura</span>
+                        <p>
+                            Modelagem, consultas, administração e boas práticas de banco de dados relacional com SQL Server 2022.
+                        </p>
+                    </article>
+
+                    <article class="about-info-card">
+                        <div class="about-card-icon">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <h3>Engenharia de Software</h3>
+                        <span class="about-org">FIAP</span>
+                        <p>
+                            Arquitetura de sistemas, organização de código, qualidade, manutenibilidade e ciclo de vida de aplicações.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECAO 05: PROJETOS DESENVOLVIDOS -->
+        <section class="about-section" id="projetos">
+            <div class="about-container">
+                <div class="about-section-head">
+                    <span class="about-kicker">PORTFÓLIO</span>
+                    <h2>Projetos Desenvolvidos</h2>
+                    <p>Soluções criadas com foco em segurança digital, análise de riscos e experiência de produto.</p>
+                </div>
+
+                <div class="about-projects-grid">
+                    <article class="about-project-card featured">
+                        <div>
+                            <div class="about-project-top">
+                                <h3>CyberCheck PRO</h3>
+                                <span class="about-project-badge destaque">Projeto Principal</span>
+                            </div>
+                            <p>
+                                Plataforma completa de análise preventiva de URLs suspeitas, avaliação de senhas, detecção de ameaças e geração de relatórios técnicos.
+                            </p>
+                            <ul class="project-features">
+                                <li>✔ Dashboard Executivo</li>
+                                <li>✔ Auditoria de Segurança</li>
+                                <li>✔ Relatórios Técnicos</li>
+                                <li>✔ Histórico de Análises</li>
+                                <li>✔ Dark e Light Mode</li>
+                            </ul>
+                        </div>
+                        <a href="../../index.html" class="about-project-link">
+                            Explorar plataforma <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="about-project-card">
+                        <div>
+                            <div class="about-project-top">
+                                <h3>Dashboard Executivo</h3>
+                                <span class="about-project-badge">Monitoramento</span>
+                            </div>
+                            <p>
+                                Painel visual com indicadores de postura de segurança, evolução de auditorias e leitura rápida do nível de risco operacional.
+                            </p>
+                        </div>
+                        <a href="../dashboard/dashboard.html" class="about-project-link">
+                            Ver Dashboard <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="about-project-card">
+                        <div>
+                            <div class="about-project-top">
+                                <h3>Auditoria de Segurança</h3>
+                                <span class="about-project-badge">Análise em Tempo Real</span>
+                            </div>
+                            <p>
+                                Módulo interativo para inspeção de alvos, acompanhamento de progresso de verificação e diagnóstico estruturado de vulnerabilidades.
+                            </p>
+                        </div>
+                        <a href="../audit/audit.html" class="about-project-link">
+                            Iniciar Auditoria <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+
+                    <article class="about-project-card">
+                        <div>
+                            <div class="about-project-top">
+                                <h3>Relatórios Automatizados</h3>
+                                <span class="about-project-badge">Exportação PDF</span>
+                            </div>
+                            <p>
+                                Consolidação de resultados e histórico de verificações com exportação limpa para documentação técnica e acompanhamento contínuo.
+                            </p>
+                        </div>
+                        <a href="../reports/reports.html" class="about-project-link">
+                            Abrir Relatórios <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECAO 06: PRINCIPAIS COMPETENCIAS -->
+        <section class="about-section" id="competencias">
+            <div class="about-container">
+                <div class="about-section-head">
+                    <span class="about-kicker">COMPETÊNCIAS</span>
+                    <h2>Principais Competências</h2>
+                    <p>Ferramentas, práticas e áreas técnicas aplicadas em cibersegurança, redes e desenvolvimento.</p>
+                </div>
+
+                <div class="techs">
+                    <span>Nmap</span>
+                    <span>Wireshark</span>
+                    <span>Metasploit</span>
+                    <span>Kali Linux</span>
+                    <span>ASP.NET Core</span>
+                    <span>C#</span>
+                    <span>SQL Server</span>
+                    <span>Linux</span>
+                    <span>Cloud Computing</span>
+                    <span>Pentest</span>
+                    <span>Hardening</span>
+                    <span>Análise de Vulnerabilidades</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECAO 07: STACK TECNOLOGICA DO PROJETO -->
+        <section class="about-section" id="tecnologias">
+            <div class="about-container">
+                <div class="about-section-head">
+                    <span class="about-kicker">ARQUITETURA</span>
+                    <h2>Tecnologias Utilizadas no Projeto</h2>
+                    <p>Stack adotada para construir a interface, os serviços de verificação e os relatórios técnicos.</p>
+                </div>
+
+                <div class="techs">
+                    <span><i class="fa-brands fa-html5"></i> HTML5 Semântico</span>
+                    <span><i class="fa-brands fa-css3-alt"></i> CSS3 Modular (Dark &amp; Light)</span>
+                    <span><i class="fa-brands fa-js"></i> JavaScript ES6+</span>
+                    <span><i class="fa-solid fa-server"></i> ASP.NET Core Web API</span>
+                    <span><i class="fa-solid fa-code"></i> C#</span>
+                    <span><i class="fa-solid fa-database"></i> SQL Server</span>
+                    <span><i class="fa-solid fa-chart-pie"></i> Chart.js</span>
+                    <span><i class="fa-solid fa-file-pdf"></i> jsPDF Relatórios</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECAO 08: MISSAO E VISAO DE FUTURO -->
+        <section class="about-section" id="visao-futuro">
+            <div class="about-container">
+                <div class="about-mission-box">
+                    <div class="about-mission-text">
+                        <span class="about-kicker">VISÃO DE FUTURO</span>
+                        <h2>Próximos Passos do Projeto</h2>
+                        <p>
+                            Evoluir o <strong>CyberCheck PRO</strong> para uma plataforma completa de análise de segurança digital com dashboards avançados, integração de APIs de inteligência de ameaças e recursos de automação — mantendo a análise preventiva acessível, visual e objetiva.
+                        </p>
+                    </div>
+
+                    <div class="about-mission-metrics">
+                        <div class="metric-item">
+                            <strong>4 Módulos</strong>
+                            <span>Dashboard, Auditoria, Relatórios e Histórico</span>
+                        </div>
+                        <div class="metric-item">
+                            <strong>2 Temas</strong>
+                            <span>Alternância dinâmica Dark &amp; Light Mode</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =====================================================
+         BLOCO 04: FOOTER
+    ===================================================== -->
+    <footer class="footer">
+        <div class="footer-copy">
+            <p>© 2026 CyberCheck PRO</p>
+            <p>Desenvolvido por Danilo Rafael da Silva Costa</p>
+        </div>
+
+        <div class="footer-links">
+            <a href="about.html">Sobre</a>
+            <a href="../audit/audit.html">Auditoria</a>
+            <a href="../reports/reports.html">Relatórios</a>
+            <a href="../dashboard/dashboard.html">Dashboard</a>
+        </div>
+    </footer>
+
+    <!-- =====================================================
+         BLOCO 05: JAVASCRIPT GLOBAL E DA PAGINA
+    ===================================================== -->
+    <script src="../../script/app.js"></script>
+    <script src="about.js" defer></script>
+
+</body>
+
+</html>

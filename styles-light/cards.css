@@ -1,18 +1,10 @@
 /* =====================================================
-   CYBERCHECK PRO
-   CARDS SECTION - LIGHT THEME
-===================================================== */
-
-/* =====================================================
-   SOLUTIONS
-===================================================== */
+   BLOCO 01: SECAO SOLUTIONS - LIGHT THEME
+   ===================================================== */
 
 .solutions {
-
     width: 100%;
-
     padding: 100px 50px;
-
     background:
         linear-gradient(
             180deg,
@@ -20,236 +12,396 @@
             #1e3a8a 50%,
             #0f172a 100%
         );
-
 }
 
-/* =====================================================
-   SECTION TITLE
-===================================================== */
-
 .section-title {
-
     text-align: center;
-
     margin-bottom: 80px;
-
 }
 
 .section-title h2 {
-
     color: #ffffff;
-
     font-size: 56px;
-
     font-weight: 800;
-
     margin-bottom: 20px;
-
 }
 
 .section-title p {
-
-    color: rgba(255,255,255,.85);
-
+    color: rgba(255, 255, 255, .85);
     font-size: 18px;
-
     line-height: 1.8;
-
     max-width: 800px;
-
     margin: 0 auto;
-
 }
 
 /* =====================================================
-   GRID
-===================================================== */
+   BLOCO 02: GRID E CARDS - LIGHT THEME
+   ===================================================== */
 
 .cards-grid {
-
     max-width: 1600px;
-
     margin: 0 auto;
-
     display: grid;
-
     grid-template-columns:
         repeat(
             auto-fit,
-            minmax(320px,1fr)
+            minmax(320px, 1fr)
         );
-
     gap: 30px;
-
 }
 
-/* =====================================================
-   CARD
-===================================================== */
-
 .card {
-
     position: relative;
-
     min-height: 240px;
-
     padding: 35px;
-
     border-radius: 24px;
-
     display: flex;
-
     flex-direction: column;
-
     justify-content: flex-start;
-
+    text-decoration: none;
     background:
         linear-gradient(
             135deg,
             #ffffff 0%,
             #f8fbff 100%
         );
-
     border:
-        1px solid rgba(255,255,255,.80);
-
+        1px solid rgba(255, 255, 255, .80);
     box-shadow:
-        0 20px 45px rgba(0,0,0,.15);
-
+        0 20px 45px rgba(0, 0, 0, .15);
     overflow: hidden;
-
     transition: all .35s ease;
-
 }
-
-/* =====================================================
-   LIGHT EFFECT
-===================================================== */
 
 .card::before {
-
     content: "";
-
     position: absolute;
-
     width: 260px;
-
     height: 260px;
-
     top: -130px;
-
     right: -130px;
-
     border-radius: 50%;
-
     background:
-
         radial-gradient(
-
-            rgba(37,99,235,.12),
-
+            rgba(37, 99, 235, .12),
             transparent 70%
-
         );
-
     pointer-events: none;
-
 }
 
-/* =====================================================
-   HOVER
-===================================================== */
-
-.card:hover {
-
+.card:hover,
+.card:focus-visible {
     transform:
         translateY(-10px);
-
     border-color:
-        rgba(37,99,235,.35);
-
+        rgba(37, 99, 235, .35);
     box-shadow:
+        0 30px 60px rgba(37, 99, 235, .18),
+        0 15px 40px rgba(0, 0, 0, .18);
+}
 
-        0 30px 60px rgba(37,99,235,.18),
-
-        0 15px 40px rgba(0,0,0,.18);
-
+.card:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
 }
 
 /* =====================================================
-   ICON
-===================================================== */
+   BLOCO 03: CONTEUDO DO CARD (ICONE, TITULO E TEXTO)
+   ===================================================== */
 
 .card i {
-
     font-size: 42px;
-
     color: #2563eb;
-
     margin-bottom: 25px;
-
 }
-
-/* =====================================================
-   TITLE
-===================================================== */
 
 .card h3 {
-
     color: #0f172a;
-
     font-size: 26px;
-
     font-weight: 800;
-
     margin-bottom: 15px;
-
 }
-
-/* =====================================================
-   DESCRIPTION
-===================================================== */
 
 .card p {
-
     color: #475569;
-
     font-size: 16px;
-
     line-height: 1.8;
-
 }
 
 /* =====================================================
-   MOBILE
-===================================================== */
+   BLOCO 04: RESPONSIVIDADE MOBILE
+   ===================================================== */
 
 @media (max-width: 768px) {
-
     .solutions {
-
         padding: 60px 20px;
-
     }
 
     .section-title h2 {
-
         font-size: 40px;
-
     }
 
     .cards-grid {
-
         grid-template-columns: 1fr;
-
     }
 
     .card {
-
         min-height: 200px;
-
         padding: 25px;
+    }
+}
 
+/* =====================================================
+   BLOCO 01: SECAO SOLUTIONS E FUNDO DE DESTAQUE - LIGHT THEME
+   ===================================================== */
+
+.solutions {
+    position: relative;
+    width: 100%;
+    padding: 88px 50px;
+    overflow: hidden;
+
+    /* Fundo com textura técnica sutil + gradiente azul-gelo para destacar os cards brancos */
+    background-color: #dbeafe;
+    background-image:
+        radial-gradient(rgba(37, 99, 235, 0.14) 1px, transparent 1px),
+        linear-gradient(180deg, #e0f2fe 0%, #dbeafe 55%, #bfdbfe 100%);
+    background-size: 24px 24px, 100% 100%;
+    border-top: 1px solid #93c5fd;
+    border-bottom: 1px solid #93c5fd;
+}
+
+.solutions::before {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    top: -180px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.65), transparent 70%);
+    pointer-events: none;
+}
+
+.section-title {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin-bottom: 56px;
+}
+
+.section-title h2 {
+    color: #0f172a;
+    font-size: clamp(32px, 4vw, 46px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+}
+
+.section-title p {
+    color: #1e293b;
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+/* =====================================================
+   BLOCO 02: GRID E CARDS (BRANCOS COM ALTO CONTRASTE)
+   ===================================================== */
+
+.cards-grid {
+    position: relative;
+    z-index: 1;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(240px, 1fr));
+    gap: 26px;
+}
+
+.card {
+    position: relative;
+    padding: 30px 28px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-decoration: none;
+    overflow: hidden;
+
+    background: #ffffff;
+    border: 1.5px solid rgba(37, 99, 235, 0.22);
+    box-shadow:
+        0 6px 14px rgba(15, 23, 42, 0.08),
+        0 18px 36px rgba(30, 58, 138, 0.12);
+
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #2563eb, #0284c7);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    top: -90px;
+    right: -90px;
+    border-radius: 50%;
+    background: radial-gradient(rgba(37, 99, 235, 0.12), transparent 70%);
+    pointer-events: none;
+}
+
+.card:hover,
+.card:focus-visible {
+    transform: translateY(-6px);
+    border-color: #2563eb;
+    box-shadow:
+        0 10px 22px rgba(37, 99, 235, 0.18),
+        0 24px 46px rgba(15, 23, 42, 0.16);
+}
+
+.card:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 3px;
+}
+
+/* =====================================================
+   BLOCO 03: ICONE, TITULO E DESCRICAO
+   ===================================================== */
+
+.card i {
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    font-size: 22px;
+    color: #2563eb;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    color: #0f172a;
+    font-size: 21px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.card p {
+    color: #475569;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* =====================================================
+   BLOCO 04: RESPONSIVIDADE
+   ===================================================== */
+
+@media (max-width: 1200px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .solutions {
+        padding: 60px 20px;
     }
 
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 24px;
+    }
+}
+
+/* =====================================================
+   BLOCO 05: TECNOLOGIAS (.techs) - LIGHT THEME
+   ===================================================== */
+
+.techs {
+    max-width: 1100px;
+    margin: 36px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.techs span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #0f172a;
+    background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+    border: 1px solid #bfdbfe;
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.08),
+        0 10px 20px rgba(15, 23, 42, 0.05);
+    transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        background 0.22s ease,
+        color 0.22s ease,
+        box-shadow 0.22s ease;
+    cursor: default;
+}
+
+.techs span:hover {
+    transform: translateY(-2px);
+    color: #1d4ed8;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    border-color: #2563eb;
+    box-shadow:
+        0 8px 18px rgba(37, 99, 235, 0.16),
+        0 14px 28px rgba(15, 23, 42, 0.08);
+}
+
+.techs span:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .techs span {
+        transition: none;
+    }
+
+    .techs span:hover {
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .techs {
+        margin-top: 28px;
+        gap: 10px;
+    }
+
+    .techs span {
+        padding: 10px 14px;
+        font-size: 12.5px;
+    }
 }
